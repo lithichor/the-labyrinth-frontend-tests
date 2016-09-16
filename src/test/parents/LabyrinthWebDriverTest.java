@@ -6,7 +6,7 @@ import org.testng.annotations.AfterTest;
 import test.models.Browser;
 import test.models.constants.BrowserConstants;
 
-public class LabyrinthTest
+public class LabyrinthWebDriverTest
 {
 	// this will be set when there is a test failure
 	protected boolean failed = false;
