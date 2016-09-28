@@ -17,9 +17,7 @@ public class Browser
 		{
 			if (BrowserConstants.FIREFOX.equalsIgnoreCase(type))
 			{
-				System.out.println("before firefox");
 				driver =  new FirefoxDriver();
-				System.out.println("after firefox");
 			}
 			else if (BrowserConstants.CHROME.equalsIgnoreCase(type))
 			{

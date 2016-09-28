@@ -20,7 +20,6 @@ public class LoginPage extends LabyrinthPage
 	
 	public void visit()
 	{
-		System.out.println("before navigation");
 		browser.navigate().to(url);
 	}
 	
