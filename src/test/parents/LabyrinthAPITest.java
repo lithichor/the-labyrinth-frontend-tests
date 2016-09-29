@@ -7,11 +7,16 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 import org.testng.annotations.BeforeTest;
 
 import com.google.gson.Gson;
+
+import test.helpers.GamesVerifier;
 
 public abstract class LabyrinthAPITest
 {
@@ -21,13 +26,18 @@ public abstract class LabyrinthAPITest
 	protected String password = "1qweqwe";
 
 	protected String baseUrl = "http://localhost:8080/TheLabyrinth";
+	protected String responseString = "";
+
 	protected HttpClient request = HttpClients.createDefault();
 	protected CloseableHttpResponse response = null;
 	protected Gson gson = new Gson();
 	
+	protected GamesVerifier verifier = new GamesVerifier();
+
 	@BeforeTest
 	public void setup()
 	{
+		// TODO: parse test parameters
 		System.out.println("STARTING TESTS ...");
 	}
 	
@@ -70,5 +80,29 @@ public abstract class LabyrinthAPITest
 		// http://stackoverflow.com/a/10319155
 		byte[] strAsBytes = StringUtils.getBytesUtf8(username + ":" + password);
 		return Base64.encodeBase64String(strAsBytes);
+	}
+
+	protected HttpGet makeGetMethod(String endpoint)
+	{
+		HttpGet get = new HttpGet(baseUrl + "/api/" + endpoint);
+		get.setHeader("authorization", "Basic " + encrypt64(username, password));
+
+		return get;
+	}
+
+	protected HttpPost makePostMethod(String endpoint)
+	{
+		HttpPost post = new HttpPost(baseUrl + "/api/" + endpoint);
+		post.setHeader("authorization", "Basic " + encrypt64(username, password));
+
+		return post;
+	}
+
+	protected HttpDelete makeDeleteMethod(String endpoint)
+	{
+		HttpDelete delete = new HttpDelete(baseUrl + "/api/" + endpoint);
+		delete.setHeader("authorization", "Basic " + encrypt64(username, password));
+		
+		return delete;
 	}
 }

@@ -11,21 +11,20 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import test.parents.LabyrinthGetTest;
+import test.parents.LabyrinthAPITest;
 
-public class GamesGetTests extends LabyrinthGetTest
+public class GamesGetTests extends LabyrinthAPITest
 {
 	@Test
 	public void getAllGamesForUser()
 	{
 		HttpGet get = makeGetMethod("games");
-		String respStr = "";
 		
 		if(sendRequest(get))
 		{
 			try
 			{
-				respStr = EntityUtils.toString(response.getEntity());
+				responseString = EntityUtils.toString(response.getEntity());
 			}
 			catch(ParseException | IOException pe_ioe)
 			{
@@ -34,7 +33,7 @@ public class GamesGetTests extends LabyrinthGetTest
 			}
 		}
 		
-		JsonArray games = gson.fromJson(respStr, JsonArray.class);
+		JsonArray games = gson.fromJson(responseString, JsonArray.class);
 		
 		if(!verifier.verifyAllGames(games))
 		{
@@ -54,13 +53,12 @@ public class GamesGetTests extends LabyrinthGetTest
 	public void getOneGameForUser()
 	{
 		HttpGet get = makeGetMethod("games/13");
-		String respStr = "";
 		
 		if(sendRequest(get))
 		{
 			try
 			{
-				respStr = EntityUtils.toString(response.getEntity());
+				responseString = EntityUtils.toString(response.getEntity());
 			}
 			catch(ParseException | IOException pe_ioe)
 			{
@@ -69,7 +67,7 @@ public class GamesGetTests extends LabyrinthGetTest
 			}
 		}
 		
-		JsonObject game = gson.fromJson(respStr, JsonArray.class).get(0).getAsJsonObject();
+		JsonObject game = gson.fromJson(responseString, JsonArray.class).get(0).getAsJsonObject();
 		if(!verifier.verifyOneGame(game))
 		{
 			fail(verifier.getErrors());
