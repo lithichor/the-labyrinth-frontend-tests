@@ -22,9 +22,7 @@ public class LoginTest extends LabyrinthWebDriverTest
 	@Test
 	public void run()
 	{
-		page.enterUsername(username);
-		page.enterPassword(password);
-		page.clickSubmit();
+		page.login(username, password);
 	}
 
 }

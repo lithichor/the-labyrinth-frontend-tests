@@ -23,6 +23,13 @@ public class LoginPage extends LabyrinthPage
 		browser.navigate().to(url);
 	}
 	
+	public void login(String name, String password)
+	{
+		this.enterUsername(name);
+		this.enterPassword(password);
+		this.clickSubmit();
+	}
+	
 	public void enterUsername(String name)
 	{
 		browser.findElement(By.id(usernameId)).sendKeys(name);
