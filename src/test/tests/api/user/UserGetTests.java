@@ -14,7 +14,7 @@ import test.parents.LabyrinthAPITest;
 public class UserGetTests extends LabyrinthAPITest
 {
 
-	@Test(groups = {"full_regression", "get"})
+	@Test
 	public void getCurrentUser()
 	{
 		HttpGet get = makeGetMethod("user");
