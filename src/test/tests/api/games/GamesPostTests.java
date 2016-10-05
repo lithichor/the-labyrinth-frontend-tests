@@ -1,4 +1,4 @@
-package test.tests.api;
+package test.tests.api.games;
 
 import java.io.IOException;
 

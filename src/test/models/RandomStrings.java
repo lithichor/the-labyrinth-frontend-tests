@@ -9,7 +9,7 @@ public class RandomStrings
 	private Random rand = new Random();
 	private int lettersPerWord = rand.nextInt((max - min) + 1) + min;
 	
-	//TODO: do this using letter frequencies
+	//TODO: TEST #14 - do this using letter frequencies
 	public String oneWord()
 	{
 		lettersPerWord = rand.nextInt((max - min) + 1) + min;

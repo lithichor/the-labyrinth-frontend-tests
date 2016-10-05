@@ -37,7 +37,7 @@ public abstract class LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		// TODO: parse test parameters
+		// TODO: TEST #5 - parse test parameters
 		System.out.println("STARTING TESTS ...");
 	}
 	

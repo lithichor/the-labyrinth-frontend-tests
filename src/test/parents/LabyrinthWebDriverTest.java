@@ -11,7 +11,7 @@ public class LabyrinthWebDriverTest
 	// this will be set when there is a test failure
 	protected boolean failed = false;
 	
-	// TODO: parameterize the browser type string
+	// TODO: TEST #5 - parameterize the browser type string
 	protected WebDriver browser = Browser.getInstance(BrowserConstants.FIREFOX);
 	
 	@AfterTest

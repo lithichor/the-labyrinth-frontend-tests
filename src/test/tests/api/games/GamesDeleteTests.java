@@ -1,4 +1,4 @@
-package test.tests.api;
+package test.tests.api.games;
 
 import java.io.IOException;
 
@@ -71,7 +71,7 @@ public class GamesDeleteTests extends LabyrinthAPITest
 			}
 		}
 		
-		if(!responseString.contains("There is no Game associated with this User"))
+		if(!responseString.contains("This Player has no active Games"))
 		{
 			fail("The game does not seem to be deleted");
 		}

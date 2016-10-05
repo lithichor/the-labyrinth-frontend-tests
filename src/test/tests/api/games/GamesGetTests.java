@@ -1,4 +1,4 @@
-package test.tests.api;
+package test.tests.api.games;
 
 import java.io.IOException;
 
@@ -52,7 +52,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	@Test
 	public void getOneGameForUser()
 	{
-		HttpGet get = makeGetMethod("games/13");
+		HttpGet get = makeGetMethod("games/19");
 		
 		if(sendRequest(get))
 		{
