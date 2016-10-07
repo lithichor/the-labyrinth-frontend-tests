@@ -5,15 +5,24 @@ import java.io.IOException;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
 
+import test.helpers.UserVerifier;
 import test.parents.LabyrinthAPITest;
 
 public class UserGetTests extends LabyrinthAPITest
 {
-
+	private UserVerifier verifier;
+	
+	@BeforeTest
+	public void setup()
+	{
+		verifier = new UserVerifier();
+	}
+	
 	@Test
 	public void getCurrentUser()
 	{

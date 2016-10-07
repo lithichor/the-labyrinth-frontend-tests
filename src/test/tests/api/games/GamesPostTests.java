@@ -5,10 +5,12 @@ import java.io.IOException;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.util.EntityUtils;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
 
+import test.helpers.GamesVerifier;
 import test.parents.LabyrinthAPITest;
 
 /**
@@ -21,6 +23,13 @@ import test.parents.LabyrinthAPITest;
  */
 public class GamesPostTests extends LabyrinthAPITest
 {
+	private GamesVerifier verifier;
+	
+	@BeforeTest
+	public void setup()
+	{
+		verifier = new GamesVerifier();
+	}
 	
 	@Test
 	public void startNewGame()

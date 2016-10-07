@@ -1,14 +1,12 @@
 package test.helpers;
 
-import java.util.ArrayList;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-public class GamesVerifier
+import test.parents.LabyrinthAPITestVerifier;
+
+public class GamesVerifier extends LabyrinthAPITestVerifier
 {
-	private ArrayList<String> errors = new ArrayList<String>();
-	
 	public boolean verifyAllGames(JsonArray games)
 	{
 		JsonObject lastGame = games.get(games.size() - 1).getAsJsonObject();
@@ -50,43 +48,5 @@ public class GamesVerifier
 		}
 		
 		return verified;
-	}
-	
-	public boolean verifyCurrentUser(JsonObject user)
-	{
-		boolean verified = true;
-		
-		if(!user.has("id"))
-		{
-			errors.add("There was no ID");
-			verified = false;
-		}
-		if(!user.has("firstName"))
-		{
-			errors.add("There was no first name");
-			verified = false;
-		}
-		if(!user.has("lastName"))
-		{
-			errors.add("There was no last name");
-			verified = false;
-		}
-		if(!user.has("email"))
-		{
-			errors.add("There was no email");
-			verified = false;
-		}
-		if(!user.has("gameIds"))
-		{
-			errors.add("There was no Game IDs");
-			verified = false;
-		}
-		
-		return verified;
-	}
-	
-	public ArrayList<String> getErrors()
-	{
-		return errors;
 	}
 }

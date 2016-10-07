@@ -12,11 +12,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
-import org.testng.annotations.BeforeTest;
 
 import com.google.gson.Gson;
-
-import test.helpers.GamesVerifier;
 
 public abstract class LabyrinthAPITest
 {
@@ -31,15 +28,6 @@ public abstract class LabyrinthAPITest
 	protected HttpClient request = HttpClients.createDefault();
 	protected CloseableHttpResponse response = null;
 	protected Gson gson = new Gson();
-	
-	protected GamesVerifier verifier = new GamesVerifier();
-
-	@BeforeTest
-	public void setup()
-	{
-		// TODO: TEST #5 - parse test parameters
-		System.out.println("STARTING TESTS ...");
-	}
 	
 	protected void fail(String message)
 	{
