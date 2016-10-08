@@ -1,14 +1,10 @@
 package test.tests.api.user;
 
-import java.io.IOException;
-
-import org.apache.http.ParseException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
+import com.labyrinth.client.UserClient;
 
 import test.helpers.UserVerifier;
 import test.parents.LabyrinthAPITest;
@@ -16,36 +12,24 @@ import test.parents.LabyrinthAPITest;
 public class UserGetTests extends LabyrinthAPITest
 {
 	private UserVerifier verifier;
+	private UserClient client;
 	
 	@BeforeTest
 	public void setup()
 	{
 		verifier = new UserVerifier();
+		client = new UserClient(username, password);
 	}
 	
 	@Test
 	public void getCurrentUser()
 	{
-		HttpGet get = makeGetMethod("user");
+		String resp = client.getUser();
+		JsonObject user = gson.fromJson(resp, JsonObject.class);
 		
-		if(sendRequest(get))
-		{
-			try
-			{
-				responseString = EntityUtils.toString(response.getEntity());
-			}
-			catch(ParseException | IOException pe_ioe)
-			{
-				if(debug){ pe_ioe.printStackTrace(); }
-				fail("There was an error parsing the response: " + pe_ioe.getMessage());
-			}
-		}
-	
-		JsonObject user = gson.fromJson(responseString, JsonObject.class);
 		if(!verifier.verifyCurrentUser(user))
 		{
 			fail(verifier.getErrors());
 		}
-
 	}
 }

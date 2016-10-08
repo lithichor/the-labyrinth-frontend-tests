@@ -1,15 +1,10 @@
 package test.tests.api.games;
 
-import java.io.IOException;
-
-import org.apache.http.ParseException;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.util.EntityUtils;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
+import com.labyrinth.client.GamesClient;
 
 import test.parents.LabyrinthAPITest;
 
@@ -21,57 +16,33 @@ import test.parents.LabyrinthAPITest;
  */
 public class GamesDeleteTests extends LabyrinthAPITest
 {
+	private GamesClient client;
+
+	@BeforeTest
+	public void setup()
+	{
+		System.out.println("STARTNG GAMES DELETE TESTS");
+		client = new GamesClient("eric@eric.corn", "1qweqwe");
+	}
+
 	@Test
 	public void deleteGame()
 	{
 		// create a new game (post) and get the id from the response
-		HttpPost post = makePostMethod("games");
-		if(sendRequest(post))
-		{
-			try
-			{
-				responseString = EntityUtils.toString(response.getEntity());
-			}
-			catch(ParseException | IOException pe_ioe)
-			{
-				if(debug){ pe_ioe.printStackTrace(); }
-				fail("There was an error parsing the response: " + pe_ioe.getMessage());
-			}
-		}
-		JsonObject game = gson.fromJson(responseString, JsonObject.class);
+		String resp = client.createGame();
+		JsonObject game = gson.fromJson(resp, JsonObject.class);
 		int id = (game.get("id")).getAsInt();
 
 		// delete the game just created
-		HttpDelete delete = makeDeleteMethod("games/" + id);
-		if(sendRequest(delete))
+		resp = client.deleteGame(id);
+		if(!resp.equalsIgnoreCase(""))
 		{
-			try
-			{
-				responseString = EntityUtils.toString(response.getEntity());
-			}
-			catch(ParseException | IOException pe_ioe)
-			{
-				if(debug){ pe_ioe.printStackTrace(); }
-				fail("There was an error parsing the response: " + pe_ioe.getMessage());
-			}
+			fail("There was an error deleting the game");
 		}
 		
 		// get the game just deleted; we should receive an error
-		HttpGet get = makeGetMethod("games/" + id);
-		if(sendRequest(get))
-		{
-			try
-			{
-				responseString = EntityUtils.toString(response.getEntity());
-			}
-			catch(ParseException | IOException pe_ioe)
-			{
-				if(debug){ pe_ioe.printStackTrace(); }
-				fail("There was an error parsing the response: " + pe_ioe.getMessage());
-			}
-		}
-		
-		if(!responseString.contains("This Player has no active Games"))
+		resp = client.getOneGame(id);
+		if(!resp.contains("This Player has no active Games"))
 		{
 			fail("The game does not seem to be deleted");
 		}

@@ -1,14 +1,10 @@
 package test.tests.api.games;
 
-import java.io.IOException;
-
-import org.apache.http.ParseException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.util.EntityUtils;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
+import com.labyrinth.client.GamesClient;
 
 import test.helpers.GamesVerifier;
 import test.parents.LabyrinthAPITest;
@@ -24,36 +20,25 @@ import test.parents.LabyrinthAPITest;
 public class GamesPostTests extends LabyrinthAPITest
 {
 	private GamesVerifier verifier;
+	private GamesClient client;
 	
 	@BeforeTest
 	public void setup()
 	{
+		System.out.println("STARTNG GAMES POST TESTS");
 		verifier = new GamesVerifier();
+		client = new GamesClient("eric@eric.corn", "1qweqwe");
 	}
 	
 	@Test
-	public void startNewGame()
+	public void ZstartNewGame()
 	{
-		HttpPost post = makePostMethod("games");
+		String resp = client.createGame();
+		JsonObject game = gson.fromJson(resp, JsonObject.class);
 		
-		if(sendRequest(post))
-		{
-			try
-			{
-				responseString = EntityUtils.toString(response.getEntity());
-			}
-			catch(ParseException | IOException pe_ioe)
-			{
-				if(debug){ pe_ioe.printStackTrace(); }
-				fail("There was an error parsing the response: " + pe_ioe.getMessage());
-			}
-		}
-		
-		JsonObject game = gson.fromJson(responseString, JsonObject.class);
 		if(!verifier.verifyOneGame(game))
 		{
 			fail(verifier.getErrors());
 		}
 	}
-
 }

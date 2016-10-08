@@ -1,10 +1,5 @@
 package test.tests.api.games;
 
-import java.io.IOException;
-
-import org.apache.http.ParseException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -24,6 +19,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
+		System.out.println("STARTNG GAMES GET TESTS");
 		verifier = new GamesVerifier();
 		client = new GamesClient(username, password);
 	}
