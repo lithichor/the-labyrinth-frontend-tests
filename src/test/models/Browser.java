@@ -11,31 +11,29 @@ public class Browser
 {
 	private static WebDriver driver = null;
 
-	public static WebDriver getInstance(String type)
+	public static WebDriver getBrowser(String type) throws RuntimeException
 	{
-		if (driver == null)
+		if (BrowserConstants.FIREFOX.equalsIgnoreCase(type))
 		{
-			if (BrowserConstants.FIREFOX.equalsIgnoreCase(type))
-			{
-				driver =  new FirefoxDriver();
-			}
-			else if (BrowserConstants.CHROME.equalsIgnoreCase(type))
-			{
-				driver = new ChromeDriver();
-			}
-			else if(BrowserConstants.IE.equalsIgnoreCase(type))
-			{
-				driver = new InternetExplorerDriver();
-			}
-			else if(BrowserConstants.EDGE.equalsIgnoreCase(type))
-			{
-				driver = new InternetExplorerDriver();
-			}
-			else
-			{
-				
-			}
+			driver =  new FirefoxDriver();
 		}
+		else if (BrowserConstants.CHROME.equalsIgnoreCase(type))
+		{
+			driver = new ChromeDriver();
+		}
+		else if(BrowserConstants.IE.equalsIgnoreCase(type))
+		{
+			driver = new InternetExplorerDriver();
+		}
+		else if(BrowserConstants.EDGE.equalsIgnoreCase(type))
+		{
+			driver = new InternetExplorerDriver();
+		}
+		else
+		{
+			throw new RuntimeException("The " + type + " driver isn't supported");
+		}
+		
 		return driver;
 	}
 }

@@ -10,10 +10,10 @@ public abstract class LabyrinthWebDriverTest
 {
 	// this will be set when there is a test failure
 	protected boolean failed = false;
-	private boolean debug = true;
+	private boolean debug = false;
 	
 	// TODO: TEST #5 - parameterize the browser type string
-	protected WebDriver browser = Browser.getInstance(BrowserConstants.FIREFOX);
+	protected WebDriver browser = Browser.getBrowser(BrowserConstants.FIREFOX);
 	
 	protected abstract void run()  throws Exception;
 	
