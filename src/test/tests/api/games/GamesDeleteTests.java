@@ -42,7 +42,7 @@ public class GamesDeleteTests extends LabyrinthAPITest
 		
 		// get the game just deleted; we should receive an error
 		resp = client.getOneGame(id);
-		if(!resp.contains("This Player has no active Games"))
+		if(!resp.contains("This Player doesn\\u0027t have an active Game with that ID"))
 		{
 			fail("The game does not seem to be deleted");
 		}
