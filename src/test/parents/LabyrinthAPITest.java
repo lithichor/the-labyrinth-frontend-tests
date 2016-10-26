@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeTest;
 
 import com.google.gson.Gson;
 
+import test.models.RandomStrings;
+
 public abstract class LabyrinthAPITest
 {
 	protected boolean debug = false;
@@ -22,6 +24,7 @@ public abstract class LabyrinthAPITest
 	protected HttpClient request = HttpClients.createDefault();
 	protected CloseableHttpResponse response = null;
 	protected Gson gson = new Gson();
+	protected RandomStrings random = new RandomStrings();
 	
 	@BeforeTest
 	public void startup()

@@ -10,6 +10,12 @@ public class UserVerifier extends LabyrinthAPITestVerifier
 	{
 		boolean verified = true;
 		
+		if(user.has("messages"))
+		{
+			errors.add("There was an error: " + user.get("messages"));
+			return false;
+		}
+		
 		if(!user.has("id"))
 		{
 			errors.add("There was no ID");
@@ -32,7 +38,7 @@ public class UserVerifier extends LabyrinthAPITestVerifier
 		}
 		if(!user.has("gameIds"))
 		{
-			errors.add("There was no Game IDs");
+			errors.add("There were no Game IDs");
 			verified = false;
 		}
 		

@@ -26,6 +26,12 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 	{
 		boolean verified = true;
 
+		if(game.has("messages"))
+		{
+			errors.add("There was an error: " + game.get("messages"));
+			return false;
+		}
+		
 		if(!game.has("id"))
 		{
 			errors.add("There was no ID");
