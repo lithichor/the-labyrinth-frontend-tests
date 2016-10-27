@@ -52,4 +52,24 @@ public class GamesGetTests extends LabyrinthAPITest
 			fail(verifier.getErrors());
 		}
 	}
+	
+	@Test
+	public void getLastGameForUser()
+	{
+		// getting the two responses is actually
+		// testing the API client, not the API
+		String lastGame = client.getOneGame("last");
+		String lastGameRedux = client.getLastGame();
+		JsonObject lastGameJson = gson.fromJson(lastGame, JsonElement.class);
+		JsonObject lastGameJsonRedux = gson.fromJson(lastGameRedux, JsonElement.class);
+		
+		if(!verifier.verifyOneGame(lastGameJson))
+		{
+			fail("Failure while verifying last game from String", verifier.getErrors());
+		}
+		if(!verifier.verifyOneGame(lastGameJsonRedux))
+		{
+			fail("Failure while verifying last game from getLastGame method", verifier.getErrors());
+		}
+	}
 }
