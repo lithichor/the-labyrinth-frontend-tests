@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.HttpClients;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.google.gson.Gson;
@@ -26,17 +27,19 @@ public abstract class LabyrinthAPITest
 	protected Gson gson = new Gson();
 	protected RandomStrings random = new RandomStrings();
 	
-	@BeforeTest
+	@BeforeSuite
 	public void startup()
 	{
 		System.out.println("STARTING TESTS ...\n\n");
 	}
 	
+	// for a single failure message
 	protected void fail(String message)
 	{
 		throw new RuntimeException(message);
 	}
 	
+	// for failure with the errors array
 	protected void fail(ArrayList<String> messages)
 	{
 		String allMessages = "";
@@ -44,6 +47,19 @@ public abstract class LabyrinthAPITest
 		for(String message: messages)
 		{
 			allMessages += message + "\n";
+		}
+		
+		throw new RuntimeException(allMessages);
+	}
+	
+	// for a custom message with the errors array
+	protected void fail(String message, ArrayList<String> messages)
+	{
+		String allMessages = message;
+		
+		for(String m: messages)
+		{
+			allMessages += m + "\n";
 		}
 		
 		throw new RuntimeException(allMessages);

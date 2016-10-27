@@ -39,6 +39,7 @@ public class UserPostTests extends LabyrinthAPITest
 		String postUser = client.createUser(newUser);
 		
 		// verify response has a user
+		// this fails verification because of Labyrinth bug #59
 		if(!verifier.verifyCurrentUser(gson.fromJson(postUser, JsonObject.class)))
 		{
 			fail(verifier.getErrors());
