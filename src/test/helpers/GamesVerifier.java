@@ -55,4 +55,27 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 		
 		return verified;
 	}
+	
+	public boolean compareGamesArrays(JsonArray fromAll, JsonArray fromLast)
+	{
+		boolean valid = true;
+		
+		if(!(fromAll.size() == fromLast.size()))
+		{
+			errors.add("The size of the arrays is different");
+			valid = false;
+		}
+		
+		for(int x = 0; x < fromAll.size(); x++)
+		{
+			if(!(fromAll.get(x).getAsLong() == fromLast.get(x).getAsLong()))
+			{
+				errors.add("The mapId values do not match");
+				valid = false;
+				break;
+			}
+		}
+		
+		return valid;
+	}
 }

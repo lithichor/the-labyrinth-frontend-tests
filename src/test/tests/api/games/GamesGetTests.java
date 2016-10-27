@@ -1,5 +1,7 @@
 package test.tests.api.games;
 
+import java.util.ArrayList;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -54,22 +56,38 @@ public class GamesGetTests extends LabyrinthAPITest
 	}
 	
 	@Test
-	public void getLastGameForUser()
+	public void getLastGameVsAllGames()
 	{
-		// getting the two responses is actually
-		// testing the API client, not the API
-		String lastGame = client.getOneGame("last");
-		String lastGameRedux = client.getLastGame();
-		JsonObject lastGameJson = gson.fromJson(lastGame, JsonElement.class);
-		JsonObject lastGameJsonRedux = gson.fromJson(lastGameRedux, JsonElement.class);
+		String allGames = client.getAllGames();
+		JsonArray allGamesJson = gson.fromJson(allGames, JsonArray.class);
+		JsonObject lastGameFromAll = (JsonObject)allGamesJson.get(allGamesJson.size() - 1);
+		JsonArray fromAll = (JsonArray) lastGameFromAll.get("mapIds");
 		
-		if(!verifier.verifyOneGame(lastGameJson))
+		String lastGame = client.getOneGame("last");
+		JsonObject lastGameJson = gson.fromJson(lastGame, JsonElement.class);
+		JsonArray fromLast = (JsonArray)lastGameJson.get("mapIds");
+		
+		if(!verifier.compareGamesArrays(fromAll, fromLast))
 		{
-			fail("Failure while verifying last game from String", verifier.getErrors());
+			fail(verifier.getErrors());
 		}
-		if(!verifier.verifyOneGame(lastGameJsonRedux))
+	}
+	
+	@Test
+	public void getLastGameVsOneGame()
+	{
+		String allGames = client.getOneGame(19);
+		JsonArray allGamesJson = gson.fromJson(allGames, JsonArray.class);
+		JsonObject lastGameFromAll = (JsonObject)allGamesJson.get(0);
+		JsonArray fromAll = (JsonArray) lastGameFromAll.get("mapIds");
+		
+		String lastGame = client.getLastGame();
+		JsonObject lastGameJson = gson.fromJson(lastGame, JsonElement.class);
+		JsonArray fromLast = (JsonArray)lastGameJson.get("mapIds");
+		
+		if(!verifier.compareGamesArrays(fromAll, fromLast))
 		{
-			fail("Failure while verifying last game from getLastGame method", verifier.getErrors());
+			fail(verifier.getErrors());
 		}
 	}
 }
