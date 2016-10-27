@@ -1,7 +1,5 @@
 package test.tests.api.games;
 
-import java.util.ArrayList;
-
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
