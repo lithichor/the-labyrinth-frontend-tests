@@ -95,8 +95,6 @@ public class UserPostTests extends LabyrinthAPITest
 		// this will be an error message
 		String postUser = client.createUser(userJson);
 		
-		System.out.println(postUser);
-		
 		//Labyrinth bug #64 - no error returned when missing field
 		if(!postUser.contains(expectedMessage))
 		{
