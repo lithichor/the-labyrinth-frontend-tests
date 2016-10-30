@@ -1,5 +1,7 @@
 package test.tests.api.user;
 
+import java.util.ArrayList;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -7,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.UserVerifier;
+import test.models.constants.LabyrinthTestConstants;
 import test.parents.LabyrinthAPITest;
 
 public class UserPutTests extends LabyrinthAPITest
@@ -17,8 +20,7 @@ public class UserPutTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTNG USER POST TESTS");
-		client = new UserClient("eric@eric.corn", "1qweqwe");
+		System.out.println("STARTNG USER PUT TESTS");
 		verifier = new UserVerifier();
 	}
 	
@@ -32,6 +34,8 @@ public class UserPutTests extends LabyrinthAPITest
 		String email = firstName + "@" + lastName + ".corn";
 		String password = random.sentence(2);
 		
+		client = new UserClient(email, password);
+
 		String newUserJson = "{firstName: \"" + firstName +
 				"\", lastName: \"" + lastName +
 				"\", email: \"" + email +
@@ -43,14 +47,14 @@ public class UserPutTests extends LabyrinthAPITest
 		String updatedUserJson = "{firstName: \"" + newFirstName + "\"}";
 		String updatedUser = client.updateUser(updatedUserJson);
 		JsonObject jobj = gson.fromJson(updatedUser, JsonObject.class);
+		ArrayList<String> changedFields = new ArrayList<String>();
+		changedFields.add(LabyrinthTestConstants.FIRST_NAME);
 		
 		// verify the user has been updated
 		// check that it returns a valid user object
-		if(!verifier.verifyCurrentUser(jobj))
+		if(!verifier.verifyUser(jobj))
 		{
-			// there's a bug for this - Labyrinth #59
-			// no gameIds returned when we update a user
-//			fail(verifier.getErrors());
+			fail(verifier.getErrors());
 		}
 		
 		// have to strip the quotes, because get() returns a JSON object
@@ -58,7 +62,7 @@ public class UserPutTests extends LabyrinthAPITest
 		{
 			fail("The first name was not updated");
 		}
-		if(!verifier.verifyUserUpdated(updatedUser, user))
+		if(!verifier.verifyUserUpdated(updatedUser, user, changedFields))
 		{
 			fail(verifier.getErrors());
 		}

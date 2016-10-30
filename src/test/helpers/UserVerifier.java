@@ -1,12 +1,15 @@
 package test.helpers;
 
+import java.util.ArrayList;
+
 import com.google.gson.JsonObject;
 
+import test.models.constants.LabyrinthTestConstants;
 import test.parents.LabyrinthAPITestVerifier;
 
 public class UserVerifier extends LabyrinthAPITestVerifier
 {
-	public boolean verifyCurrentUser(JsonObject user)
+	public boolean verifyUser(JsonObject user)
 	{
 		boolean verified = true;
 		
@@ -45,23 +48,25 @@ public class UserVerifier extends LabyrinthAPITestVerifier
 		return verified;
 	}
 	
-	public boolean verifyUserUpdated(String newUser, String oldUser)
+	public boolean verifyUserUpdated(String newUser, String oldUser, ArrayList<String> changedFields)
 	{
 		JsonObject newUserJson = gson.fromJson(newUser, JsonObject.class);
 		JsonObject oldUserJson = gson.fromJson(oldUser, JsonObject.class);
-		boolean verified = false;
+		boolean verified = true;
 		
 		if(!oldUserJson.get("id").equals(newUserJson.get("id")))
 		{
 			errors.add("The IDs do not match");
 			verified = false;
 		}
-		if(!oldUserJson.get("firstName").equals(newUserJson.get("firstName")))
+		if(!changedFields.contains(LabyrinthTestConstants.FIRST_NAME) &&
+				!oldUserJson.get("firstName").equals(newUserJson.get("firstName")))
 		{
 			errors.add("The First Names do not match");
 			verified = false;
 		}
-		if(!oldUserJson.get("lastName").equals(newUserJson.get("lastName")))
+		if(!changedFields.contains(LabyrinthTestConstants.LAST_NAME) &&
+				!oldUserJson.get("lastName").equals(newUserJson.get("lastName")))
 		{
 			errors.add("The Last Names do not match");
 			verified = false;
@@ -71,9 +76,8 @@ public class UserVerifier extends LabyrinthAPITestVerifier
 			errors.add("The Emails do not match");
 			verified = false;
 		}
-		// This may need to be refactored after Labyrinth bug #59 is fixed
-		// not sure how these arrays will be compared
-		if(!oldUserJson.get("gameIds").equals(newUserJson.get("gameIds")))
+		if(!changedFields.contains(LabyrinthTestConstants.GAME_IDS) &&
+				!oldUserJson.get("gameIds").equals(newUserJson.get("gameIds")))
 		{
 			errors.add("The GameIds do not match");
 			verified = false;

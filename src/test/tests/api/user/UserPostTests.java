@@ -40,7 +40,7 @@ public class UserPostTests extends LabyrinthAPITest
 		
 		// verify response has a user
 		// this fails verification because of Labyrinth bug #59
-		if(!verifier.verifyCurrentUser(gson.fromJson(postUser, JsonObject.class)))
+		if(!verifier.verifyUser(gson.fromJson(postUser, JsonObject.class)))
 		{
 			fail(verifier.getErrors());
 		}
@@ -49,7 +49,7 @@ public class UserPostTests extends LabyrinthAPITest
 		UserClient client2 = new UserClient(email, password);
 		String getUser = client2.getUser();
 		
-		if(!verifier.verifyCurrentUser(gson.fromJson(getUser, JsonObject.class)))
+		if(!verifier.verifyUser(gson.fromJson(getUser, JsonObject.class)))
 		{
 			fail(verifier.getErrors());
 		}

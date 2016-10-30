@@ -17,6 +17,7 @@ public class UserGetTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
+		System.out.println("STARTNG USER GET TESTS");
 		verifier = new UserVerifier();
 		client = new UserClient(username, password);
 	}
@@ -27,7 +28,7 @@ public class UserGetTests extends LabyrinthAPITest
 		String resp = client.getUser();
 		JsonObject user = gson.fromJson(resp, JsonObject.class);
 		
-		if(!verifier.verifyCurrentUser(user))
+		if(!verifier.verifyUser(user))
 		{
 			fail(verifier.getErrors());
 		}
