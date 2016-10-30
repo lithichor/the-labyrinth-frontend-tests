@@ -1,6 +1,7 @@
 package test.parents;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -9,6 +10,7 @@ import org.testng.annotations.BeforeSuite;
 
 import com.google.gson.Gson;
 
+import test.helpers.Faker;
 import test.models.RandomStrings;
 
 public abstract class LabyrinthAPITest
@@ -25,6 +27,8 @@ public abstract class LabyrinthAPITest
 	protected CloseableHttpResponse response = null;
 	protected Gson gson = new Gson();
 	protected RandomStrings random = new RandomStrings();
+	protected Faker faker = new Faker();
+	protected Random rand = new Random();
 	
 	@BeforeSuite
 	public void startup()
