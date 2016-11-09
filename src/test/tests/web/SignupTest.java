@@ -16,7 +16,7 @@ public class SignupTest extends LabyrinthWebDriverTest
 	private String firstname = strings.oneWord();
 	private String lastname = strings.oneWord();
 	private String email = firstname + "." + lastname + "@eric.corn";
-	private String password = strings.oneWord();
+	private String password = strings.sentence(2);
 	private SignupPage page;
 	
 	@BeforeTest
@@ -29,6 +29,8 @@ public class SignupTest extends LabyrinthWebDriverTest
 	@Test
 	public void run() throws Exception
 	{
+		try
+		{
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("firstname", firstname);
 		params.put("lastname", lastname);
@@ -43,6 +45,12 @@ public class SignupTest extends LabyrinthWebDriverTest
 		{
 			failed = true;
 			throw new Exception("The greeting doesn't include the first and last names");
+		}
+		}
+		catch(Exception e)
+		{
+			failed = true;
+			throw new Exception(e);
 		}
 	}
 
