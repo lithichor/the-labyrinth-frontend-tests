@@ -14,6 +14,11 @@
 			<class name="test.tests.api.user.UserGetTests" />
 		</classes>
 	</test>
+	<test name="hero" >
+		<classes>
+			<class name="test.tests.api.hero.HeroPutTests" />
+		</classes>
+	</test>
 	<test name="web_one" >
 		<classes>
 			<class name="test.tests.web.LoginTest" />
