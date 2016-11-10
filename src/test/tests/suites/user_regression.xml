@@ -3,12 +3,13 @@
 
 <!-- http://testng.org/doc/documentation-main.html#testng-xml -->
 
- <suite name="full_regression" >
+ <suite name="user_regression" >
 	<test name="user" >
 		<classes>
 			<class name="test.tests.api.user.UserGetTests" />
 			<class name="test.tests.api.user.UserPutTests" />
 			<class name="test.tests.api.user.UserPostTests" />
+			<class name="test.tests.api.user.UserDeleteTests" />
 		</classes>
 	</test>
 </suite>

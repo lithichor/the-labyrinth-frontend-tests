@@ -87,7 +87,7 @@ public class HeroPutTests extends LabyrinthAPITest
 	public void cleanup()
 	{
 		// delete the game
-		System.out.println("CLEAN UP");
+		System.out.println("CLEANING UP HERO PUT TEST");
 		gamesClient.deleteGame(gameId);
 	}
 }

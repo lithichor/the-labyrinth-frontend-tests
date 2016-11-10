@@ -11,7 +11,8 @@
 	</test>
 	<test name="user" >
 		<classes>
-			<class name="test.tests.api.user.UserGetTests" />
+			<class name="test.tests.api.user.UserPutTests" />
+			<class name="test.tests.api.user.UserDeleteTests" />
 		</classes>
 	</test>
 	<test name="hero" >
