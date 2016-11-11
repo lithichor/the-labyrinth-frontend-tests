@@ -1,4 +1,4 @@
-package test.tests.web;
+package test.tests.web.login;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -8,21 +8,30 @@ import test.parents.LabyrinthWebDriverTest;
 
 public class LoginTest extends LabyrinthWebDriverTest
 {
-	private String username = "eric@eric.corn";
-	private String password = "1qweqwe";
 	LoginPage page = new LoginPage(browser);
 	
 	@BeforeTest
 	public void setup()
 	{
+		createUser();
 		page = new LoginPage(browser);
 		page.visit();
 	}
 	
 	@Test
-	public void run()
+	public void run() throws Exception
 	{
-		page.login(username, password);
+		page.login(email, password);
+		
+		if(!page.verifyLoggedIn())
+		{
+			failed = true;
+			throw new Exception("It looks like we aren't logged in");
+		}
+		if(!page.findLogoutLink())
+		{
+			failed = true;
+			throw new Exception("It looks like the logout link is missing");
+		}
 	}
-
 }

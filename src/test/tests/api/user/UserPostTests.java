@@ -81,7 +81,7 @@ public class UserPostTests extends LabyrinthAPITest
 				break;
 			case 3:
 				password = "";
-				expectedMessage = "The password needs to be more than six (6) characters";
+				expectedMessage = "The Player needs a password";
 				break;
 		}
 		
@@ -95,7 +95,6 @@ public class UserPostTests extends LabyrinthAPITest
 		// this will be an error message
 		String postUser = client.createUser(userJson);
 		
-		//Labyrinth bug #64 - no error returned when missing field
 		if(!postUser.contains(expectedMessage))
 		{
 			System.out.println("Response was: " + postUser);

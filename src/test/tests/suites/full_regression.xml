@@ -20,14 +20,19 @@
 			<class name="test.tests.api.hero.HeroPutTests" />
 		</classes>
 	</test>
-	<test name="web_one" >
+	<test name="web_login" >
 		<classes>
-			<class name="test.tests.web.LoginTest" />
+			<class name="test.tests.web.login.LoginTest" />
 		</classes>
 	</test>
-	<test name="web_two" >
+	<test name="web_bad_login" >
 		<classes>
-			<class name="test.tests.web.SignupTest" />
+			<class name="test.tests.web.login.BadLoginTest" />
+		</classes>
+	</test>
+	<test name="web_signup" >
+		<classes>
+			<class name="test.tests.web.signup.SignupTest" />
 		</classes>
 	</test>
 </suite>

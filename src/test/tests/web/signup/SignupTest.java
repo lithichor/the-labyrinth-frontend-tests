@@ -1,4 +1,4 @@
-package test.tests.web;
+package test.tests.web.signup;
 
 import java.util.HashMap;
 
@@ -6,13 +6,11 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import test.models.RandomStrings;
 import test.pages.SignupPage;
 import test.parents.LabyrinthWebDriverTest;
 
 public class SignupTest extends LabyrinthWebDriverTest
 {
-	private RandomStrings strings = new RandomStrings();
 	private String firstname = strings.oneWord();
 	private String lastname = strings.oneWord();
 	private String email = firstname + "." + lastname + "@eric.corn";

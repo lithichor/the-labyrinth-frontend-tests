@@ -24,7 +24,7 @@ public class Faker
 	
 	public String getPassword()
 	{
-		return rs.sentence(2);
+		return rs.sentence(2) + "1Qq";
 	}
 
 }
