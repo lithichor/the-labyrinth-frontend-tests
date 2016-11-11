@@ -33,4 +33,15 @@ public class UserGetTests extends LabyrinthAPITest
 			fail(verifier.getErrors());
 		}
 	}
+	
+	@Test
+	public void getUserWithBadAuthentication()
+	{
+		UserClient badAuthClient = new UserClient(username, "bad password");
+		String resp = badAuthClient.getUser();
+		if(!resp.contains("There is no Player matching that email-password combination"))
+		{
+			fail("The error message doesn't match what was expected");
+		}
+	}
 }

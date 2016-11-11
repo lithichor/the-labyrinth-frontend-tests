@@ -44,8 +44,12 @@ public abstract class LabyrinthWebDriverTest
 	}
 	
 	@AfterTest
-	public void teardown()
+	protected void teardown()
 	{
+		if(userClient != null)
+		{
+			userClient.deleteUser();
+		}
 		if(!failed && !debug)
 		{
 			browser.close();
