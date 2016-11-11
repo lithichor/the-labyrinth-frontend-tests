@@ -10,7 +10,7 @@ public class UserAPITest extends LabyrinthAPITest
 	protected String firstName = random.oneWord();
 	protected String lastName = random.oneWord();
 	protected String email = firstName + "@" + lastName + ".corn";
-	protected String password = random.sentence(2);
+	protected String password = random.oneWord() + "1Qq";
 	
 	protected UserClient client;
 

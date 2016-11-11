@@ -16,7 +16,7 @@ public class SignupTest extends LabyrinthWebDriverTest
 	private String firstname = strings.oneWord();
 	private String lastname = strings.oneWord();
 	private String email = firstname + "." + lastname + "@eric.corn";
-	private String password = strings.sentence(2);
+	private String password = strings.oneWord() + "1Qq";
 	private SignupPage page;
 	
 	@BeforeTest
