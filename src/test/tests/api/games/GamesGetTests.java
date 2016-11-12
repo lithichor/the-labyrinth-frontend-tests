@@ -44,46 +44,58 @@ public class GamesGetTests extends LabyrinthAPITest
 	@Test
 	public void getOneGameForUser()
 	{
-		String resp = client.getOneGame(19);
-		JsonObject game = gson.fromJson(resp, JsonArray.class).get(0).getAsJsonObject();
+		// create game and get id
+		String game = client.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
 		
-		if(!verifier.verifyOneGame(game))
+		// get the game (redundant, but we want to test get)
+		String resp = client.getOneGame(gameId);
+		JsonObject game1 = gson.fromJson(resp, JsonObject.class);
+		
+		// verify the game
+		if(!verifier.verifyOneGame(game1))
 		{
 			fail(verifier.getErrors());
 		}
+		
+		// verify the game matches what we created
+		if(!verifier.compareGames(game, resp))
+		{
+			fail(verifier.getErrors());
+		}
+		
+		// delete the game
+		client.deleteGame(gameId);
 	}
 	
+	/**
+	 * This test compares 
+	 */
 	@Test
 	public void getLastGameVsAllGames()
 	{
+		// get all games and extract last game
 		String allGames = client.getAllGames();
-		JsonArray allGamesJson = gson.fromJson(allGames, JsonArray.class);
-		JsonObject lastGameFromAll = (JsonObject)allGamesJson.get(allGamesJson.size() - 1);
-		JsonArray fromAll = (JsonArray) lastGameFromAll.get("mapIds");
+		JsonArray allGamesArray = gson.fromJson(allGames, JsonArray.class);
+		int lastGameIndex = allGamesArray.size() - 1;
+		JsonObject lastGameObj = (JsonObject)allGamesArray.get(lastGameIndex);
+		String lastGameFromAll = gson.toJson(lastGameObj);
 		
-		String lastGame = client.getOneGame("last");
-		JsonObject lastGameJson = gson.fromJson(lastGame, JsonElement.class);
-		JsonArray fromLast = (JsonArray)lastGameJson.get("mapIds");
+		// get games/last
+		String lastGame = client.getLastGame();
 		
-		if(!verifier.compareGamesArrays(fromAll, fromLast))
+		//compare the two
+		if(!verifier.compareGames(lastGameFromAll, lastGame))
 		{
 			fail(verifier.getErrors());
 		}
-	}
-	
-	@Test
-	public void getLastGameVsOneGame()
-	{
-		String allGames = client.getOneGame(19);
-		JsonArray allGamesJson = gson.fromJson(allGames, JsonArray.class);
-		JsonObject lastGameFromAll = (JsonObject)allGamesJson.get(0);
-		JsonArray fromAll = (JsonArray) lastGameFromAll.get("mapIds");
 		
-		String lastGame = client.getLastGame();
-		JsonObject lastGameJson = gson.fromJson(lastGame, JsonElement.class);
-		JsonArray fromLast = (JsonArray)lastGameJson.get("mapIds");
+		// get one game (same id)
+		String oneGame = client.getOneGame(lastGameObj.get("id").getAsInt());
 		
-		if(!verifier.compareGamesArrays(fromAll, fromLast))
+		//compare to games/last
+		if(!verifier.compareGames(oneGame, lastGame))
 		{
 			fail(verifier.getErrors());
 		}

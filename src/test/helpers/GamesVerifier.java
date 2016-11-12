@@ -56,26 +56,64 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 		return verified;
 	}
 	
-	public boolean compareGamesArrays(JsonArray fromAll, JsonArray fromLast)
+	public boolean compareGameIds(String fromAll, String fromLast)
 	{
 		boolean valid = true;
+		JsonObject fromAllObj = gson.fromJson(fromAll, JsonObject.class);
+		JsonObject fromLastObj = gson.fromJson(fromLast, JsonObject.class);
 		
-		if(!(fromAll.size() == fromLast.size()))
+		int idFromAll = fromAllObj.get("id").getAsInt();
+		int idFromLast = fromLastObj.get("id").getAsInt();
+		
+		if(!(idFromAll == idFromLast))
 		{
-			errors.add("The size of the arrays is different");
 			valid = false;
-		}
-		
-		for(int x = 0; x < fromAll.size(); x++)
-		{
-			if(!(fromAll.get(x).getAsLong() == fromLast.get(x).getAsLong()))
-			{
-				errors.add("The mapId values do not match");
-				valid = false;
-				break;
-			}
+			errors.add("The IDs are not the same");
 		}
 		
 		return valid;
+	}
+	
+	public boolean compareGames(String gameOne, String gameTwo)
+	{
+		boolean matches = true;
+		JsonObject gameOneObj = gson.fromJson(gameOne, JsonObject.class);
+		JsonObject gameTwoObj = gson.fromJson(gameTwo, JsonObject.class);
+		
+		if(!(gameOneObj.get("id").getAsInt() == gameTwoObj.get("id").getAsInt()))
+		{
+			matches = false;
+			errors.add("The IDs do not match");
+		}
+		if(!(gameOneObj.get("heroId").getAsInt() == gameTwoObj.get("heroId").getAsInt()))
+		{
+			matches = false;
+			errors.add("The Hero IDs do not match");
+		}
+		if(!(gameOneObj.get("userId").getAsInt() == gameTwoObj.get("userId").getAsInt()))
+		{
+			matches = false;
+			errors.add("The User IDs do not match");
+		}
+		JsonArray gameOneMaps = gameOneObj.get("mapIds").getAsJsonArray();
+		JsonArray gameTwoMaps = gameTwoObj.get("mapIds").getAsJsonArray();
+		if(!(gameOneMaps.size() == gameTwoMaps.size()))
+		{
+			matches = false;
+			errors.add("The sizes of the mapId arrays don't match");
+		}
+		else
+		{
+			for(int x = 0; x < gameOneMaps.size(); x++)
+			{
+				if(!(gameOneMaps.get(x).getAsInt() == gameTwoMaps.get(x).getAsInt()))
+				{
+					matches = false;
+					errors.add("The mapIds at index " + x + " don't match");
+				}
+			}
+		}
+		
+		return matches;
 	}
 }
