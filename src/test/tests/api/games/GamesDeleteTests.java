@@ -35,6 +35,7 @@ public class GamesDeleteTests extends LabyrinthAPITest
 
 		// delete the game just created
 		resp = client.deleteGame(id);
+		// this should be an empty string
 		if(!resp.equalsIgnoreCase(""))
 		{
 			fail("There was an error deleting the game");

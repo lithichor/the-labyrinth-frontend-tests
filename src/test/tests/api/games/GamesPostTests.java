@@ -1,5 +1,6 @@
 package test.tests.api.games;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -21,6 +22,7 @@ public class GamesPostTests extends LabyrinthAPITest
 {
 	private GamesVerifier verifier;
 	private GamesClient client;
+	int gameId = 0;
 	
 	@BeforeTest
 	public void setup()
@@ -35,10 +37,17 @@ public class GamesPostTests extends LabyrinthAPITest
 	{
 		String resp = client.createGame();
 		JsonObject game = gson.fromJson(resp, JsonObject.class);
+		gameId = game.get("id").getAsInt();
 		
 		if(!verifier.verifyOneGame(game))
 		{
 			fail(verifier.getErrors());
 		}
+	}
+	
+	@AfterTest
+	public void cleanup()
+	{
+		client.deleteGame(gameId);
 	}
 }
