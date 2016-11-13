@@ -3,7 +3,6 @@ package test.tests.api.hero;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -19,7 +18,6 @@ public class HeroPutTests extends LabyrinthAPITest
 	private HerosClient herosClient;
 	private GamesClient gamesClient;
 	private HerosVerifier verifier;
-	private int gameId = 0;
 
 	@BeforeTest
 	public void setup()
@@ -42,7 +40,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		String game = gamesClient.createGame();
 		JsonObject gameObject = gson.fromJson(game, JsonObject.class);
 		int heroId = gameObject.get("heroId").getAsInt();
-		gameId = gameObject.get("id").getAsInt();
+		int gameId = gameObject.get("id").getAsInt();
 		
 		// verify heroId is correct
 		String hero = herosClient.getCurrentHero();
@@ -76,18 +74,52 @@ public class HeroPutTests extends LabyrinthAPITest
 		changedFields.put(HerosVerifier.MAGIC, magic);
 		changedFields.put(HerosVerifier.ATTACK, attack);
 		changedFields.put(HerosVerifier.DEFENSE, defense);
+		
 		// check each field
 		if(!verifier.verifyHero(updatedHero, changedFields))
 		{
 			fail(verifier.getErrors());
 		}
+		
+		// delete game
+		gamesClient.deleteGame(gameId);
 	}
 	
-	@AfterTest
-	public void cleanup()
+	// not working yet - bug in Labyrinth (#84)
+	@Test
+	public void updateHeroWithStringsForInts()
 	{
-		// delete the game
-		System.out.println("CLEANING UP HERO PUT TEST");
+		// create new game
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
+		
+		// update randomly with strings
+		String data = "";
+		switch(rand.nextInt(4))
+		{
+		case 0:
+			data = "{strength: abc}";
+			break;
+		case 1:
+			data = "{magic: abc}";
+			break;
+		case 2:
+			data = "{attack: abc}";
+			break;
+		case 3:
+			data = "{defense: abc}";
+			break;
+		}
+		String response = herosClient.updateCurrentHero(data);
+		
+		// verify error message
+		if(!response.contains("attribute has to be an integer"))
+		{
+			fail("There should have been an error returned, but there wasn't");
+		}
+		
+		// delete game
 		gamesClient.deleteGame(gameId);
 	}
 }
