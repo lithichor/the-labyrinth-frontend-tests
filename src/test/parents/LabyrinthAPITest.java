@@ -9,6 +9,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.testng.annotations.BeforeSuite;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.labyrinth.client.GamesClient;
+import com.labyrinth.client.HerosClient;
+import com.labyrinth.client.UserClient;
 
 import test.helpers.Faker;
 import test.models.RandomStrings;
@@ -30,10 +34,30 @@ public abstract class LabyrinthAPITest
 	protected Faker faker = new Faker();
 	protected Random rand = new Random();
 	
+	// clients
+	protected HerosClient herosClient;
+	protected UserClient userClient;
+	protected GamesClient gamesClient;
+	
+	// user
+	protected String firstName = faker.getFirstName();
+	protected String lastName = faker.getLastName();
+	protected String email = firstName + "@" + lastName + ".corn";
+	protected String password1 = faker.getPassword();
+	private String data = "{firstName: " + firstName + ","
+			+ "lastName: " + lastName + ","
+			+ "email: " + email + ","
+			+ "password: " + password1 + ","
+			+ "}";
+	protected JsonObject userObj;
+
 	@BeforeSuite
 	public void startup()
 	{
 		System.out.println("STARTING TESTS ...\n\n");
+		
+		// create a user for the test suite
+		userObj = gson.fromJson(new UserClient(email, password1).createUser(data), JsonObject.class);
 	}
 	
 	// for a single failure message

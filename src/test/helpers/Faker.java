@@ -22,6 +22,11 @@ public class Faker
 		return rs.oneWord();
 	}
 	
+	public String getEmail()
+	{
+		return rs.oneWord() + "@" + rs.oneWord() + ".corn";
+	}
+	
 	public String getPassword()
 	{
 		return rs.sentence(2) + "1Qq";
