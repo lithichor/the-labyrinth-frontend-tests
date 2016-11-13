@@ -56,8 +56,9 @@ public abstract class LabyrinthAPITest
 	{
 		System.out.println("STARTING TESTS ...\n\n");
 		
+		userClient = new UserClient(email, password1);
 		// create a user for the test suite
-		userObj = gson.fromJson(new UserClient(email, password1).createUser(data), JsonObject.class);
+		userObj = gson.fromJson(userClient.createUser(data), JsonObject.class);
 	}
 	
 	// for a single failure message

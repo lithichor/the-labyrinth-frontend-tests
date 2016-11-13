@@ -8,28 +8,28 @@ import test.models.RandomStrings;
  * 
  * @return
  */
-public class Faker
+public class Faker extends RandomStrings
 {
-	private RandomStrings rs = new RandomStrings();
+//	private RandomStrings rs = new RandomStrings();
 	
 	public String getFirstName()
 	{
-		return rs.oneWord();
+		return oneWord();
 	}
 	
 	public String getLastName()
 	{
-		return rs.oneWord();
+		return oneWord();
 	}
 	
 	public String getEmail()
 	{
-		return rs.oneWord() + "@" + rs.oneWord() + ".corn";
+		return oneWord() + "@" + oneWord() + ".corn";
 	}
 	
 	public String getPassword()
 	{
-		return rs.sentence(2) + "1Qq";
+		return sentence(2) + "1Qq";
 	}
 
 }

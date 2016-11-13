@@ -1,5 +1,7 @@
 package test.tests.api.user;
 
+import java.util.Date;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -100,5 +102,97 @@ public class UserPostTests extends LabyrinthAPITest
 			System.out.println("Response was: " + postUser);
 			fail("The error message returned was not correct");
 		}
+	}
+	
+	@Test
+	public void userPostWithArrayInData()
+	{
+		// local versions of the parent's data
+		String first = firstName;
+		String last = lastName;
+		String email = faker.getEmail();
+		String password = password1;
+		String emailStr = "";
+		
+		// error in Labyrinth when password is empty array (#91)
+		switch(rand.nextInt(3))
+		{
+		case 0:
+			first = "[]";
+			break;
+		case 1:
+			last = "[]";
+			break;
+		case 2:
+			emailStr = new Date().getTime() +"@" + faker.getFirstName() + ".corn";
+			email = "[" + emailStr + ".corn]";
+			break;
+		case 3:
+			password = "[]";
+			break;
+		}
+		String rawData = "{firstName: " + first + ","
+				+ "lastName: " + last + ","
+				+ "email: " + email + ","
+				+ "password: " + "\"" + password + "\""
+				+ "}";
+		
+		String response = userClient.createUser(rawData);
+		
+		// verify user created (response.contains(first, last, and email)
+		if(!(response.contains(first) && response.contains(last) && response.contains(emailStr)))
+		{
+			System.out.println("ARRAYS");
+			System.out.println("RAW_DATA: " + rawData);
+			System.out.println("RESPONSE: " + response);
+			fail("The response was not what was expected");
+		}
+		userClient.deleteUser();
+	}
+
+	@Test
+	public void userPostWithHashInData()
+	{
+		// local versions of the parent's data
+		String first = firstName;
+		String last = lastName;
+		String email = faker.getEmail();
+		String password = password1;
+		String emailStr = "";
+		
+		// error in Labyrinth when password is empty array (#91)
+		switch(rand.nextInt(3))
+		{
+		case 0:
+			first = "{" +  "}";
+			break;
+		case 1:
+			last = "{}";
+			break;
+		case 2:
+			emailStr = new Date().getTime() +"@" + faker.getFirstName() + ".corn";
+			email = "{q:" + emailStr + "}";
+			break;
+		case 3:
+			password = "{}";
+			break;
+		}
+		String rawData = "{firstName: " + first + ","
+				+ "lastName: " + last + ","
+				+ "email: " + email + ","
+				+ "password: " + "\"" + password + "\""
+				+ "}";
+		
+		String response = userClient.createUser(rawData);
+
+		// verify user created (response.contains(first, last, and email)
+		if(!(response.contains(first) && response.contains(last) && response.contains(emailStr)))
+		{
+			System.out.println("HASHES");
+			System.out.println("RAW_DATA: " + rawData);
+			System.out.println("RESPONSE: " + response);
+			fail("The response was not what was expected");
+		}
+		userClient.deleteUser();
 	}
 }
