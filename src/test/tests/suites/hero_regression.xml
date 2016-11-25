@@ -8,6 +8,7 @@
 		<classes>
 			<class name="test.tests.api.hero.HeroGetTests" />
 			<class name="test.tests.api.hero.HeroPutTests" />
+			<class name="test.tests.api.hero.HeroPostTests" />
 		</classes>
 	</test>
 </suite>

@@ -33,7 +33,7 @@ public class GamesPostTests extends LabyrinthAPITest
 	}
 	
 	@Test
-	public void ZstartNewGame()
+	public void startNewGame()
 	{
 		String resp = client.createGame();
 		JsonObject game = gson.fromJson(resp, JsonObject.class);

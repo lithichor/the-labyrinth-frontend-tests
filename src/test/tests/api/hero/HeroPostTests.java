@@ -1,7 +1,7 @@
 package test.tests.api.hero;
 
-import org.junit.Test;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import com.labyrinth.client.HerosClient;
 
@@ -18,6 +18,10 @@ public class HeroPostTests extends LabyrinthAPITest
 	@Test
 	public void verifyPostNotPermitted()
 	{
-		
+		String response = herosClient.makeArbitraryAPICall("heros", "post");
+		if(!response.contains("POST not supported for this endpont"))
+		{
+			fail("The POST method should not be allowed, but we didn't get the correct response:\n\t" + response);
+		}
 	}
 }
