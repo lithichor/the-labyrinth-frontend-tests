@@ -1,7 +1,5 @@
 package test.tests.api.user;
 
-import java.util.Date;
-
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -105,30 +103,32 @@ public class UserPostTests extends LabyrinthAPITest
 	}
 	
 	@Test
-	public void userPostWithArrayInData()
+	public void userPostWithEmptyArrayInData()
 	{
 		// local versions of the parent's data
 		String first = firstName;
 		String last = lastName;
 		String email = faker.getEmail();
 		String password = password1;
-		String emailStr = "";
+		String expectedMessage = "";
 		
-		// error in Labyrinth when password is empty array (#91)
 		switch(rand.nextInt(3))
 		{
 		case 0:
 			first = "[]";
+			expectedMessage = "The Player needs to have a first name";
 			break;
 		case 1:
 			last = "[]";
+			expectedMessage = "The Player needs to have a last name";
 			break;
 		case 2:
-			emailStr = new Date().getTime() +"@" + faker.getFirstName() + ".corn";
-			email = "[" + emailStr + ".corn]";
+			email = "[]";
+			expectedMessage = "You need to include an email address";
 			break;
 		case 3:
 			password = "[]";
+			expectedMessage = "The Player needs a password";
 			break;
 		}
 		String rawData = "{firstName: " + first + ","
@@ -137,44 +137,45 @@ public class UserPostTests extends LabyrinthAPITest
 				+ "password: " + "\"" + password + "\""
 				+ "}";
 		
-		String response = userClient.createUser(rawData);
+		String response = client.createUser(rawData);
 		
-		// verify user created (response.contains(first, last, and email)
-		if(!(response.contains(first) && response.contains(last) && response.contains(emailStr)))
+		// verify user created
+		if(!response.contains(expectedMessage))
 		{
 			System.out.println("ARRAYS");
 			System.out.println("RAW_DATA: " + rawData);
 			System.out.println("RESPONSE: " + response);
-			fail("The response was not what was expected");
+			fail("The response was not what was expected:\n" + response);
 		}
-		userClient.deleteUser();
 	}
 
 	@Test
-	public void userPostWithHashInData()
+	public void userPostWithEmptyHashInData()
 	{
 		// local versions of the parent's data
 		String first = firstName;
 		String last = lastName;
 		String email = faker.getEmail();
 		String password = password1;
-		String emailStr = "";
+		String expectedMessage = "";
 		
-		// error in Labyrinth when password is empty array (#91)
 		switch(rand.nextInt(3))
 		{
 		case 0:
-			first = "{" +  "}";
+			first = "{}";
+			expectedMessage = "The Player needs to have a first name";
 			break;
 		case 1:
 			last = "{}";
+			expectedMessage = "The Player needs to have a last name";
 			break;
 		case 2:
-			emailStr = new Date().getTime() +"@" + faker.getFirstName() + ".corn";
-			email = "{q:" + emailStr + "}";
+			email = "{}";
+			expectedMessage = "You need to include an email address";
 			break;
 		case 3:
 			password = "{}";
+			expectedMessage = "The Player needs a password";
 			break;
 		}
 		String rawData = "{firstName: " + first + ","
@@ -183,16 +184,15 @@ public class UserPostTests extends LabyrinthAPITest
 				+ "password: " + "\"" + password + "\""
 				+ "}";
 		
-		String response = userClient.createUser(rawData);
+		String response = client.createUser(rawData);
 
-		// verify user created (response.contains(first, last, and email)
-		if(!(response.contains(first) && response.contains(last) && response.contains(emailStr)))
+		// verify user created
+		if(!response.contains(expectedMessage))
 		{
 			System.out.println("HASHES");
 			System.out.println("RAW_DATA: " + rawData);
 			System.out.println("RESPONSE: " + response);
-			fail("The response was not what was expected");
+			fail("The response was not what was expected:\n" + response);
 		}
-		userClient.deleteUser();
 	}
 }
