@@ -7,23 +7,21 @@ import com.google.gson.JsonObject;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.UserVerifier;
-import test.parents.LabyrinthAPITest;
 
-public class UserPostTests extends LabyrinthAPITest
+public class UserPostTests extends UserAPITest
 {
-	private UserClient client;
 	private UserVerifier verifier;
 
 	@BeforeTest
 	public void setup()
 	{
 		System.out.println("STARTNG USER POST TESTS");
-		client = new UserClient("eric@eric.corn", "1qweqwe");
 		verifier = new UserVerifier();
+		createNewClient();
 	}
 
 	@Test
-	public void createNewUser()
+	public void createNewUserTest()
 	{
 		String firstName = faker.getFirstName();
 		String lastName = faker.getLastName();
