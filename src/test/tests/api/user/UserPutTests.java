@@ -28,13 +28,26 @@ public class UserPutTests extends UserAPITest
 		// create a new user
 		String user = createNewUser();
 		
-		// update the first name of the user
 		String newFirstName = random.oneWord();
-		String updatedUserJson = "{firstName: \"" + newFirstName + "\"}";
+		String newLastName = random.oneWord();
+		String updatedUserJson = "";
+		ArrayList<String> changedFields = new ArrayList<String>();
+		
+		// randomly select first name or last name to update
+		switch(rand.nextInt(2))
+		{
+		case 0:
+			updatedUserJson = "{firstName: \"" + newFirstName + "\"}";
+			changedFields.add(LabyrinthTestConstants.FIRST_NAME);
+			break;
+		case 1:
+			updatedUserJson = "{lastName: \"" + newLastName + "\"}";
+			changedFields.add(LabyrinthTestConstants.LAST_NAME);
+			break;
+		}
+		
 		String updatedUser = client.updateUser(updatedUserJson);
 		JsonObject jobj = gson.fromJson(updatedUser, JsonObject.class);
-		ArrayList<String> changedFields = new ArrayList<String>();
-		changedFields.add(LabyrinthTestConstants.FIRST_NAME);
 		
 		// verify the user has been updated
 		// check that it returns a valid user object
@@ -43,10 +56,15 @@ public class UserPutTests extends UserAPITest
 			fail(verifier.getErrors());
 		}
 		
-		// have to strip the quotes, because get() returns a JSON object
-		if(!(jobj.get("firstName").toString()).replace("\"", "").equals(newFirstName))
+		if(LabyrinthTestConstants.FIRST_NAME.equals(changedFields.get(0)) &&
+				!jobj.get("firstName").getAsString().equals(newFirstName))
 		{
 			fail("The first name was not updated");
+		}
+		if(LabyrinthTestConstants.LAST_NAME.equals(changedFields.get(0)) &&
+				!jobj.get("lastName").getAsString().equals(newLastName))
+		{
+			fail("The last name was not updated");
 		}
 		if(!verifier.verifyUserUpdated(updatedUser, user, changedFields))
 		{

@@ -59,16 +59,16 @@ public class UserVerifier extends LabyrinthAPITestVerifier
 			errors.add("The IDs do not match");
 			verified = false;
 		}
-		if(!changedFields.contains(LabyrinthTestConstants.FIRST_NAME) &&
-				!oldUserJson.get("firstName").equals(newUserJson.get("firstName")))
+		if(changedFields.contains(LabyrinthTestConstants.FIRST_NAME) &&
+				oldUserJson.get("firstName").equals(newUserJson.get("firstName")))
 		{
-			errors.add("The First Names do not match");
+			errors.add("The First Names match, but they shouldn't");
 			verified = false;
 		}
-		if(!changedFields.contains(LabyrinthTestConstants.LAST_NAME) &&
-				!oldUserJson.get("lastName").equals(newUserJson.get("lastName")))
+		if(changedFields.contains(LabyrinthTestConstants.LAST_NAME) &&
+				oldUserJson.get("lastName").equals(newUserJson.get("lastName")))
 		{
-			errors.add("The Last Names do not match");
+			errors.add("The Last Names match, but they shouldn't");
 			verified = false;
 		}
 		if(!oldUserJson.get("email").equals(newUserJson.get("email")))
@@ -76,10 +76,16 @@ public class UserVerifier extends LabyrinthAPITestVerifier
 			errors.add("The Emails do not match");
 			verified = false;
 		}
-		if(!changedFields.contains(LabyrinthTestConstants.GAME_IDS) &&
-				!oldUserJson.get("gameIds").equals(newUserJson.get("gameIds")))
+		if(changedFields.contains(LabyrinthTestConstants.PASSWORD) &&
+				oldUserJson.get("password").equals(newUserJson.get("password")))
 		{
-			errors.add("The GameIds do not match");
+			errors.add("The Passwords match, but they shouldn't");
+			verified = false;
+		}
+		if(changedFields.contains(LabyrinthTestConstants.GAME_IDS) &&
+				oldUserJson.get("gameIds").equals(newUserJson.get("gameIds")))
+		{
+			errors.add("The GameIds match, but they shouldn't");
 			verified = false;
 		}
 		
