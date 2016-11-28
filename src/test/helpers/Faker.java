@@ -29,7 +29,7 @@ public class Faker extends RandomStrings
 	
 	public String getPassword()
 	{
-		return sentence(2) + "1Qq";
+		return oneWord() + oneWord() + "1Qq";
 	}
 
 }

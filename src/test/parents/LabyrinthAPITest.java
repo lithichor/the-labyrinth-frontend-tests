@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.HerosClient;
+import com.labyrinth.client.MapsClient;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.Faker;
@@ -38,16 +39,17 @@ public abstract class LabyrinthAPITest
 	protected HerosClient herosClient;
 	protected UserClient userClient;
 	protected GamesClient gamesClient;
+	protected MapsClient mapsClient;
 	
 	// user
 	protected String firstName = faker.getFirstName();
 	protected String lastName = faker.getLastName();
 	protected String email = firstName + "@" + lastName + ".corn";
 	protected String password1 = faker.getPassword();
-	private String data = "{firstName: " + firstName + ","
-			+ "lastName: " + lastName + ","
-			+ "email: " + email + ","
-			+ "password: " + password1 + ","
+	private String data = "{firstName: " + firstName + ", "
+			+ "lastName: " + lastName + ", "
+			+ "email: " + email + ", "
+			+ "password: " + password1
 			+ "}";
 	protected JsonObject userObj;
 
