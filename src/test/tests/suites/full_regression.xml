@@ -7,17 +7,30 @@
 	<test name="games" >
 		<classes>
 			<class name="test.tests.api.games.GamesDeleteTests" />
+			<class name="test.tests.api.games.GamesGetTests" />
+			<class name="test.tests.api.games.GamesPostTests" />
+			<class name="test.tests.api.games.GamesPutTests" />
 		</classes>
 	</test>
 	<test name="user" >
 		<classes>
-			<class name="test.tests.api.user.UserPutTests" />
 			<class name="test.tests.api.user.UserDeleteTests" />
+			<class name="test.tests.api.user.UserGetTests" />
+			<class name="test.tests.api.user.UserPostTests" />
+			<class name="test.tests.api.user.UserPutTests" />
 		</classes>
 	</test>
 	<test name="hero" >
 		<classes>
+			<class name="test.tests.api.hero.HeroGetTests" />
+			<class name="test.tests.api.hero.HeroPostTests" />
 			<class name="test.tests.api.hero.HeroPutTests" />
+		</classes>
+	</test>
+	<test name="maps" >
+		<classes>
+			<class name="test.tests.api.maps.MapsGetTests" />
+			<class name="test.tests.api.maps.MapsPostTests" />
 		</classes>
 	</test>
 	<test name="web_login" >

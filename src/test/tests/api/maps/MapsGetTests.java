@@ -1,5 +1,6 @@
 package test.tests.api.maps;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -34,11 +35,7 @@ public class MapsGetTests extends LabyrinthAPITest
 		JsonObject mapObj = gson.fromJson(map, JsonObject.class);
 		int mapId = mapObj.get("id").getAsInt();
 		
-		if(!(mapIdFromGame == mapId))
-		{
-			fail("The IDs do not match:\nFrom Game object: " + mapIdFromGame + "\nFrom Map object: " + mapId);
-		}
-		System.out.println("GAME: " + mapIdFromGame);
-		System.out.println("MAP: " + mapId);
+		Assert.assertEquals(mapIdFromGame, mapId,
+				"The IDs do not match:\nFrom Game object: " + mapIdFromGame + "\nFrom Map object: " + mapId);
 	}
 }
