@@ -15,7 +15,7 @@ public class UserPostTests extends UserAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTNG USER POST TESTS");
+		System.out.println("STARTING USER POST TESTS");
 		verifier = new UserVerifier();
 		createNewClient();
 	}

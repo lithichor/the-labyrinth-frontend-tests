@@ -21,7 +21,7 @@ public class GamesDeleteTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTNG GAMES DELETE TESTS");
+		System.out.println("STARTING GAMES DELETE TESTS");
 		client = new GamesClient("eric@eric.corn", "1qweqwe");
 	}
 

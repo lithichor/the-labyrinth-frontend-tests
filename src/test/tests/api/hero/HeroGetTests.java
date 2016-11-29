@@ -19,7 +19,7 @@ public class HeroGetTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTING HERO GET TESTS");
+		System.out.println("STARTING HEROS GET TESTS");
 		herosClient = new HerosClient(username, password);
 		gamesClient = new GamesClient(username, password);
 	}

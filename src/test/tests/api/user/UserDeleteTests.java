@@ -8,7 +8,7 @@ public class UserDeleteTests extends UserAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTNG USER DELETE TESTS");
+		System.out.println("STARTING USER DELETE TESTS");
 		createNewClient();
 	}
 	

@@ -22,7 +22,7 @@ public class HeroPutTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTNG USER PUT TESTS");
+		System.out.println("STARTING HEROS PUT TESTS");
 		herosClient = new HerosClient(username, password);
 		gamesClient = new GamesClient(username, password);
 		verifier = new HerosVerifier();

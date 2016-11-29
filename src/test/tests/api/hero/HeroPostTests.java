@@ -12,6 +12,7 @@ public class HeroPostTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
+		System.out.println("STARTING HEROS POST TESTS");
 		herosClient = new HerosClient(email, password1);
 	}
 	

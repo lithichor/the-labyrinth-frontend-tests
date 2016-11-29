@@ -27,7 +27,7 @@ public class GamesPostTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTNG GAMES POST TESTS");
+		System.out.println("STARTING GAMES POST TESTS");
 		verifier = new GamesVerifier();
 		client = new GamesClient("eric@eric.corn", "1qweqwe");
 	}
