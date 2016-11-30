@@ -30,7 +30,7 @@ public class GamesGetTests extends LabyrinthAPITest
 		String resp = client.getAllGames();
 		JsonArray games = gson.fromJson(resp, JsonArray.class);
 		
-		if(!verifier.verifyAllGames(games))
+		if(!verifier.verifyAllGames(resp))
 		{
 			fail(verifier.getErrors());
 			
@@ -51,10 +51,9 @@ public class GamesGetTests extends LabyrinthAPITest
 		
 		// get the game (redundant, but we want to test get)
 		String resp = client.getOneGame(gameId);
-		JsonObject game1 = gson.fromJson(resp, JsonObject.class);
 		
 		// verify the game
-		if(!verifier.verifyOneGame(game1))
+		if(!verifier.verifyOneGame(resp))
 		{
 			fail(verifier.getErrors());
 		}

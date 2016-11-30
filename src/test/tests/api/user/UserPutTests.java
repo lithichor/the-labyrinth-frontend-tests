@@ -51,7 +51,7 @@ public class UserPutTests extends UserAPITest
 		
 		// verify the user has been updated
 		// check that it returns a valid user object
-		if(!verifier.verifyUser(jobj))
+		if(!verifier.verifyUser(updatedUser))
 		{
 			fail(verifier.getErrors());
 		}

@@ -7,9 +7,12 @@ import test.parents.LabyrinthAPITestVerifier;
 
 public class GamesVerifier extends LabyrinthAPITestVerifier
 {
-	public boolean verifyAllGames(JsonArray games)
+	public boolean verifyAllGames(String gamesArray)
 	{
-		JsonObject lastGame = games.get(games.size() - 1).getAsJsonObject();
+		JsonArray games = gson.fromJson(gamesArray, JsonArray.class);
+		JsonObject lastGameObj = games.get(games.size() - 1).getAsJsonObject();
+		String lastGame = gson.toJson(lastGameObj);
+		
 		boolean verified = true;
 		
 		if(games.size() < 1)
@@ -22,8 +25,9 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 		return verified;
 	}
 	
-	public boolean verifyOneGame(JsonObject game)
+	public boolean verifyOneGame(String gameStr)
 	{
+		JsonObject game = gson.fromJson(gameStr, JsonObject.class);
 		boolean verified = true;
 
 		if(game.has("messages"))

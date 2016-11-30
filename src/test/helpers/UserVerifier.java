@@ -9,8 +9,9 @@ import test.parents.LabyrinthAPITestVerifier;
 
 public class UserVerifier extends LabyrinthAPITestVerifier
 {
-	public boolean verifyUser(JsonObject user)
+	public boolean verifyUser(String userStr)
 	{
+		JsonObject user = gson.fromJson(userStr, JsonObject.class);
 		boolean verified = true;
 		
 		if(user.has("messages"))

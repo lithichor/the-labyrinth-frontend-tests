@@ -3,7 +3,6 @@ package test.tests.api.user;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.google.gson.JsonObject;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.UserVerifier;
@@ -25,9 +24,8 @@ public class UserGetTests extends UserAPITest
 	{
 		createNewUser();
 		String resp = client.getUser();
-		JsonObject user = gson.fromJson(resp, JsonObject.class);
 		
-		if(!verifier.verifyUser(user))
+		if(!verifier.verifyUser(resp))
 		{
 			fail(verifier.getErrors());
 		}

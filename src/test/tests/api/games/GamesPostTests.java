@@ -39,7 +39,7 @@ public class GamesPostTests extends LabyrinthAPITest
 		JsonObject game = gson.fromJson(resp, JsonObject.class);
 		gameId = game.get("id").getAsInt();
 		
-		if(!verifier.verifyOneGame(game))
+		if(!verifier.verifyOneGame(resp))
 		{
 			fail(verifier.getErrors());
 		}
