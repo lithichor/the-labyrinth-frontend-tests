@@ -159,6 +159,56 @@ public class HeroPutTests extends LabyrinthAPITest
 			data = "{defense: {}}";
 			break;
 		}
+		
+		String response = herosClient.updateCurrentHero(data);
+		
+		// verify error message
+		if(!response.contains("attribute has to be an integer"))
+		{
+			fail("There should have been an error returned, but there wasn't");
+		}
+		
+		// delete game
+		gamesClient.deleteGame(gameId);
+	}
+
+	@Test
+	public void updateHeroWithArrayForInt()
+	{
+		// create new game
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
+		
+		// update randomly with strings
+		String data = "";
+		switch(rand.nextInt(8))
+		{
+		case 0:
+			data = "{strength: [1, 2, 3]}";
+			break;
+		case 1:
+			data = "{magic: [a, b, c]}";
+			break;
+		case 2:
+			data = "{attack: [a, 2, !]}";
+			break;
+		case 3:
+			data = "{defense: [1, W, c]}";
+			break;
+		case 4:
+			data = "{strength: []}";
+			break;
+		case 5:
+			data = "{magic: []}";
+			break;
+		case 6:
+			data = "{attack: []}";
+			break;
+		case 7:
+			data = "{defense: []}";
+			break;
+		}
 		System.out.println(data);
 		
 		String response = herosClient.updateCurrentHero(data);
