@@ -41,4 +41,28 @@ public class MapsPostTests extends LabyrinthAPITest
 		Assert.assertTrue(verifier.verifyMap(map), "The map doesn't seem to have the correct values");
 		Assert.assertEquals(gameId, gameIdFromMap, "The game ID from the game doesn't match the game ID from the map");
 	}
+	
+	@Test
+	public void newMapWithHashesOrArraysForInts()
+	{
+		String data = "{gameId: {q: q}}";
+		String response = mapsClient.makeNewMapForGame(data);
+		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+				"The response should have contained an error message, not this: " + response);
+		
+		data = "{gameId: {}}";
+		response = mapsClient.makeNewMapForGame(data);
+		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+				"The response should have contained an error message, not this: " + response);
+		
+		data = "{gameId: [1, 2]}";
+		response = mapsClient.makeNewMapForGame(data);
+		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+				"The response should have contained an error message, not this: " + response);
+		
+		data = "{gameId: []}";
+		response = mapsClient.makeNewMapForGame(data);
+		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+				"The response should have contained an error message, not this: " + response);
+	}
 }
