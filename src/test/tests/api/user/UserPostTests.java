@@ -109,7 +109,7 @@ public class UserPostTests extends UserAPITest
 		String password = password1;
 		String expectedMessage = "";
 		
-		switch(rand.nextInt(3))
+		switch(rand.nextInt(8))
 		{
 		case 0:
 			first = "[]";
@@ -125,7 +125,23 @@ public class UserPostTests extends UserAPITest
 			break;
 		case 3:
 			password = "[]";
-			expectedMessage = "The Player needs a password";
+			expectedMessage = "The password needs to be more than six (6) characters";
+			break;
+		case 4:
+			first = "[$, %, ^]";
+			expectedMessage = "The Player needs to have a first name";
+			break;
+		case 5:
+			last = "[a, b, c]";
+			expectedMessage = "The Player needs to have a last name";
+			break;
+		case 6:
+			email = "[1, 2, 3]";
+			expectedMessage = "You need to include an email address";
+			break;
+		case 7:
+			password = "[a, 1, @]";
+			expectedMessage = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
 			break;
 		}
 		String rawData = "{firstName: " + first + ","
@@ -156,7 +172,7 @@ public class UserPostTests extends UserAPITest
 		String password = password1;
 		String expectedMessage = "";
 		
-		switch(rand.nextInt(3))
+		switch(rand.nextInt(8))
 		{
 		case 0:
 			first = "{}";
@@ -172,7 +188,23 @@ public class UserPostTests extends UserAPITest
 			break;
 		case 3:
 			password = "{}";
-			expectedMessage = "The Player needs a password";
+			expectedMessage = "The password needs to be more than six (6) characters";
+			break;
+		case 4:
+			first = "{a: 2}";
+			expectedMessage = "The Player needs to have a first name";
+			break;
+		case 5:
+			last = "{2: r}";
+			expectedMessage = "The Player needs to have a last name";
+			break;
+		case 6:
+			email = "{2: $}";
+			expectedMessage = "You need to include an email address";
+			break;
+		case 7:
+			password = "{*: 1}";
+			expectedMessage = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
 			break;
 		}
 		String rawData = "{firstName: " + first + ","
