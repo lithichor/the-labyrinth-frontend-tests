@@ -209,7 +209,6 @@ public class HeroPutTests extends LabyrinthAPITest
 			data = "{defense: []}";
 			break;
 		}
-		System.out.println(data);
 		
 		String response = herosClient.updateCurrentHero(data);
 		
