@@ -129,14 +129,13 @@ public class MapsGetTests extends LabyrinthAPITest
 		String map2 = newMapsClient.getMapsForGame(gameId);
 		
 		String message = "There is no Player matching that email-password combination";
-		String otherMessage = "Something went wrong with your request";
 		
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameObj.get("id").getAsInt());
 		
 		Assert.assertTrue(map1.contains(message),
 				"We should have gotten " + message + ", but instead got this: " + map1);
-		Assert.assertTrue(map2.contains(otherMessage),
-				"We should have gotten " + otherMessage + ", but instead got this: " + map2);
+		Assert.assertTrue(map2.contains(message),
+				"We should have gotten " + message + ", but instead got this: " + map2);
 	}
 }
