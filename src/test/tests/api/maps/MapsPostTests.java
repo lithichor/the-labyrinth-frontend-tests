@@ -50,22 +50,24 @@ public class MapsPostTests extends LabyrinthAPITest
 	{
 		String data = "{gameId: {q: q}}";
 		String response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+		String message = "The gameId needs to be an integer, not whatever it was you gave me";
+		
+		Assert.assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 		
 		data = "{gameId: {}}";
 		response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+		Assert.assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 		
 		data = "{gameId: [1, 2]}";
 		response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+		Assert.assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 		
 		data = "{gameId: []}";
 		response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains("The gameId needs to be an integer, not whatever it was you gave me"),
+		Assert.assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 	}
 	
