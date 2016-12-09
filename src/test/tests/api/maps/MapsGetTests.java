@@ -34,9 +34,47 @@ public class MapsGetTests extends MapsAPITests
 		gamesClient.deleteGame(gameIdFromGame);
 		
 		Assert.assertEquals(mapIdFromGame, mapId,
-				"The IDs do not match:\nFrom Game object: " + mapIdFromGame + "\nFrom Map object: " + mapId);
+				"The Map IDs do not match:\nFrom Game object: " + mapIdFromGame + "\nFrom Map object: " + mapId);
 		Assert.assertEquals(gameIdFromGame, gameIdFromMap,
-				"The IDs do not match:\nFrom Game object: " + gameIdFromGame + "\nFrom Map object: " + gameIdFromMap);
+				"The Game IDs do not match:\nFrom Game object: " + gameIdFromGame + "\nFrom Map object: " + gameIdFromMap);
+	}
+	
+	@Test
+	public void getMapsUsingGameId()
+	{
+		String game = gamesClient.createGame();
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
+		
+		String map = mapsClient.getMapsForGame(gameId);
+		int gameIdFromMap = getGameIdFromMap(map);
+		int mapIdFromMap = getMapIdFromMap(map);
+		
+		gamesClient.deleteGame(gameId);
+		
+		Assert.assertEquals(gameId, gameIdFromMap,
+				"The Game IDs do not match:\nFrom Game Object: " + gameId + "\nFrom Map Object: " + gameIdFromMap);
+		Assert.assertEquals(mapId, mapIdFromMap,
+				"The Map IDs do not match:\nFrom Game Object: " + mapId + "\nFrom Map Object: " + mapIdFromMap);
+	}
+	
+	@Test
+	public void getMapsUsingMapId()
+	{
+		String game = gamesClient.createGame();
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
+		
+		String map = mapsClient.getMapsFromMapId(mapId);
+		int gameIdFromMap = getGameIdFromMap(map);
+		int mapIdFromMap = getMapIdFromMap(map);
+		
+		gamesClient.deleteGame(gameId);
+		
+		Assert.assertEquals(gameId, gameIdFromMap,
+				"The Game IDs do not match:\nFrom Game Object: " + gameId + "\nFrom Map Object: " + gameIdFromMap);
+		Assert.assertEquals(mapId, mapIdFromMap,
+				"The Map IDs do not match:\nFrom Game Object: " + mapId + "\nFrom Map Object: " + mapIdFromMap);
 	}
 	
 	@Test
