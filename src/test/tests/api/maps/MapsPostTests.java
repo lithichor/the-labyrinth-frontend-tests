@@ -4,14 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
 
 import test.helpers.MapsVerifier;
-import test.parents.LabyrinthAPITest;
 
-public class MapsPostTests extends LabyrinthAPITest
+public class MapsPostTests extends MapsAPITests
 {
 	@BeforeTest
 	public void startup()
@@ -27,14 +25,12 @@ public class MapsPostTests extends LabyrinthAPITest
 	{
 		// create the game and get its ID
 		String game = gamesClient.createGame();
-		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
-		int gameId = gameObj.get("id").getAsInt();
+		int gameId = getGameIdFromGame(game);
 		
 		//create a new map for the game
 		String data = "{gameId: " + gameId + "}";
 		String map = mapsClient.makeNewMapForGame(data);
-		JsonObject mapObj = gson.fromJson(map, JsonObject.class);
-		int gameIdFromMap = mapObj.get("gameId").getAsInt();
+		int gameIdFromMap = getGameIdFromMap(map);
 		
 		// delete the game
 		gamesClient.deleteGame(gameId);
@@ -75,8 +71,7 @@ public class MapsPostTests extends LabyrinthAPITest
 	public void newMapUsingInvalidUser()
 	{
 		String game = gamesClient.createGame();
-		JsonObject gamesObj = gson.fromJson(game, JsonObject.class);
-		int gameId = gamesObj.get("id").getAsInt();
+		int gameId = getGameIdFromGame(game);
 		
 		MapsClient newMapsClient = new MapsClient("albert@brooks.corn", "2POIpoi");
 		String data = "{gameId: " + gameId + "}";
@@ -84,6 +79,7 @@ public class MapsPostTests extends LabyrinthAPITest
 		
 		String message = "There is no Player matching that email-password combination";
 		
+		gamesClient.deleteGame(gameId);
 		Assert.assertTrue(map.contains(message));
 	}
 }

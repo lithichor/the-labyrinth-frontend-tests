@@ -4,14 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
 
-import test.parents.LabyrinthAPITest;
-
-public class MapsGetTests extends LabyrinthAPITest
+public class MapsGetTests extends MapsAPITests
 {
 	@BeforeTest
 	public void setup()
@@ -26,16 +22,13 @@ public class MapsGetTests extends LabyrinthAPITest
 	{
 		// create new game
 		String game = gamesClient.createGame();
-		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
-		JsonArray mapsFromGame = gameObj.get("mapIds").getAsJsonArray();
-		int mapIdFromGame = mapsFromGame.get(0).getAsInt();
-		int gameIdFromGame = gameObj.get("id").getAsInt();
+		int mapIdFromGame = getMapIdFromGame(game);
+		int gameIdFromGame = getGameIdFromGame(game);
 		
 		//get maps for the game
 		String map = mapsClient.getCurrentGameMaps();
-		JsonObject mapObj = gson.fromJson(map, JsonObject.class);
-		int mapId = mapObj.get("id").getAsInt();
-		int gameIdFromMap = mapObj.get("gameId").getAsInt();
+		int mapId = getMapIdFromMap(map);
+		int gameIdFromMap = getGameIdFromMap(map);
 		
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameIdFromGame);
@@ -51,8 +44,7 @@ public class MapsGetTests extends LabyrinthAPITest
 	{
 		// create a game
 		String game = gamesClient.createGame();
-		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
-		int gameId = gameObj.get("id").getAsInt();
+		int gameId = getGameIdFromGame(game);
 		// delete the game
 		gamesClient.deleteGame(gameId);
 		
@@ -69,21 +61,23 @@ public class MapsGetTests extends LabyrinthAPITest
 	{
 		// create a game
 		String game = gamesClient.createGame();
-		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
 		
 		// try to get the map with bogus string id
 		// it should return the map
 		String map = mapsClient.getMapsForGame("this_is_bogus");
-		JsonObject mapObj = gson.fromJson(map, JsonObject.class);
+		int mapIdFromMap = getMapIdFromMap(map);
+		int gameIdFromMap = getGameIdFromMap(map);
 		
 		// delete the game before the assertions, in case they fail
-		gamesClient.deleteGame(gameObj.get("id").getAsInt());
+		gamesClient.deleteGame(gameId);
 		
-		Assert.assertEquals(gameObj.get("id").getAsInt(),
-				mapObj.get("gameId").getAsInt(),
+		Assert.assertEquals(gameId,
+				gameIdFromMap,
 				"The game IDs do not match\nGame: " + game + "\nMap: " + map);
-		Assert.assertEquals(gameObj.get("mapIds").getAsJsonArray().get(0).getAsInt(),
-				mapObj.get("id").getAsInt(),
+		Assert.assertEquals(mapId,
+				mapIdFromMap,
 				"The map IDs do not match\nGame: " + game + "\nMap: " + map);
 	}
 	
@@ -92,7 +86,7 @@ public class MapsGetTests extends LabyrinthAPITest
 	{
 		// create a game
 		String game = gamesClient.createGame();
-		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = getGameIdFromGame(game);
 		
 		// try to get the map using various methods with
 		// and invalid ID
@@ -104,7 +98,7 @@ public class MapsGetTests extends LabyrinthAPITest
 		String message = "We could not find a Map for that Game ID";
 		
 		// delete the game before the assertions, in case they fail
-		gamesClient.deleteGame(gameObj.get("id").getAsInt());
+		gamesClient.deleteGame(gameId);
 		
 		Assert.assertTrue(map1.contains(message),
 				"We should have gotten an error message, but instead got this: " + map1);
@@ -120,9 +114,8 @@ public class MapsGetTests extends LabyrinthAPITest
 	public void getMapWithInvalidUser()
 	{
 		String game = gamesClient.createGame();
-		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
-		int gameId = gameObj.get("id").getAsInt();
-		int mapId = gameObj.get("mapIds").getAsJsonArray().get(0).getAsInt();
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
 		
 		MapsClient newMapsClient = new MapsClient("albert@brooks.corn", "2POIpoi");
 		String map1 = newMapsClient.getMapsFromMapId(mapId);
@@ -131,7 +124,7 @@ public class MapsGetTests extends LabyrinthAPITest
 		String message = "There is no Player matching that email-password combination";
 		
 		// delete the game before the assertions, in case they fail
-		gamesClient.deleteGame(gameObj.get("id").getAsInt());
+		gamesClient.deleteGame(gameId);
 		
 		Assert.assertTrue(map1.contains(message),
 				"We should have gotten " + message + ", but instead got this: " + map1);
