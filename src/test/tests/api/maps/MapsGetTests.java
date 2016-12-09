@@ -37,6 +37,9 @@ public class MapsGetTests extends LabyrinthAPITest
 		int mapId = mapObj.get("id").getAsInt();
 		int gameIdFromMap = mapObj.get("gameId").getAsInt();
 		
+		// delete the game before the assertions, in case they fail
+		gamesClient.deleteGame(gameIdFromGame);
+		
 		Assert.assertEquals(mapIdFromGame, mapId,
 				"The IDs do not match:\nFrom Game object: " + mapIdFromGame + "\nFrom Map object: " + mapId);
 		Assert.assertEquals(gameIdFromGame, gameIdFromMap,
@@ -73,6 +76,9 @@ public class MapsGetTests extends LabyrinthAPITest
 		String map = mapsClient.getMapsForGame("this_is_bogus");
 		JsonObject mapObj = gson.fromJson(map, JsonObject.class);
 		
+		// delete the game before the assertions, in case they fail
+		gamesClient.deleteGame(gameObj.get("id").getAsInt());
+		
 		Assert.assertEquals(gameObj.get("id").getAsInt(),
 				mapObj.get("gameId").getAsInt(),
 				"The game IDs do not match\nGame: " + game + "\nMap: " + map);
@@ -85,7 +91,8 @@ public class MapsGetTests extends LabyrinthAPITest
 	public void getMapUsingInvalidId()
 	{
 		// create a game
-		gamesClient.createGame();
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
 		
 		// try to get the map using various methods with
 		// and invalid ID
@@ -96,9 +103,40 @@ public class MapsGetTests extends LabyrinthAPITest
 		
 		String message = "We could not find a Map for that Game ID";
 		
-		Assert.assertTrue(map1.contains(message));
-		Assert.assertTrue(map2.contains(message));
-		Assert.assertTrue(map3.contains(message));
-		Assert.assertTrue(map4.contains(message));
+		// delete the game before the assertions, in case they fail
+		gamesClient.deleteGame(gameObj.get("id").getAsInt());
+		
+		Assert.assertTrue(map1.contains(message),
+				"We should have gotten an error message, but instead got this: " + map1);
+		Assert.assertTrue(map2.contains(message),
+				"We should have gotten an error message, but instead got this: " + map2);
+		Assert.assertTrue(map3.contains(message),
+				"We should have gotten an error message, but instead got this: " + map3);
+		Assert.assertTrue(map4.contains(message),
+				"We should have gotten an error message, but instead got this: " + map4);
+	}
+	
+	@Test
+	public void getMapWithInvalidUser()
+	{
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
+		int mapId = gameObj.get("mapIds").getAsJsonArray().get(0).getAsInt();
+		
+		MapsClient newMapsClient = new MapsClient("albert@brooks.corn", "2POIpoi");
+		String map1 = newMapsClient.getMapsFromMapId(mapId);
+		String map2 = newMapsClient.getMapsForGame(gameId);
+		
+		String message = "There is no Player matching that email-password combination";
+		String otherMessage = "Something went wrong with your request";
+		
+		// delete the game before the assertions, in case they fail
+		gamesClient.deleteGame(gameObj.get("id").getAsInt());
+		
+		Assert.assertTrue(map1.contains(message),
+				"We should have gotten " + message + ", but instead got this: " + map1);
+		Assert.assertTrue(map2.contains(otherMessage),
+				"We should have gotten " + otherMessage + ", but instead got this: " + map2);
 	}
 }
