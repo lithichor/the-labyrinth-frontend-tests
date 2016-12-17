@@ -22,9 +22,10 @@ public class HeroPutTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
+		super.startup();
 		System.out.println("STARTING HEROS PUT TESTS");
-		herosClient = new HerosClient(username, password);
-		gamesClient = new GamesClient(username, password);
+		herosClient = new HerosClient(email, password1);
+		gamesClient = new GamesClient(email, password1);
 		verifier = new HerosVerifier();
 	}
 	
@@ -51,7 +52,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		}
 		
 		// update the hero's attributes
-		String data = "{strength: " + strength + 
+		String data = "{gameId: " + gameId +
+				", strength: " + strength + 
 				", magic: " + magic + 
 				", attack: " + attack + 
 				", defense: " + defense + "}";
@@ -98,18 +100,20 @@ public class HeroPutTests extends LabyrinthAPITest
 		switch(rand.nextInt(4))
 		{
 		case 0:
-			data = "{strength: abc}";
+			data = "{strength: abc,";
 			break;
 		case 1:
-			data = "{magic: abc}";
+			data = "{magic: abc,";
 			break;
 		case 2:
-			data = "{attack: abc}";
+			data = "{attack: abc,";
 			break;
 		case 3:
-			data = "{defense: abc}";
+			data = "{defense: abc,";
 			break;
 		}
+		data += " gameId: " + gameId + "}";
+
 		String response = herosClient.updateCurrentHero(data);
 		
 		// verify error message
@@ -135,30 +139,31 @@ public class HeroPutTests extends LabyrinthAPITest
 		switch(rand.nextInt(8))
 		{
 		case 0:
-			data = "{strength: {q: q}}";
+			data = "{strength: {q: q},";
 			break;
 		case 1:
-			data = "{magic: {q: Q}}";
+			data = "{magic: {q: Q},";
 			break;
 		case 2:
-			data = "{attack: {p: p}}";
+			data = "{attack: {p: p},";
 			break;
 		case 3:
-			data = "{defense: {p: q}}";
+			data = "{defense: {p: q},";
 			break;
 		case 4:
-			data = "{strength: {}}";
+			data = "{strength: {},";
 			break;
 		case 5:
-			data = "{magic: {}}";
+			data = "{magic: {},";
 			break;
 		case 6:
-			data = "{attack: {}}";
+			data = "{attack: {},";
 			break;
 		case 7:
-			data = "{defense: {}}";
+			data = "{defense: {},";
 			break;
 		}
+		data += " gameId: " + gameId + "}";
 		
 		String response = herosClient.updateCurrentHero(data);
 		
@@ -185,30 +190,31 @@ public class HeroPutTests extends LabyrinthAPITest
 		switch(rand.nextInt(8))
 		{
 		case 0:
-			data = "{strength: [1, 2, 3]}";
+			data = "{strength: [1, 2, 3],";
 			break;
 		case 1:
-			data = "{magic: [a, b, c]}";
+			data = "{magic: [a, b, c],";
 			break;
 		case 2:
-			data = "{attack: [a, 2, !]}";
+			data = "{attack: [a, 2, !],";
 			break;
 		case 3:
-			data = "{defense: [1, W, c]}";
+			data = "{defense: [1, W, c],";
 			break;
 		case 4:
-			data = "{strength: []}";
+			data = "{strength: [],";
 			break;
 		case 5:
-			data = "{magic: []}";
+			data = "{magic: [],";
 			break;
 		case 6:
-			data = "{attack: []}";
+			data = "{attack: [],";
 			break;
 		case 7:
-			data = "{defense: []}";
+			data = "{defense: [],";
 			break;
 		}
+		data += " gameId: " + gameId + "}";
 		
 		String response = herosClient.updateCurrentHero(data);
 		

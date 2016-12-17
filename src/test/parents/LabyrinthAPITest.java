@@ -52,11 +52,17 @@ public abstract class LabyrinthAPITest
 			+ "password: " + password1
 			+ "}";
 	protected JsonObject userObj;
+	private boolean firstStartup = true;
 
 	@BeforeSuite
 	public void startup()
 	{
-		System.out.println("STARTING TESTS ...\n\n");
+		// only print this message once
+		if(firstStartup)
+		{
+			System.out.println("STARTING TESTS ...\n\n");
+			firstStartup = false;
+		}
 		
 		userClient = new UserClient(email, password1);
 		// create a user for the test suite
