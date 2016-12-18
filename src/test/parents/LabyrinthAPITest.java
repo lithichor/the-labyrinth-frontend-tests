@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.HerosClient;
 import com.labyrinth.client.MapsClient;
+import com.labyrinth.client.TilesClient;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.Faker;
@@ -40,6 +41,7 @@ public abstract class LabyrinthAPITest
 	protected UserClient userClient;
 	protected GamesClient gamesClient;
 	protected MapsClient mapsClient;
+	protected TilesClient tilesClient;
 	
 	// user
 	protected String firstName = faker.getFirstName();
