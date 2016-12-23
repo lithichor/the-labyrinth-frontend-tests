@@ -52,6 +52,24 @@ public class TilesGetTests extends LabyrinthAPITest
 	}
 	
 	@Test
+	public void getAllTilesForMap()
+	{
+		int sizeOfArray = 100;
+		
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
+		int mapId = gameObj.get("mapIds").getAsJsonArray().get(0).getAsInt();
+		
+		String tiles = tilesClient.getTilesForMap(mapId);
+		JsonArray tilesObj = gson.fromJson(tiles, JsonArray.class);
+		
+		Assert.assertEquals(sizeOfArray, tilesObj.size(), "The array of Tiles doesn't have the correct size");
+		
+		gamesClient.deleteGame(gameId);
+	}
+	
+	@Test
 	public void getSingleTileWithInvalidId()
 	{
 		String response = tilesClient.getTiles(1);
@@ -62,7 +80,29 @@ public class TilesGetTests extends LabyrinthAPITest
 	}
 	
 	@Test
+	public void getAllTilesForMapWithInvalidId()
+	{
+		String expected = "There is not a tile for the map ID you gave me";
+		String response = tilesClient.getTilesForMap(1);
+		
+		Assert.assertTrue(response.contains(expected), "The response doesn't look like what we expected"
+				+ "\nEXPECTED: " + expected
+				+ "\nRESPONSE: " + response);
+	}
+	
+	@Test
 	public void getTileWithInvalidUser()
+	{
+		TilesClient newTilesClient = new TilesClient("invalid@user.corn", "invalid password");
+		String response = newTilesClient.getTiles("1024");
+		String message = "There is no Player matching that email-password combination";
+		Assert.assertTrue(response.contains(message), "Did not get the error message we expected:"
+				+ "\nResponse from Server: " + response
+				+ "Expected Message: " + message + "\n**");
+	}
+	
+	@Test
+	public void getAllTilesForMapWithInvalidUser()
 	{
 		TilesClient newTilesClient = new TilesClient("invalid@user.corn", "invalid password");
 		String response = newTilesClient.getTiles("1024");
