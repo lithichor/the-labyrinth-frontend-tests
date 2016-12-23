@@ -1,6 +1,5 @@
 package test.tests.api.maps;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -33,9 +32,9 @@ public class MapsGetTests extends MapsAPITests
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameIdFromGame);
 		
-		Assert.assertEquals(mapIdFromGame, mapId,
+		assertEquals(mapIdFromGame, mapId,
 				"The Map IDs do not match:\nFrom Game object: " + mapIdFromGame + "\nFrom Map object: " + mapId);
-		Assert.assertEquals(gameIdFromGame, gameIdFromMap,
+		assertEquals(gameIdFromGame, gameIdFromMap,
 				"The Game IDs do not match:\nFrom Game object: " + gameIdFromGame + "\nFrom Map object: " + gameIdFromMap);
 	}
 	
@@ -52,9 +51,9 @@ public class MapsGetTests extends MapsAPITests
 		
 		gamesClient.deleteGame(gameId);
 		
-		Assert.assertEquals(gameId, gameIdFromMap,
+		assertEquals(gameId, gameIdFromMap,
 				"The Game IDs do not match:\nFrom Game Object: " + gameId + "\nFrom Map Object: " + gameIdFromMap);
-		Assert.assertEquals(mapId, mapIdFromMap,
+		assertEquals(mapId, mapIdFromMap,
 				"The Map IDs do not match:\nFrom Game Object: " + mapId + "\nFrom Map Object: " + mapIdFromMap);
 	}
 	
@@ -71,9 +70,9 @@ public class MapsGetTests extends MapsAPITests
 		
 		gamesClient.deleteGame(gameId);
 		
-		Assert.assertEquals(gameId, gameIdFromMap,
+		assertEquals(gameId, gameIdFromMap,
 				"The Game IDs do not match:\nFrom Game Object: " + gameId + "\nFrom Map Object: " + gameIdFromMap);
-		Assert.assertEquals(mapId, mapIdFromMap,
+		assertEquals(mapId, mapIdFromMap,
 				"The Map IDs do not match:\nFrom Game Object: " + mapId + "\nFrom Map Object: " + mapIdFromMap);
 	}
 	
@@ -89,7 +88,7 @@ public class MapsGetTests extends MapsAPITests
 		// get the maps for the game
 		String maps = mapsClient.getMapsForGame(gameId);
 		
-		Assert.assertTrue(maps.contains("We could not find a Map for that Game ID"),
+		assertTrue(maps.contains("We could not find a Map for that Game ID"),
 				"We should have gotten an error message, but instead got this:\n" +
 				maps);
 	}
@@ -111,10 +110,10 @@ public class MapsGetTests extends MapsAPITests
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameId);
 		
-		Assert.assertEquals(gameId,
+		assertEquals(gameId,
 				gameIdFromMap,
 				"The game IDs do not match\nGame: " + game + "\nMap: " + map);
-		Assert.assertEquals(mapId,
+		assertEquals(mapId,
 				mapIdFromMap,
 				"The map IDs do not match\nGame: " + game + "\nMap: " + map);
 	}
@@ -138,13 +137,13 @@ public class MapsGetTests extends MapsAPITests
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameId);
 		
-		Assert.assertTrue(map1.contains(message),
+		assertTrue(map1.contains(message),
 				"We should have gotten an error message, but instead got this: " + map1);
-		Assert.assertTrue(map2.contains(message),
+		assertTrue(map2.contains(message),
 				"We should have gotten an error message, but instead got this: " + map2);
-		Assert.assertTrue(map3.contains(message),
+		assertTrue(map3.contains(message),
 				"We should have gotten an error message, but instead got this: " + map3);
-		Assert.assertTrue(map4.contains(message),
+		assertTrue(map4.contains(message),
 				"We should have gotten an error message, but instead got this: " + map4);
 	}
 	
@@ -164,9 +163,9 @@ public class MapsGetTests extends MapsAPITests
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameId);
 		
-		Assert.assertTrue(map1.contains(message),
+		assertTrue(map1.contains(message),
 				"We should have gotten " + message + ", but instead got this: " + map1);
-		Assert.assertTrue(map2.contains(message),
+		assertTrue(map2.contains(message),
 				"We should have gotten " + message + ", but instead got this: " + map2);
 	}
 }

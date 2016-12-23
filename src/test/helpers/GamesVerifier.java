@@ -1,6 +1,7 @@
 package test.helpers;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import test.parents.LabyrinthAPITestVerifier;
@@ -10,8 +11,6 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 	public boolean verifyAllGames(String gamesArray)
 	{
 		JsonArray games = gson.fromJson(gamesArray, JsonArray.class);
-		JsonObject lastGameObj = games.get(games.size() - 1).getAsJsonObject();
-		String lastGame = gson.toJson(lastGameObj);
 		
 		boolean verified = true;
 		
@@ -20,7 +19,10 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 			errors.add("The response held no objects");
 			verified = false;
 		}
-		verified = verifyOneGame(lastGame);
+		for(JsonElement game: games)
+		{
+			verified = verifyOneGame(gson.toJson(game));
+		}
 		
 		return verified;
 	}

@@ -13,4 +13,15 @@ public class LabyrinthAPITestVerifier
 	{
 		return errors;
 	}
+	
+	public String getErrorsAsString()
+	{
+		String errorStr = "";
+		
+		for(String error: errors)
+		{
+			errorStr += error + "\n";
+		}
+		return errorStr;
+	}
 }

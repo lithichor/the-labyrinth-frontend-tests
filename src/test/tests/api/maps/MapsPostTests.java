@@ -1,6 +1,5 @@
 package test.tests.api.maps;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -37,8 +36,8 @@ public class MapsPostTests extends MapsAPITests
 		
 		// verify the new map is well-formed and references the game
 		MapsVerifier verifier = new MapsVerifier();
-		Assert.assertTrue(verifier.verifyMap(map), "The map doesn't seem to have the correct values");
-		Assert.assertEquals(gameId, gameIdFromMap, "The game ID from the game doesn't match the game ID from the map");
+		assertTrue(verifier.verifyMap(map), "The map doesn't seem to have the correct values");
+		assertEquals(gameId, gameIdFromMap, "The game ID from the game doesn't match the game ID from the map");
 	}
 	
 	@Test
@@ -48,22 +47,22 @@ public class MapsPostTests extends MapsAPITests
 		String response = mapsClient.makeNewMapForGame(data);
 		String message = "The gameId needs to be an integer, not whatever it was you gave me";
 		
-		Assert.assertTrue(response.contains(message),
+		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 		
 		data = "{gameId: {}}";
 		response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains(message),
+		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 		
 		data = "{gameId: [1, 2]}";
 		response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains(message),
+		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 		
 		data = "{gameId: []}";
 		response = mapsClient.makeNewMapForGame(data);
-		Assert.assertTrue(response.contains(message),
+		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
 	}
 	
@@ -80,6 +79,6 @@ public class MapsPostTests extends MapsAPITests
 		String message = "There is no Player matching that email-password combination";
 		
 		gamesClient.deleteGame(gameId);
-		Assert.assertTrue(map.contains(message));
+		assertTrue(map.contains(message));
 	}
 }

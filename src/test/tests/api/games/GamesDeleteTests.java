@@ -36,16 +36,12 @@ public class GamesDeleteTests extends LabyrinthAPITest
 		// delete the game just created
 		resp = client.deleteGame(id);
 		// this should be an empty string
-		if(!resp.equalsIgnoreCase(""))
-		{
-			fail("There was an error deleting the game");
-		}
+		assertTrue(resp.equalsIgnoreCase(""),
+				"There was an error deleting the game");
 		
 		// get the game just deleted; we should receive an error
 		resp = client.getOneGame(id);
-		if(!resp.contains("This Player does not have an active Game with that ID"))
-		{
-			fail("The game does not seem to be deleted");
-		}
+		assertTrue(resp.contains("This Player does not have an active Game with that ID"),
+				"The game does not seem to be deleted");
 	}
 }

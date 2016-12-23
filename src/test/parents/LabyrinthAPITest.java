@@ -6,6 +6,7 @@ import java.util.Random;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.HttpClients;
+import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 
 import com.google.gson.Gson;
@@ -19,7 +20,7 @@ import com.labyrinth.client.UserClient;
 import test.helpers.Faker;
 import test.models.RandomStrings;
 
-public abstract class LabyrinthAPITest
+public abstract class LabyrinthAPITest extends Assert
 {
 	protected boolean debug = false;
 	
@@ -69,12 +70,6 @@ public abstract class LabyrinthAPITest
 		userClient = new UserClient(email, password1);
 		// create a user for the test suite
 		userObj = gson.fromJson(userClient.createUser(data), JsonObject.class);
-	}
-	
-	// for a single failure message
-	protected void fail(String message)
-	{
-		throw new RuntimeException(message);
 	}
 	
 	// for failure with the errors array

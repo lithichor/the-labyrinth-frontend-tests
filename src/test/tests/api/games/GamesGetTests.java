@@ -4,7 +4,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 
@@ -28,17 +27,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	public void getAllGamesForUser()
 	{
 		String resp = client.getAllGames();
-		JsonArray games = gson.fromJson(resp, JsonArray.class);
-		
-		if(!verifier.verifyAllGames(resp))
-		{
-			fail(verifier.getErrors());
-			
-			for(JsonElement j: games)
-			{
-				System.out.println(j.toString());
-			}
-		}
+		assertTrue(verifier.verifyAllGames(resp), verifier.getErrorsAsString());
 	}
 	
 	@Test
@@ -53,24 +42,15 @@ public class GamesGetTests extends LabyrinthAPITest
 		String resp = client.getOneGame(gameId);
 		
 		// verify the game
-		if(!verifier.verifyOneGame(resp))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyOneGame(resp), verifier.getErrorsAsString());
 		
 		// verify the game matches what we created
-		if(!verifier.compareGames(game, resp))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.compareGames(game, resp), verifier.getErrorsAsString());
 		
 		// delete the game
 		client.deleteGame(gameId);
 	}
 	
-	/**
-	 * This test compares 
-	 */
 	@Test
 	public void getLastGameVsAllGames()
 	{
@@ -85,18 +65,12 @@ public class GamesGetTests extends LabyrinthAPITest
 		String lastGame = client.getLastGame();
 		
 		//compare the two
-		if(!verifier.compareGames(lastGameFromAll, lastGame))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.compareGames(lastGameFromAll, lastGame), verifier.getErrorsAsString());
 		
 		// get one game (same id)
 		String oneGame = client.getOneGame(lastGameObj.get("id").getAsInt());
 		
 		//compare to games/last
-		if(!verifier.compareGames(oneGame, lastGame))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.compareGames(oneGame, lastGame), verifier.getErrorsAsString());
 	}
 }

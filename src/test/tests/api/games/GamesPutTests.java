@@ -20,9 +20,7 @@ public class GamesPutTests extends LabyrinthAPITest
 	public void gamesPutNotAllowed()
 	{
 		String response = gamesClient.makeArbitraryAPICall("games", "put");
-		if(!response.contains("PUT not supported for this endpont"))
-		{
-			fail("The PUT method should not be allowed for the games endpoint:\nRESPONSE: " + response);
-		}
+		assertTrue(response.contains("PUT not supported for this endpont"),
+				"The PUT method should not be allowed for the games endpoint:\nRESPONSE: " + response);
 	}
 }

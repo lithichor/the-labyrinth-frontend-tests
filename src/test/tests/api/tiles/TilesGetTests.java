@@ -1,6 +1,5 @@
 package test.tests.api.tiles;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -44,7 +43,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		JsonObject tileObj = gson.fromJson(tile, JsonObject.class);
 		int tileId = tileObj.get("id").getAsInt();
 		
-		Assert.assertEquals(tileIdFromArray, tileId, "The IDs do not match:"
+		assertEquals(tileIdFromArray, tileId, "The IDs do not match:"
 				+ "\nFrom Array: " + tileIdFromArray
 				+ "\nFrom GET: " + tileId + "\n**");
 		
@@ -64,7 +63,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		String tiles = tilesClient.getTilesForMap(mapId);
 		JsonArray tilesObj = gson.fromJson(tiles, JsonArray.class);
 		
-		Assert.assertEquals(sizeOfArray, tilesObj.size(), "The array of Tiles doesn't have the correct size");
+		assertEquals(sizeOfArray, tilesObj.size(), "The array of Tiles doesn't have the correct size");
 		
 		gamesClient.deleteGame(gameId);
 	}
@@ -74,7 +73,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	{
 		String response = tilesClient.getTiles(1);
 		String message = "There is not a tile for the map ID you gave me";
-		Assert.assertTrue(response.contains(message), "Did not get the error message we expected:"
+		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
 				+ "Expected Message: " + message + "\n**");
 	}
@@ -85,7 +84,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		String expected = "There is not a tile for the map ID you gave me";
 		String response = tilesClient.getTilesForMap(1);
 		
-		Assert.assertTrue(response.contains(expected), "The response doesn't look like what we expected"
+		assertTrue(response.contains(expected), "The response doesn't look like what we expected"
 				+ "\nEXPECTED: " + expected
 				+ "\nRESPONSE: " + response);
 	}
@@ -96,7 +95,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		TilesClient newTilesClient = new TilesClient("invalid@user.corn", "invalid password");
 		String response = newTilesClient.getTiles("1024");
 		String message = "There is no Player matching that email-password combination";
-		Assert.assertTrue(response.contains(message), "Did not get the error message we expected:"
+		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
 				+ "Expected Message: " + message + "\n**");
 	}
@@ -107,7 +106,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		TilesClient newTilesClient = new TilesClient("invalid@user.corn", "invalid password");
 		String response = newTilesClient.getTiles("1024");
 		String message = "There is no Player matching that email-password combination";
-		Assert.assertTrue(response.contains(message), "Did not get the error message we expected:"
+		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
 				+ "Expected Message: " + message + "\n**");
 	}

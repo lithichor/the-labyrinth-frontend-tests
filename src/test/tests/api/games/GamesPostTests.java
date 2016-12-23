@@ -1,6 +1,5 @@
 package test.tests.api.games;
 
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -10,19 +9,10 @@ import com.labyrinth.client.GamesClient;
 import test.helpers.GamesVerifier;
 import test.parents.LabyrinthAPITest;
 
-/**
- * This test should not be run during general regression tests; it is
- * covered in the Delete test.
- * 
- * It should, however, run when we only want to test the Post method.
- * @author spiralgyre
- *
- */
 public class GamesPostTests extends LabyrinthAPITest
 {
 	private GamesVerifier verifier;
 	private GamesClient client;
-	int gameId = 0;
 	
 	@BeforeTest
 	public void setup()
@@ -37,17 +27,9 @@ public class GamesPostTests extends LabyrinthAPITest
 	{
 		String resp = client.createGame();
 		JsonObject game = gson.fromJson(resp, JsonObject.class);
-		gameId = game.get("id").getAsInt();
+		int gameId = game.get("id").getAsInt();
 		
-		if(!verifier.verifyOneGame(resp))
-		{
-			fail(verifier.getErrors());
-		}
-	}
-	
-	@AfterTest
-	public void cleanup()
-	{
+		assertTrue(verifier.verifyOneGame(resp), verifier.getErrorsAsString());
 		client.deleteGame(gameId);
 	}
 }
