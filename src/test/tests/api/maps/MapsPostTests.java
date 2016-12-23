@@ -49,21 +49,29 @@ public class MapsPostTests extends MapsAPITests
 		
 		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
+		assertEquals(getMessageCount(message), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		
 		data = "{gameId: {}}";
 		response = mapsClient.makeNewMapForGame(data);
 		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
+		assertEquals(getMessageCount(message), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		
 		data = "{gameId: [1, 2]}";
 		response = mapsClient.makeNewMapForGame(data);
 		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
+		assertEquals(getMessageCount(message), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		
 		data = "{gameId: []}";
 		response = mapsClient.makeNewMapForGame(data);
 		assertTrue(response.contains(message),
 				"The response should have contained an error message, not this: " + response);
+		assertEquals(getMessageCount(message), 1,
+				"Looks like more than one error message in the response:\n" + response);
 	}
 	
 	@Test
@@ -79,6 +87,9 @@ public class MapsPostTests extends MapsAPITests
 		String message = "There is no Player matching that email-password combination";
 		
 		gamesClient.deleteGame(gameId);
-		assertTrue(map.contains(message));
+		assertTrue(map.contains(message),
+				"The response should have contained an error message, not this: " + response);
+		assertEquals(getMessageCount(message), 1,
+				"Looks like more than one error message in the response:\n" + response);
 	}
 }

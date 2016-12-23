@@ -139,12 +139,20 @@ public class MapsGetTests extends MapsAPITests
 		
 		assertTrue(map1.contains(message),
 				"We should have gotten an error message, but instead got this: " + map1);
+		assertEquals(getMessageCount(map1), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		assertTrue(map2.contains(message),
 				"We should have gotten an error message, but instead got this: " + map2);
+		assertEquals(getMessageCount(map2), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		assertTrue(map3.contains(message),
 				"We should have gotten an error message, but instead got this: " + map3);
+		assertEquals(getMessageCount(map3), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		assertTrue(map4.contains(message),
 				"We should have gotten an error message, but instead got this: " + map4);
+		assertEquals(getMessageCount(map4), 1,
+				"Looks like more than one error message in the response:\n" + response);
 	}
 	
 	@Test
@@ -165,7 +173,11 @@ public class MapsGetTests extends MapsAPITests
 		
 		assertTrue(map1.contains(message),
 				"We should have gotten " + message + ", but instead got this: " + map1);
+		assertEquals(getMessageCount(map1), 1,
+				"Looks like more than one error message in the response:\n" + response);
 		assertTrue(map2.contains(message),
 				"We should have gotten " + message + ", but instead got this: " + map2);
+		assertEquals(getMessageCount(map2), 1,
+				"Looks like more than one error message in the response:\n" + response);
 	}
 }

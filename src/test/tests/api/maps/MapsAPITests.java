@@ -1,6 +1,8 @@
 package test.tests.api.maps;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import test.parents.LabyrinthAPITest;
 
@@ -28,5 +30,20 @@ public class MapsAPITests extends LabyrinthAPITest
 	{
 		JsonObject mapObj = gson.fromJson(map, JsonObject.class);
 		return mapObj.get("id").getAsInt();
+	}
+	
+	protected int getMessageCount(String errorMessage)
+	{
+		try
+		{
+			JsonArray messages = gson.fromJson(errorMessage, JsonArray.class);
+			return messages.size();
+		}
+		catch(JsonSyntaxException | ClassCastException mje_cce)
+		{
+			// this means it's just one message, not
+			// an array of them
+			return 1;
+		}
 	}
 }
