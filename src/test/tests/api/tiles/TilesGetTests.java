@@ -72,7 +72,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	public void getSingleTileWithInvalidId()
 	{
 		String response = tilesClient.getTiles(1);
-		String message = "There is not a tile for the map ID you gave me";
+		String message = "There are no tiles matching that ID";
 		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
 				+ "Expected Message: " + message + "\n**");

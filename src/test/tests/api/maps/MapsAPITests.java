@@ -39,7 +39,7 @@ public class MapsAPITests extends LabyrinthAPITest
 			JsonArray messages = gson.fromJson(errorMessage, JsonArray.class);
 			return messages.size();
 		}
-		catch(JsonSyntaxException | ClassCastException mje_cce)
+		catch(ClassCastException mje_cce)
 		{
 			// this means it's just one message, not
 			// an array of them
