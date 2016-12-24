@@ -2,7 +2,6 @@ package test.tests.api.maps;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import test.parents.LabyrinthAPITest;
 
