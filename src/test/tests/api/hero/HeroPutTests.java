@@ -57,7 +57,7 @@ public class HeroPutTests extends LabyrinthAPITest
 				", magic: " + magic + 
 				", attack: " + attack + 
 				", defense: " + defense + "}";
-		String updatedHero = herosClient.updateCurrentHero(data);
+		String updatedHero = herosClient.updateCurrentHero(heroId, data);
 		
 		ArrayList<String> changes = new ArrayList<>();
 		changes.add(HerosVerifier.STRENGTH);
@@ -94,6 +94,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
 		int gameId = gameObj.get("id").getAsInt();
+		int heroId = gameObj.get("heroId").getAsInt();
 		
 		// update randomly with strings
 		String data = "";
@@ -114,7 +115,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		}
 		data += " gameId: " + gameId + "}";
 
-		String response = herosClient.updateCurrentHero(data);
+		String response = herosClient.updateCurrentHero(heroId, data);
 		
 		// verify error message
 		if(!response.contains("attribute has to be an integer"))
@@ -133,6 +134,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
 		int gameId = gameObj.get("id").getAsInt();
+		int heroId = gameObj.get("heroId").getAsInt();
 		
 		// update randomly with strings
 		String data = "";
@@ -165,7 +167,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		}
 		data += " gameId: " + gameId + "}";
 		
-		String response = herosClient.updateCurrentHero(data);
+		String response = herosClient.updateCurrentHero(heroId, data);
 		
 		// verify error message
 		if(!response.contains("attribute has to be an integer"))
@@ -184,6 +186,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
 		int gameId = gameObj.get("id").getAsInt();
+		int heroId = gameObj.get("heroId").getAsInt();
 		
 		// update randomly with strings
 		String data = "";
@@ -216,7 +219,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		}
 		data += " gameId: " + gameId + "}";
 		
-		String response = herosClient.updateCurrentHero(data);
+		String response = herosClient.updateCurrentHero(heroId, data);
 		
 		// verify error message
 		if(!response.contains("attribute has to be an integer"))
