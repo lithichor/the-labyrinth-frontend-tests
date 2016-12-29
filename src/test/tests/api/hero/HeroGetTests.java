@@ -32,7 +32,7 @@ public class HeroGetTests extends LabyrinthAPITest
 		String game = gamesClient.createGame();
 		
 		// get hero
-		String hero = herosClient.getCurrentHero();
+		String hero = herosClient.getHeros();
 		
 		// verify hero's id matches heroId from game
 		int heroId = gson.fromJson(hero, JsonObject.class).get("id").getAsInt();

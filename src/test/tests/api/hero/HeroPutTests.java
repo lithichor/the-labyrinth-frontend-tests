@@ -44,7 +44,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		int gameId = gameObject.get("id").getAsInt();
 		
 		// verify heroId is correct
-		String hero = herosClient.getCurrentHero();
+		String hero = herosClient.getHeros();
 		JsonObject heroObject = gson.fromJson(hero, JsonObject.class);
 		if(!(heroId == heroObject.get("id").getAsInt()))
 		{
