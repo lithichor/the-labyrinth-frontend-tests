@@ -45,6 +45,43 @@ public class HeroGetTests extends LabyrinthAPITest
 		}
 	}
 	
+	@Test
+	public void getHeroWithId()
+	{
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		gameId = gameObj.get("id").getAsInt();
+		int heroId = gameObj.get("heroId").getAsInt();
+		
+		String hero = herosClient.getHero(heroId);
+		JsonObject heroObj = gson.fromJson(hero, JsonObject.class);
+		int heroIdFromHero = heroObj.get("id").getAsInt();
+		
+		assertEquals(heroId, heroIdFromHero,
+				"The IDs of the heros are not the same:\n"
+				+ "FROM GAME: " + heroId + "\n"
+				+ "FROM HERO: " + heroIdFromHero + "\n");
+	}
+	
+//	@Test
+	public void getHeroWithInvalidId()
+	{
+		// Waiting on Labyrinth Bug #148
+		String hero = herosClient.getHero(1);
+		String message = "There are no Heros matching that ID";
+		assertTrue(hero.contains(message));
+	}
+	
+//	@Test
+	public void getHeroWithAlphForId()
+	{
+		// waiting on Labyrinth API Client issue #21
+//		String hero = herosClient.getHero("asd");
+		String hero = "";
+		String message = "There are no Heros matching that ID";
+		assertTrue(hero.contains(message));
+	}
+	
 	@AfterTest
 	public void cleanup()
 	{

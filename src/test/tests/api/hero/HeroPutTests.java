@@ -237,6 +237,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		// create new game
 		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
 		int heroId = gameObj.get("heroId").getAsInt();
 		String response = herosClient.updateCurrentHero(heroId, "");
 		String message = "You have to include JSON formatted data to update a Hero";
@@ -244,5 +245,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		assertTrue(response.contains(message),
 				"The response should have contained an error message, but instead contained this:\n"
 						+ response);
+		
+		gamesClient.deleteGame(gameId);
 	}
 }
