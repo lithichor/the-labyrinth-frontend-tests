@@ -19,7 +19,7 @@ public class UserPutTests extends UserAPITest
 	{
 		System.out.println("STARTING USER PUT TESTS");
 		verifier = new UserVerifier();
-		createNewClient();
+		createNewUserClient();
 	}
 	
 	@Test
@@ -70,5 +70,18 @@ public class UserPutTests extends UserAPITest
 		{
 			fail(verifier.getErrors());
 		}
+	}
+	
+	@Test
+	public void updateUserWithNoData()
+	{
+		// create a user, then try to update it with an empty string
+		createNewUser();
+		String updatedUser = client.updateUser("");
+		String message = "If you do not provide any data, then the user cannot change";
+		
+		assertTrue(updatedUser.contains(message),
+				"The response should have contained an error message, but instead contained this:\n"
+						+ updatedUser);
 	}
 }

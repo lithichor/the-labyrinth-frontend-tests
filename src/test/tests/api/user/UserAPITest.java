@@ -14,7 +14,7 @@ public class UserAPITest extends LabyrinthAPITest
 	
 	protected UserClient client;
 
-	protected void createNewClient()
+	protected void createNewUserClient()
 	{
 		// this email and password aren't in the db yet; we
 		// can do this because creating a new user doesn't
@@ -24,7 +24,7 @@ public class UserAPITest extends LabyrinthAPITest
 	
 	/**
 	 * This creates a non-default user. While most tests use
-	 * the default user, most of the user tests require a user
+	 * the default user, the user tests often require a user
 	 * that can be altered and/or deleted.
 	 * @return user - the string response from the user -POST method
 	 */

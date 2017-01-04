@@ -16,7 +16,7 @@ public class UserGetTests extends UserAPITest
 	{
 		System.out.println("STARTING USER GET TESTS");
 		verifier = new UserVerifier();
-		createNewClient();
+		createNewUserClient();
 	}
 	
 	@Test

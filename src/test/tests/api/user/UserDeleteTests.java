@@ -9,7 +9,7 @@ public class UserDeleteTests extends UserAPITest
 	public void setup()
 	{
 		System.out.println("STARTING USER DELETE TESTS");
-		createNewClient();
+		createNewUserClient();
 	}
 	
 	@Test
