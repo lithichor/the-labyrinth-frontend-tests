@@ -1,24 +1,13 @@
 package test.tests.api.maps;
 
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
 
 import test.helpers.MapsVerifier;
 
 public class MapsPostTests extends MapsAPITests
 {
-	@BeforeTest
-	public void startup()
-	{
-		super.startup();
-		System.out.println("STARTING MAPS POST TESTS");
-		mapsClient = new MapsClient(email, password1);
-		gamesClient = new GamesClient(email, password1);
-	}
-	
 	@Test
 	public void newMapCreation()
 	{

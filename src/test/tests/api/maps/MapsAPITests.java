@@ -1,12 +1,24 @@
 package test.tests.api.maps;
 
+import org.testng.annotations.BeforeTest;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.labyrinth.client.GamesClient;
+import com.labyrinth.client.MapsClient;
 
 import test.parents.LabyrinthAPITest;
 
 public class MapsAPITests extends LabyrinthAPITest
 {
+	@BeforeTest
+	public void setup()
+	{
+		System.out.println("STARTING MAPS GET TESTS");
+		mapsClient = new MapsClient(email, password1);
+		gamesClient = new GamesClient(email, password1);
+	}
+	
 	protected Integer getGameIdFromGame(String game)
 	{
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
