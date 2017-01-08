@@ -6,6 +6,7 @@
  <suite name="map_regression" >
 	<test name="map" >
 		<classes>
+			<class name="test.tests.api.maps.MapsDeleteTests" />
 			<class name="test.tests.api.maps.MapsGetTests" />
 			<class name="test.tests.api.maps.MapsPostTests" />
 		</classes>

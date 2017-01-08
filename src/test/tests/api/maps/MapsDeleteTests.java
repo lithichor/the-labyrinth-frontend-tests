@@ -11,6 +11,7 @@ public class MapsDeleteTests extends MapsAPITests
 	@BeforeTest
 	public void setup()
 	{
+		super.startup();
 		System.out.println("STARTING MAPS DELETE TESTS");
 		mapsClient = new MapsClient(email, password1);
 		gamesClient = new GamesClient(email, password1);
@@ -19,31 +20,51 @@ public class MapsDeleteTests extends MapsAPITests
 	@Test
 	public void deleteMap()
 	{
-//		String game = gamesClient.createGame();
-//		int gameId = getGameIdFromGame(game);
-//		int mapId = getMapIdFromGame(game);
-//		String mapExists = mapsClient.getMapsForGame(gameId);
-//		String mapDeleted = mapsClient.deleteMap(mapId);
+		String message = "We could not find a Map for that Game ID";
+		String game = gamesClient.createGame();
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
+		
+		mapsClient.deleteMap(mapId);
+		
+		String response = mapsClient.getMapsFromMapId(mapId);
+		
+		assertTrue(response.contains(message),
+				"The response should have contained an error message, but instead was this:\n"
+				+ response);
+		gamesClient.deleteGame(gameId);
 	}
 	
 	@Test
 	public void deleteMapWithNoId()
 	{
-//		String response = mapsClient.deleteMap("");
-//		String message = "You have to include an ID if you want to delete a Map";
+		String response = mapsClient.deleteMap("");
+		String message = "You have to include an ID if you want to delete a Map";
+		
+		assertTrue(response.contains(message), 
+				"The response should have contained an error message, but instead was this:\n"
+				+ response);
 	}
 	
 	@Test
 	public void deleteMapWithInvalidStringId()
 	{
-//		String response = mapsClient.deleteMap("nonsense");
-//		String message = "You have to include an ID if you want to delete a Map";
+		String response = mapsClient.deleteMap("nonsense");
+		String message = "You have to include an ID if you want to delete a Map";
+
+		assertTrue(response.contains(message), 
+				"The response should have contained an error message, but instead was this:\n"
+				+ response);
 	}
 
 	@Test
 	public void deleteMapWithInvalidIntegerId()
 	{
-//		String response = mapsClient.deleteMap(1);
-//		String message = "You have to include an ID if you want to delete a Map";
+		String response = mapsClient.deleteMap(1);
+		String message = "We could not find a Map for that Game ID";
+		
+		assertTrue(response.contains(message), 
+				"The response should have contained an error message, but instead was this:\n"
+				+ response);
 	}
 }

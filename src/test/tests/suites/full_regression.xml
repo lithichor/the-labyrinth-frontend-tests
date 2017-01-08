@@ -29,8 +29,14 @@
 	</test>
 	<test name="maps" >
 		<classes>
+			<class name="test.tests.api.maps.MapsDeleteTests" />
 			<class name="test.tests.api.maps.MapsGetTests" />
 			<class name="test.tests.api.maps.MapsPostTests" />
+		</classes>
+	</test>
+	<test name="tiles" >
+		<classes>
+			<class name="test.tests.api.tiles.TilesGetTests" />
 		</classes>
 	</test>
 </suite>

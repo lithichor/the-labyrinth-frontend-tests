@@ -11,6 +11,7 @@ public class MapsGetTests extends MapsAPITests
 	@BeforeTest
 	public void setup()
 	{
+		super.startup();
 		System.out.println("STARTING MAPS GET TESTS");
 		mapsClient = new MapsClient(email, password1);
 		gamesClient = new GamesClient(email, password1);
