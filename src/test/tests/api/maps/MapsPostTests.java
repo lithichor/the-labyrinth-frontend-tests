@@ -1,18 +1,34 @@
 package test.tests.api.maps;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
+import com.labyrinth.client.UserClient;
 
 import test.helpers.MapsVerifier;
 
 public class MapsPostTests extends MapsAPITests
 {
+	GamesClient gamesClient;
+	UserClient userClient;
+	
+	@BeforeTest
+	public void setup()
+	{
+		super.startup();
+		System.out.println("STARTING MAPS POST TESTS");
+		mapsClient = new MapsClient(email, password1);
+		gamesClient = new GamesClient(email, password1);
+	}
+	
 	@Test
 	public void newMapCreation()
 	{
 		// create the game and get its ID
 		String game = gamesClient.createGame();
+		System.out.println(game);
 		int gameId = getGameIdFromGame(game);
 		
 		//create a new map for the game

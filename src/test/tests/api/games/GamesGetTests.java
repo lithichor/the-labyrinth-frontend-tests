@@ -18,15 +18,17 @@ public class GamesGetTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
+		super.startup();
 		System.out.println("STARTING GAMES GET TESTS");
 		verifier = new GamesVerifier();
-		client = new GamesClient(username, password);
+		client = new GamesClient(email, password1);
 	}
 	
 	@Test
 	public void getAllGamesForUser()
 	{
-		String resp = client.getAllGames();
+		GamesClient staticClient = new GamesClient(username, password);
+		String resp = staticClient.getAllGames();
 		assertTrue(verifier.verifyAllGames(resp), verifier.getErrorsAsString());
 	}
 	
@@ -54,21 +56,22 @@ public class GamesGetTests extends LabyrinthAPITest
 	@Test
 	public void getLastGameVsAllGames()
 	{
+		GamesClient staticClient = new GamesClient(username, password);
 		// get all games and extract last game
-		String allGames = client.getAllGames();
+		String allGames = staticClient.getAllGames();
 		JsonArray allGamesArray = gson.fromJson(allGames, JsonArray.class);
 		int lastGameIndex = allGamesArray.size() - 1;
 		JsonObject lastGameObj = (JsonObject)allGamesArray.get(lastGameIndex);
 		String lastGameFromAll = gson.toJson(lastGameObj);
 		
 		// get games/last
-		String lastGame = client.getLastGame();
+		String lastGame = staticClient.getLastGame();
 		
 		//compare the two
 		assertTrue(verifier.compareGames(lastGameFromAll, lastGame), verifier.getErrorsAsString());
 		
 		// get one game (same id)
-		String oneGame = client.getOneGame(lastGameObj.get("id").getAsInt());
+		String oneGame = staticClient.getOneGame(lastGameObj.get("id").getAsInt());
 		
 		//compare to games/last
 		assertTrue(verifier.compareGames(oneGame, lastGame), verifier.getErrorsAsString());

@@ -14,7 +14,7 @@ public class MapsAPITests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTING MAPS GET TESTS");
+		System.out.println("STARTING MAPS TESTS");
 		mapsClient = new MapsClient(email, password1);
 		gamesClient = new GamesClient(email, password1);
 	}

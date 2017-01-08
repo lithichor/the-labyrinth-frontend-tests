@@ -39,7 +39,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		JsonObject tileObjFromArray = tilesObj.get(tItem).getAsJsonObject();
 		int tileIdFromArray = tileObjFromArray.get("id").getAsInt();
 		
-		String tile = tilesClient.getTiles(tileIdFromArray);
+		String tile = tilesClient.getTile(tileIdFromArray);
 		JsonObject tileObj = gson.fromJson(tile, JsonObject.class);
 		int tileId = tileObj.get("id").getAsInt();
 		
@@ -71,7 +71,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	@Test
 	public void getSingleTileWithInvalidId()
 	{
-		String response = tilesClient.getTiles(1);
+		String response = tilesClient.getTile(1);
 		String message = "There are no tiles matching that ID";
 		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
@@ -93,7 +93,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	public void getTileWithInvalidUser()
 	{
 		TilesClient newTilesClient = new TilesClient("invalid@user.corn", "invalid password");
-		String response = newTilesClient.getTiles("1024");
+		String response = newTilesClient.getTile("1024");
 		String message = "There is no Player matching that email-password combination";
 		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
@@ -104,7 +104,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	public void getAllTilesForMapWithInvalidUser()
 	{
 		TilesClient newTilesClient = new TilesClient("invalid@user.corn", "invalid password");
-		String response = newTilesClient.getTiles("1024");
+		String response = newTilesClient.getTile("1024");
 		String message = "There is no Player matching that email-password combination";
 		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response

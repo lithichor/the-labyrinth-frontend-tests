@@ -1,11 +1,21 @@
 package test.tests.api.maps;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
 
 public class MapsGetTests extends MapsAPITests
 {
+	@BeforeTest
+	public void setup()
+	{
+		System.out.println("STARTING MAPS GET TESTS");
+		mapsClient = new MapsClient(email, password1);
+		gamesClient = new GamesClient(email, password1);
+	}
+	
 	@Test
 	public void getMapsForCurrentGame()
 	{

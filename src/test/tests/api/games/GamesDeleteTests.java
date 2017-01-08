@@ -21,6 +21,7 @@ public class GamesDeleteTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
+		super.startup();
 		System.out.println("STARTING GAMES DELETE TESTS");
 		client = new GamesClient("eric@eric.corn", "1qweqwe");
 	}
@@ -37,7 +38,7 @@ public class GamesDeleteTests extends LabyrinthAPITest
 		resp = client.deleteGame(id);
 		// this should be an empty string
 		assertTrue(resp.equalsIgnoreCase(""),
-				"There was an error deleting the game");
+				"There was an error deleting the game: " + resp);
 		
 		// get the game just deleted; we should receive an error
 		resp = client.getOneGame(id);
