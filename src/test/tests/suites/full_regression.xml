@@ -39,4 +39,9 @@
 			<class name="test.tests.api.tiles.TilesGetTests" />
 		</classes>
 	</test>
+	<test name="constants" >
+		<classes>
+			<class name="test.tests.api.constants.ConstantsGetTests" />
+		</classes>
+	</test>
 </suite>

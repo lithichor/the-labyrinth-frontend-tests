@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeSuite;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.labyrinth.client.ConstantsClient;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.HerosClient;
 import com.labyrinth.client.MapsClient;
@@ -43,6 +44,7 @@ public abstract class LabyrinthAPITest extends Assert
 	protected GamesClient gamesClient;
 	protected MapsClient mapsClient;
 	protected TilesClient tilesClient;
+	protected ConstantsClient constantsClient;
 	
 	// user
 	protected String firstName = faker.getFirstName();

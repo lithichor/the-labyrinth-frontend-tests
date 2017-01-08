@@ -18,7 +18,8 @@ public class TilesGetTests extends LabyrinthAPITest
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTING MAPS GET TESTS");
+		super.startup();
+		System.out.println("STARTING TILES GET TESTS");
 		userClient = new UserClient(email, password1);
 		gamesClient = new GamesClient(email, password1);
 		mapsClient = new MapsClient(email, password1);
