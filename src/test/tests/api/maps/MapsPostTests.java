@@ -28,7 +28,6 @@ public class MapsPostTests extends MapsAPITests
 	{
 		// create the game and get its ID
 		String game = gamesClient.createGame();
-		System.out.println(game);
 		int gameId = getGameIdFromGame(game);
 		
 		//create a new map for the game

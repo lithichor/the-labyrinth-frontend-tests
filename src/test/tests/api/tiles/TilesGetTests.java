@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.labyrinth.client.ConstantsClient;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
 import com.labyrinth.client.TilesClient;
@@ -53,7 +54,10 @@ public class TilesGetTests extends LabyrinthAPITest
 	@Test
 	public void getAllTilesForMap()
 	{
-		int sizeOfArray = 100;
+		ConstantsClient constants = new ConstantsClient(email, password1);
+		String constantsStr = constants.getConstants();
+		JsonObject constantsObj = gson.fromJson(constantsStr, JsonObject.class);
+		int sizeOfArray = constantsObj.get("GRID_SIZE").getAsInt();
 		
 		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
@@ -63,7 +67,7 @@ public class TilesGetTests extends LabyrinthAPITest
 		String tiles = tilesClient.getTilesForMap(mapId);
 		JsonArray tilesObj = gson.fromJson(tiles, JsonArray.class);
 		
-		assertEquals(sizeOfArray, tilesObj.size(), "The array of Tiles doesn't have the correct size");
+		assertEquals(tilesObj.size(), (int)Math.pow(sizeOfArray, 2), "The array of Tiles doesn't have the correct size");
 		
 		gamesClient.deleteGame(gameId);
 	}
