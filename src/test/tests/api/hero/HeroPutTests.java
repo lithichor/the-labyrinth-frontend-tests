@@ -32,6 +32,7 @@ public class HeroPutTests extends LabyrinthAPITest
 	@Test
 	public void updateHero()
 	{
+		int health = rand.nextInt(15) + 1;
 		int strength = rand.nextInt(15) + 1;
 		int magic = rand.nextInt(15) + 1;
 		int attack = rand.nextInt(15) + 1;
@@ -53,6 +54,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		
 		// update the hero's attributes
 		String data = "{gameId: " + gameId +
+				", health: " + health + 
 				", strength: " + strength + 
 				", magic: " + magic + 
 				", attack: " + attack + 
@@ -60,6 +62,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		String updatedHero = herosClient.updateHero(heroId, data);
 		
 		ArrayList<String> changes = new ArrayList<>();
+		changes.add(HerosVerifier.HEALTH);
 		changes.add(HerosVerifier.STRENGTH);
 		changes.add(HerosVerifier.MAGIC);
 		changes.add(HerosVerifier.ATTACK);
@@ -72,6 +75,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		}
 		
 		HashMap<String, Integer> changedFields = new HashMap<>();
+		changedFields.put(HerosVerifier.HEALTH, health);
 		changedFields.put(HerosVerifier.STRENGTH, strength);
 		changedFields.put(HerosVerifier.MAGIC, magic);
 		changedFields.put(HerosVerifier.ATTACK, attack);
@@ -88,6 +92,70 @@ public class HeroPutTests extends LabyrinthAPITest
 	}
 	
 	@Test
+	public void updateHeroWithOneAttribute()
+	{
+		// verify gameId and heroId match the expected
+		// verify updated field matches expected
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		int gameId = gameObj.get("id").getAsInt();
+		int heroId = gameObj.get("heroId").getAsInt();
+		HerosVerifier verifier = new HerosVerifier();
+
+		ArrayList<String> changes = new ArrayList<>();
+		HashMap<String, Integer> changedFields = new HashMap<>();
+
+		int health = rand.nextInt(15) + 1;
+		int strength = rand.nextInt(15) + 1;
+		int magic = rand.nextInt(15) + 1;
+		int attack = rand.nextInt(15) + 1;
+		int defense = rand.nextInt(15) + 1;
+		
+		// update a single attribute at random
+		String data = "{";
+		switch(rand.nextInt(5))
+		{
+		case 0:
+			data += "health: " + health;
+			changes.add(HerosVerifier.HEALTH);
+			changedFields.put(HerosVerifier.HEALTH, health);
+			break;
+		case 1:
+			data += "strength: " + strength;
+			changes.add(HerosVerifier.STRENGTH);
+			changedFields.put(HerosVerifier.STRENGTH, strength);
+			break;
+		case 2:
+			data += "magic: " + magic;
+			changes.add(HerosVerifier.MAGIC);
+			changedFields.put(HerosVerifier.MAGIC, magic);
+			break;
+		case 3:
+			data += "attack: " + attack;
+			changes.add(HerosVerifier.ATTACK);
+			changedFields.put(HerosVerifier.ATTACK, attack);
+			break;
+		case 4:
+			data += "defense: " + defense;
+			changes.add(HerosVerifier.DEFENSE);
+			changedFields.put(HerosVerifier.DEFENSE, defense);
+			break;
+		}
+		data += "}";
+		
+		String hero = herosClient.getHero(heroId);
+		String updatedHero = herosClient.updateHero(heroId, data);
+		
+		// verify changes were successful
+		assertTrue(verifier.verifyHero(updatedHero, changedFields), verifier.getErrorsAsString());
+		
+		// verify the fields changed
+		assertTrue(verifier.verifyHeroUpdated(hero, updatedHero, changes), verifier.getErrorsAsString());
+		
+		gamesClient.deleteGame(gameId);
+	}
+	
+	@Test
 	public void updateHeroWithStringsForInts()
 	{
 		// create new game
@@ -98,7 +166,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		
 		// update randomly with strings
 		String data = "";
-		switch(rand.nextInt(4))
+		switch(rand.nextInt(5))
 		{
 		case 0:
 			data = "{strength: abc,";
@@ -111,6 +179,9 @@ public class HeroPutTests extends LabyrinthAPITest
 			break;
 		case 3:
 			data = "{defense: abc,";
+			break;
+		case 4:
+			data = "{health: abc,";
 			break;
 		}
 		data += " gameId: " + gameId + "}";
@@ -138,7 +209,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		
 		// update randomly with strings
 		String data = "";
-		switch(rand.nextInt(8))
+		switch(rand.nextInt(10))
 		{
 		case 0:
 			data = "{strength: {q: q},";
@@ -163,6 +234,12 @@ public class HeroPutTests extends LabyrinthAPITest
 			break;
 		case 7:
 			data = "{defense: {},";
+			break;
+		case 8:
+			data = "{health: {d: D},";
+			break;
+		case 9:
+			data = "{health: {},";
 			break;
 		}
 		data += " gameId: " + gameId + "}";
@@ -190,7 +267,7 @@ public class HeroPutTests extends LabyrinthAPITest
 		
 		// update randomly with strings
 		String data = "";
-		switch(rand.nextInt(8))
+		switch(rand.nextInt(10))
 		{
 		case 0:
 			data = "{strength: [1, 2, 3],";
@@ -215,6 +292,12 @@ public class HeroPutTests extends LabyrinthAPITest
 			break;
 		case 7:
 			data = "{defense: [],";
+			break;
+		case 8:
+			data = "{health: [z, y, x],";
+			break;
+		case 9:
+			data = "{health: [],";
 			break;
 		}
 		data += " gameId: " + gameId + "}";
