@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!-- http://testng.org/doc/documentation-main.html#testng-xml -->
+
+ <suite name="monster_regression" >
+	<test name="monsters" >
+		<classes>
+			<class name="test.tests.api.monsters.MonstersGetTests" />
+			<class name="test.tests.api.monsters.MonstersPutTests" />
+			<class name="test.tests.api.monsters.MonstersPostTests" />
+			<class name="test.tests.api.monsters.MonstersDeleteTests" />
+		</classes>
+	</test>
+</suite>

@@ -44,4 +44,12 @@
 			<class name="test.tests.api.constants.ConstantsGetTests" />
 		</classes>
 	</test>
+	<test name="monsters" >
+		<classes>
+			<class name="test.tests.api.monsters.MonstersGetTests" />
+			<class name="test.tests.api.monsters.MonstersPutTests" />
+			<class name="test.tests.api.monsters.MonstersPostTests" />
+			<class name="test.tests.api.monsters.MonstersDeleteTests" />
+		</classes>
+	</test>
 </suite>

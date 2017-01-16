@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
 
-import test.helpers.UserVerifier;
 import test.models.constants.LabyrinthTestConstants;
 
 public class UserPutTests extends UserAPITest

@@ -1,4 +1,4 @@
-package test.helpers;
+package test.tests.api.user;
 
 import java.util.ArrayList;
 

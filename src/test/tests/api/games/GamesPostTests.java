@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 
-import test.helpers.GamesVerifier;
 import test.parents.LabyrinthAPITest;
 
 public class GamesPostTests extends LabyrinthAPITest
