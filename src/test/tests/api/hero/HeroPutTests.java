@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.HerosClient;
 
-import test.helpers.HerosVerifier;
 import test.parents.LabyrinthAPITest;
 
 public class HeroPutTests extends LabyrinthAPITest

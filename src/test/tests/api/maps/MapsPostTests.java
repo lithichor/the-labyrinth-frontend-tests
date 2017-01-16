@@ -7,8 +7,6 @@ import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
 import com.labyrinth.client.UserClient;
 
-import test.helpers.MapsVerifier;
-
 public class MapsPostTests extends MapsAPITests
 {
 	GamesClient gamesClient;

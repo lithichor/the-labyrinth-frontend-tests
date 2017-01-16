@@ -5,8 +5,6 @@ import org.testng.annotations.Test;
 
 import com.labyrinth.client.UserClient;
 
-import test.helpers.UserVerifier;
-
 public class UserGetTests extends UserAPITest
 {
 	private UserVerifier verifier;
