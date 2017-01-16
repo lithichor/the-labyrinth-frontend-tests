@@ -17,7 +17,7 @@ public class MonstersPutTests extends LabyrinthAPITest
 	}
 	
 	@Test
-	public void verifyDeleteNotPermitted()
+	public void verifyPutNotPermitted()
 	{
 		String response = monstersClient.makeArbitraryAPICall("monsters", "put");
 		assertTrue(response.contains("PUT not supported for this endpont"),
