@@ -1,4 +1,4 @@
-package test.helpers;
+package test.tests.api.hero;
 
 import java.util.ArrayList;
 import java.util.Collection;

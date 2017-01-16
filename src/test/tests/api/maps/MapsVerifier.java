@@ -1,4 +1,4 @@
-package test.helpers;
+package test.tests.api.maps;
 
 import com.google.gson.JsonObject;
 

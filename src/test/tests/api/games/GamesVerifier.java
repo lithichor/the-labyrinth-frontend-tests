@@ -1,4 +1,4 @@
-package test.helpers;
+package test.tests.api.games;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
