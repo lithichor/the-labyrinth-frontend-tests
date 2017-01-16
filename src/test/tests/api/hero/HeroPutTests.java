@@ -46,10 +46,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		// verify heroId is correct
 		String hero = herosClient.getHeros();
 		JsonObject heroObject = gson.fromJson(hero, JsonObject.class);
-		if(!(heroId == heroObject.get("id").getAsInt()))
-		{
-			fail("The Hero ID from the game did not match the ID of the current Hero");
-		}
+		assertTrue(heroId == heroObject.get("id").getAsInt(),
+				"The Hero ID from the game did not match the ID of the current Hero");
 		
 		// update the hero's attributes
 		String data = "{gameId: " + gameId +
@@ -68,10 +66,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		changes.add(HerosVerifier.DEFENSE);
 		
 		// verify the fields were updated
-		if(!verifier.verifyHeroUpdated(hero, updatedHero, changes))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyHeroUpdated(hero, updatedHero, changes),
+				verifier.getErrorsAsString());
 		
 		HashMap<String, Integer> changedFields = new HashMap<>();
 		changedFields.put(HerosVerifier.HEALTH, health);
@@ -81,10 +77,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		changedFields.put(HerosVerifier.DEFENSE, defense);
 		
 		// check each field
-		if(!verifier.verifyHero(updatedHero, changedFields))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyHero(updatedHero, changedFields),
+				verifier.getErrorsAsString());
 		
 		// delete game
 		gamesClient.deleteGame(gameId);
@@ -188,10 +182,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		String response = herosClient.updateHero(heroId, data);
 		
 		// verify error message
-		if(!response.contains("attribute has to be an integer"))
-		{
-			fail("There should have been an error returned, but there wasn't");
-		}
+		assertTrue(response.contains("attribute has to be an integer"),
+				"There should have been an error returned, but there wasn't");
 		
 		// delete game
 		gamesClient.deleteGame(gameId);
@@ -246,10 +238,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		String response = herosClient.updateHero(heroId, data);
 		
 		// verify error message
-		if(!response.contains("attribute has to be an integer"))
-		{
-			fail("There should have been an error returned, but there wasn't");
-		}
+		assertTrue(response.contains("attribute has to be an integer"),
+				"There should have been an error returned, but there wasn't");
 		
 		// delete game
 		gamesClient.deleteGame(gameId);
@@ -304,10 +294,8 @@ public class HeroPutTests extends LabyrinthAPITest
 		String response = herosClient.updateHero(heroId, data);
 		
 		// verify error message
-		if(!response.contains("attribute has to be an integer"))
-		{
-			fail("There should have been an error returned, but there wasn't");
-		}
+		assertTrue(response.contains("attribute has to be an integer"),
+				"There should have been an error returned, but there wasn't");
 		
 		// delete game
 		gamesClient.deleteGame(gameId);

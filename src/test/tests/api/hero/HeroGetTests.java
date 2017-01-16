@@ -39,10 +39,7 @@ public class HeroGetTests extends LabyrinthAPITest
 		int gameHeroId = gson.fromJson(game, JsonObject.class).get("heroId").getAsInt();
 		gameId = gson.fromJson(game, JsonObject.class).get("id").getAsInt();
 		
-		if(!(heroId == gameHeroId))
-		{
-			fail("The IDs for the hero did not match");
-		}
+		assertTrue(heroId == gameHeroId, "The IDs for the hero did not match");
 	}
 	
 	@Test
