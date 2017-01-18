@@ -23,10 +23,7 @@ public class UserGetTests extends UserAPITest
 		createNewUser();
 		String resp = client.getUser();
 		
-		if(!verifier.verifyUser(resp))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyUser(resp), verifier.getErrorsAsString());
 	}
 	
 	@Test
@@ -34,9 +31,7 @@ public class UserGetTests extends UserAPITest
 	{
 		UserClient badAuthClient = new UserClient(username, "bad password");
 		String resp = badAuthClient.getUser();
-		if(!resp.contains("There is no Player matching that email-password combination"))
-		{
-			fail("The error message doesn't match what was expected");
-		}
+		assertTrue(resp.contains("There is no Player matching that email-password combination"),
+				"The error message doesn't match what was expected");
 	}
 }

@@ -34,19 +34,13 @@ public class UserPostTests extends UserAPITest
 		String user = client.createUser(userJson);
 		
 		// verify response has a user
-		if(!verifier.verifyUser(user))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyUser(user), verifier.getErrorsAsString());
 		
 		// verify user was created
 		UserClient client2 = new UserClient(email, password);
 		String getUser = client2.getUser();
 		
-		if(!verifier.verifyUser(getUser))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyUser(getUser), verifier.getErrorsAsString());
 	}
 	
 	@Test
@@ -90,11 +84,8 @@ public class UserPostTests extends UserAPITest
 		// this will be an error message
 		String postUser = client.createUser(userJson);
 		
-		if(!postUser.contains(expectedMessage))
-		{
-			System.out.println("Response was: " + postUser);
-			fail("The error message returned was not correct");
-		}
+		assertTrue(postUser.contains(expectedMessage),
+				"The error message returned was not correct: " + postUser);
 	}
 	
 	@Test
@@ -151,13 +142,8 @@ public class UserPostTests extends UserAPITest
 		String response = client.createUser(rawData);
 		
 		// verify user created
-		if(!response.contains(expectedMessage))
-		{
-			System.out.println("ARRAYS");
-			System.out.println("RAW_DATA: " + rawData);
-			System.out.println("RESPONSE: " + response);
-			fail("The response was not what was expected:\n" + response);
-		}
+		assertTrue(response.contains(expectedMessage),
+				"The response was not what was expected:\n" + response);
 	}
 
 	@Test
@@ -214,12 +200,7 @@ public class UserPostTests extends UserAPITest
 		String response = client.createUser(rawData);
 
 		// verify user created
-		if(!response.contains(expectedMessage))
-		{
-			System.out.println("HASHES");
-			System.out.println("RAW_DATA: " + rawData);
-			System.out.println("RESPONSE: " + response);
-			fail("The response was not what was expected:\n" + response);
-		}
+		assertTrue(response.contains(expectedMessage),
+				"The response was not what was expected:\n" + response);
 	}
 }

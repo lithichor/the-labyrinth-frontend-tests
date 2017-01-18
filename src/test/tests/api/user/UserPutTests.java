@@ -50,25 +50,16 @@ public class UserPutTests extends UserAPITest
 		
 		// verify the user has been updated
 		// check that it returns a valid user object
-		if(!verifier.verifyUser(updatedUser))
-		{
-			fail(verifier.getErrors());
-		}
-		
-		if(LabyrinthTestConstants.FIRST_NAME.equals(changedFields.get(0)) &&
-				!jobj.get("firstName").getAsString().equals(newFirstName))
-		{
-			fail("The first name was not updated");
-		}
-		if(LabyrinthTestConstants.LAST_NAME.equals(changedFields.get(0)) &&
-				!jobj.get("lastName").getAsString().equals(newLastName))
-		{
-			fail("The last name was not updated");
-		}
-		if(!verifier.verifyUserUpdated(updatedUser, user, changedFields))
-		{
-			fail(verifier.getErrors());
-		}
+		assertTrue(verifier.verifyUser(updatedUser), verifier.getErrorsAsString());
+
+		assertFalse(LabyrinthTestConstants.FIRST_NAME.equals(changedFields.get(0)) &&
+				!jobj.get("firstName").getAsString().equals(newFirstName),
+				"The first name was not updated");
+		assertFalse(LabyrinthTestConstants.LAST_NAME.equals(changedFields.get(0)) &&
+				!jobj.get("lastName").getAsString().equals(newLastName),
+				"The last name was not updated");
+		assertTrue(verifier.verifyUserUpdated(updatedUser, user, changedFields),
+				verifier.getErrorsAsString());
 	}
 	
 	@Test
