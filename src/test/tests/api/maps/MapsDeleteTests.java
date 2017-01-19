@@ -61,7 +61,7 @@ public class MapsDeleteTests extends MapsAPITests
 	public void deleteMapWithInvalidIntegerId()
 	{
 		String response = mapsClient.deleteMap(1);
-		String message = "We could not find a Map for that Game ID";
+		String message = "We did not find a Map with that ID";
 		
 		assertTrue(response.contains(message), 
 				"The response should have contained an error message, but instead was this:\n"
