@@ -136,7 +136,7 @@ public class MonstersGetTests extends LabyrinthAPITest
 	public void getMonsterWithInvalidIdInteger()
 	{
 		String monster = monstersClient.getMonster(-2);
-		String message = "You have to give the ID for either a Monster or a Tile to load a Monster";
+		String message = "There was no Monster found with that ID";
 		assertTrue(monster.contains(message), "Did not get the expected response:"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + monster);
@@ -187,7 +187,7 @@ public class MonstersGetTests extends LabyrinthAPITest
 	public void getMonsterFromTileWithInvalidIdInteger()
 	{
 		String monster = monstersClient.getMonsterForTile(-2);
-		String message = "You have to give the ID for either a Monster or a Tile to load a Monster";
+		String message = "There was no Monster found with that Tile ID";
 		assertTrue(monster.contains(message), "Did not get the expected response:"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + monster);

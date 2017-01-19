@@ -11,9 +11,9 @@ public class MonstersVerifier extends LabyrinthAPITestVerifier
 		boolean valid = true;
 		JsonObject monster = gson.fromJson(monsterStr, JsonObject.class);
 		
-		if(monster.has("messages"))
+		if(monster.has("message"))
 		{
-			errors.add("There was an error: " + monster.get("messages"));
+			errors.add("There was an error: " + monster.get("message"));
 			return false;
 		}
 		
