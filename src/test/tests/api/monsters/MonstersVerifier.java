@@ -13,7 +13,7 @@ public class MonstersVerifier extends LabyrinthAPITestVerifier
 		
 		if(monster.has("message"))
 		{
-			errors.add("There was an error: " + monster.get("message"));
+			errors.add("There was an error from the server preventing validation:\n\t" + monster.get("message"));
 			return false;
 		}
 		
