@@ -26,9 +26,6 @@ public abstract class LabyrinthAPITest extends Assert
 {
 	protected boolean debug = false;
 	
-	protected String username = "eric@eric.corn";
-	protected String password = "1qweqwe";
-
 	protected String baseUrl = "http://localhost:8080/TheLabyrinth";
 	protected String responseString = "";
 
