@@ -10,7 +10,16 @@ public class GamesVerifier extends LabyrinthAPITestVerifier
 {
 	public boolean verifyAllGames(String gamesArray)
 	{
-		JsonArray games = gson.fromJson(gamesArray, JsonArray.class);
+		JsonArray games = null;
+		try
+		{
+			games = gson.fromJson(gamesArray, JsonArray.class);
+		}
+		catch(ClassCastException cce)
+		{
+			games = new JsonArray();
+			games.add(gson.fromJson(gamesArray, JsonObject.class));
+		}
 		
 		boolean verified = true;
 		

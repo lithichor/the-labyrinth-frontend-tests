@@ -59,13 +59,19 @@ public class MonstersGetTests extends LabyrinthAPITest
 		gamesClient.deleteGame(gamesObj.get("id").getAsInt());
 	}
 	
-//	@Test
-	public void getMonsterWithInvalidUser()
+	@Test
+	public void getMonsterWithCrossTenantUser()
 	{
-		// This is waiting on labyrinth issue #153
+		// create second user
+		String firstName = faker.getFirstName();
+		String lastName = faker.getLastName();
+		String email = firstName + "@" + lastName + ".corn";
+		String password = faker.getPassword();
+		String data = "{firstName: " + firstName + ", lastName: " + lastName + ", email: " + email + ", password: " + password + "}";
+		userClient.createUser(data);
 		
 		// monsters client with other user
-		MonstersClient monstersTwo = new MonstersClient(username, password);
+		MonstersClient monstersTwo = new MonstersClient(email, password);
 		
 		// create game and get mapId
 		String game = gamesClient.createGame();
@@ -84,9 +90,12 @@ public class MonstersGetTests extends LabyrinthAPITest
 			}
 		}
 		
-		// get monster using invalid user
+		// get monster using cross-tenant user
 		String monster = monstersTwo.getMonsterForTile(tileId);
-		System.out.println(monster);
+		String message = "There was no Monster found with that Tile ID";
+		assertTrue(monster.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + monster);
 		
 		gamesClient.deleteGame(gamesObj.get("id").getAsInt());
 	}

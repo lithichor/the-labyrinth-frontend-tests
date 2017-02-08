@@ -29,7 +29,7 @@ public class UserGetTests extends UserAPITest
 	@Test
 	public void getUserWithBadAuthentication()
 	{
-		UserClient badAuthClient = new UserClient(username, "bad password");
+		UserClient badAuthClient = new UserClient(email, "bad password");
 		String resp = badAuthClient.getUser();
 		assertTrue(resp.contains("There is no Player matching that email-password combination"),
 				"The error message doesn't match what was expected");
