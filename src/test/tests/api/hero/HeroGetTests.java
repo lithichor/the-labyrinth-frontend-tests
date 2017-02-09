@@ -1,6 +1,5 @@
 package test.tests.api.hero;
 
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -14,7 +13,6 @@ public class HeroGetTests extends LabyrinthAPITest
 {
 	private HerosClient herosClient;
 	private GamesClient gamesClient;
-	private int gameId = 0;
 	
 	@BeforeTest
 	public void setup()
@@ -37,7 +35,8 @@ public class HeroGetTests extends LabyrinthAPITest
 		// verify hero's id matches heroId from game
 		int heroId = gson.fromJson(hero, JsonObject.class).get("id").getAsInt();
 		int gameHeroId = gson.fromJson(game, JsonObject.class).get("heroId").getAsInt();
-		gameId = gson.fromJson(game, JsonObject.class).get("id").getAsInt();
+		int gameId = gson.fromJson(game, JsonObject.class).get("id").getAsInt();
+		gamesClient.deleteGame(gameId);
 		
 		assertTrue(heroId == gameHeroId, "The IDs for the hero did not match");
 	}
@@ -47,12 +46,14 @@ public class HeroGetTests extends LabyrinthAPITest
 	{
 		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
-		gameId = gameObj.get("id").getAsInt();
+		int gameId = gameObj.get("id").getAsInt();
 		int heroId = gameObj.get("heroId").getAsInt();
 		
 		String hero = herosClient.getHero(heroId);
 		JsonObject heroObj = gson.fromJson(hero, JsonObject.class);
 		int heroIdFromHero = heroObj.get("id").getAsInt();
+		
+		gamesClient.deleteGame(gameId);
 		
 		assertEquals(heroId, heroIdFromHero,
 				"The IDs of the heros are not the same:\n"
@@ -60,29 +61,39 @@ public class HeroGetTests extends LabyrinthAPITest
 				+ "FROM HERO: " + heroIdFromHero + "\n");
 	}
 	
-//	@Test
-	public void getHeroWithInvalidId()
+	
+	@Test
+	public void getHeroBelongingToOtherUser()
 	{
-		// Waiting on Labyrinth Bug #148
+		// TODO: change this so it creates another user with a
+		// game, then tries to access that hero (we can't depend
+		// on user #1 existing forever) #97
 		String hero = herosClient.getHero(1);
-		String message = "There are no Heros matching that ID";
-		assertTrue(hero.contains(message));
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "We should have gotten an error message, but didn't:\n"
+				+ "EXPECTED: " + message
+				+ "\nACTUAL: " + hero);
 	}
 	
-//	@Test
-	public void getHeroWithAlphForId()
+	@Test
+	public void getHeroWithAlphStringForId()
 	{
-		// waiting on Labyrinth API Client issue #21
-//		String hero = herosClient.getHero("asd");
-		String hero = "";
-		String message = "There are no Heros matching that ID";
-		assertTrue(hero.contains(message));
-	}
-	
-	@AfterTest
-	public void cleanup()
-	{
-		System.out.println("CLEANING UP AFTER HERO GET TESTS");
-		gamesClient.deleteGame(gameId);
+		// String instead of integer in URL is ignored
+		// create a game and get the ID
+		String gameOne = gamesClient.createGame();
+		JsonObject gameObjOne = gson.fromJson(gameOne, JsonObject.class);
+		int gameIdOne = gameObjOne.get("id").getAsInt();
+		
+		// get the hero using the game's heroId
+		int heroIdFromGame = gameObjOne.get("heroId").getAsInt();
+		
+		// get the hero with an alphabetic String
+		String hero = herosClient.getHero("asd");
+		JsonObject heroObj = gson.fromJson(hero, JsonObject.class);
+		int heroId = heroObj.get("id").getAsInt();
+		
+		gamesClient.deleteGame(gameIdOne);
+		
+		assertEquals(heroId, heroIdFromGame, "The IDs should have been the same");
 	}
 }
