@@ -6,6 +6,7 @@
  <suite name="hero_regression" >
 	<test name="hero" >
 		<classes>
+			<class name="test.tests.api.hero.HeroDeleteTests" />
 			<class name="test.tests.api.hero.HeroGetTests" />
 			<class name="test.tests.api.hero.HeroPutTests" />
 			<class name="test.tests.api.hero.HeroPostTests" />

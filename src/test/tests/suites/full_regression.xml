@@ -22,6 +22,7 @@
 	</test>
 	<test name="hero" >
 		<classes>
+			<class name="test.tests.api.hero.HeroDeleteTests" />
 			<class name="test.tests.api.hero.HeroGetTests" />
 			<class name="test.tests.api.hero.HeroPostTests" />
 			<class name="test.tests.api.hero.HeroPutTests" />
