@@ -14,8 +14,6 @@ import test.parents.LabyrinthAPITest;
 
 public class HeroPutTests extends LabyrinthAPITest
 {
-	private HerosClient herosClient;
-	private GamesClient gamesClient;
 	private HerosVerifier verifier;
 
 	@BeforeTest

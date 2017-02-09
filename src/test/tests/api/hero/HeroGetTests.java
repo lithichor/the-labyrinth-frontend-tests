@@ -11,9 +11,6 @@ import test.parents.LabyrinthAPITest;
 
 public class HeroGetTests extends LabyrinthAPITest
 {
-	private HerosClient herosClient;
-	private GamesClient gamesClient;
-	
 	@BeforeTest
 	public void setup()
 	{

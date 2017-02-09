@@ -21,7 +21,7 @@ public class UserGetTests extends UserAPITest
 	public void getCurrentUser()
 	{
 		createNewUser();
-		String resp = client.getUser();
+		String resp = userClient.getUser();
 		
 		assertTrue(verifier.verifyUser(resp), verifier.getErrorsAsString());
 	}

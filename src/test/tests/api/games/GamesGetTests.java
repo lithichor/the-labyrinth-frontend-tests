@@ -12,7 +12,6 @@ import test.parents.LabyrinthAPITest;
 public class GamesGetTests extends LabyrinthAPITest
 {
 	private GamesVerifier verifier;
-	private GamesClient client;
 	
 	@BeforeTest
 	public void setup()
@@ -20,7 +19,7 @@ public class GamesGetTests extends LabyrinthAPITest
 		super.startup();
 		System.out.println("STARTING GAMES GET TESTS");
 		verifier = new GamesVerifier();
-		client = new GamesClient(email, password1);
+		gamesClient = new GamesClient(email, password1);
 	}
 	
 	@Test
@@ -34,15 +33,15 @@ public class GamesGetTests extends LabyrinthAPITest
 		
 		for(int x = 0; x < numberGames; x++)
 		{
-			String game = client.createGame();
+			String game = gamesClient.createGame();
 			ids[x] = ((JsonObject)gson.fromJson(game, JsonObject.class)).get("id").getAsInt();
 		}
-		String resp = client.getAllGames();
+		String resp = gamesClient.getAllGames();
 		
 		// delete the games before verifying
 		for(int x = 0; x < numberGames; x++)
 		{
-			client.deleteGame(ids[x]);
+			gamesClient.deleteGame(ids[x]);
 		}
 		assertTrue(verifier.verifyAllGames(resp), verifier.getErrorsAsString());
 	}
@@ -51,12 +50,12 @@ public class GamesGetTests extends LabyrinthAPITest
 	public void getOneGameForUser()
 	{
 		// create game and get id
-		String game = client.createGame();
+		String game = gamesClient.createGame();
 		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
 		int gameId = gameObj.get("id").getAsInt();
 		
 		// get the game (redundant, but we want to test get)
-		String resp = client.getOneGame(gameId);
+		String resp = gamesClient.getOneGame(gameId);
 		
 		// verify the game
 		assertTrue(verifier.verifyOneGame(resp), verifier.getErrorsAsString());
@@ -65,7 +64,7 @@ public class GamesGetTests extends LabyrinthAPITest
 		assertTrue(verifier.compareGames(game, resp), verifier.getErrorsAsString());
 		
 		// delete the game
-		client.deleteGame(gameId);
+		gamesClient.deleteGame(gameId);
 	}
 	
 	@Test
@@ -79,27 +78,27 @@ public class GamesGetTests extends LabyrinthAPITest
 		
 		for(int x = 0; x < numberGames; x++)
 		{
-			String game = client.createGame();
+			String game = gamesClient.createGame();
 			ids[x] = ((JsonObject)gson.fromJson(game, JsonObject.class)).get("id").getAsInt();
 		}
 
 		// get all games and extract last game
-		String allGames = client.getAllGames();
+		String allGames = gamesClient.getAllGames();
 		JsonArray allGamesArray = gson.fromJson(allGames, JsonArray.class);
 		int lastGameIndex = allGamesArray.size() - 1;
 		JsonObject lastGameObj = (JsonObject)allGamesArray.get(lastGameIndex);
 		String lastGameFromAll = gson.toJson(lastGameObj);
 		
 		// get games/last
-		String lastGame = client.getLastGame();
+		String lastGame = gamesClient.getLastGame();
 		
 		// get one game (same id)
-		String oneGame = client.getOneGame(lastGameObj.get("id").getAsInt());
+		String oneGame = gamesClient.getOneGame(lastGameObj.get("id").getAsInt());
 		
 		// delete the games before verifying
 		for(int x = 0; x < numberGames; x++)
 		{
-			client.deleteGame(ids[x]);
+			gamesClient.deleteGame(ids[x]);
 		}
 
 		//compare the two

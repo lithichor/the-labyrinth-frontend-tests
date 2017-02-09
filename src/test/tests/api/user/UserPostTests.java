@@ -31,7 +31,7 @@ public class UserPostTests extends UserAPITest
 				"\", email: \"" + email +
 				"\", password: \"" + password +
 				"\"}";
-		String user = client.createUser(userJson);
+		String user = userClient.createUser(userJson);
 		
 		// verify response has a user
 		assertTrue(verifier.verifyUser(user), verifier.getErrorsAsString());
@@ -82,7 +82,7 @@ public class UserPostTests extends UserAPITest
 				"\"}";
 		
 		// this will be an error message
-		String postUser = client.createUser(userJson);
+		String postUser = userClient.createUser(userJson);
 		
 		assertTrue(postUser.contains(expectedMessage),
 				"The error message returned was not correct: " + postUser);
@@ -139,7 +139,7 @@ public class UserPostTests extends UserAPITest
 				+ "password: " + "\"" + password + "\""
 				+ "}";
 		
-		String response = client.createUser(rawData);
+		String response = userClient.createUser(rawData);
 		
 		// verify user created
 		assertTrue(response.contains(expectedMessage),
@@ -197,7 +197,7 @@ public class UserPostTests extends UserAPITest
 				+ "password: " + "\"" + password + "\""
 				+ "}";
 		
-		String response = client.createUser(rawData);
+		String response = userClient.createUser(rawData);
 
 		// verify user created
 		assertTrue(response.contains(expectedMessage),
