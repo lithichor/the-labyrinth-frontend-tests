@@ -4,53 +4,13 @@
 <!-- http://testng.org/doc/documentation-main.html#testng-xml -->
 
  <suite name="full_regression" >
-	<test name="games" >
-		<classes>
-			<class name="test.tests.api.games.GamesDeleteTests" />
-			<class name="test.tests.api.games.GamesGetTests" />
-			<class name="test.tests.api.games.GamesPostTests" />
-			<class name="test.tests.api.games.GamesPutTests" />
-		</classes>
-	</test>
-	<test name="user" >
-		<classes>
-			<class name="test.tests.api.user.UserDeleteTests" />
-			<class name="test.tests.api.user.UserGetTests" />
-			<class name="test.tests.api.user.UserPostTests" />
-			<class name="test.tests.api.user.UserPutTests" />
-		</classes>
-	</test>
-	<test name="hero" >
-		<classes>
-			<class name="test.tests.api.hero.HeroDeleteTests" />
-			<class name="test.tests.api.hero.HeroGetTests" />
-			<class name="test.tests.api.hero.HeroPostTests" />
-			<class name="test.tests.api.hero.HeroPutTests" />
-		</classes>
-	</test>
-	<test name="maps" >
-		<classes>
-			<class name="test.tests.api.maps.MapsDeleteTests" />
-			<class name="test.tests.api.maps.MapsGetTests" />
-			<class name="test.tests.api.maps.MapsPostTests" />
-		</classes>
-	</test>
-	<test name="tiles" >
-		<classes>
-			<class name="test.tests.api.tiles.TilesGetTests" />
-		</classes>
-	</test>
-	<test name="constants" >
-		<classes>
-			<class name="test.tests.api.constants.ConstantsGetTests" />
-		</classes>
-	</test>
-	<test name="monsters" >
-		<classes>
-			<class name="test.tests.api.monsters.MonstersGetTests" />
-			<class name="test.tests.api.monsters.MonstersPutTests" />
-			<class name="test.tests.api.monsters.MonstersPostTests" />
-			<class name="test.tests.api.monsters.MonstersDeleteTests" />
-		</classes>
-	</test>
+ 	<suite-files>
+ 		<suite-file path="constants_regression.xml" />
+ 		<suite-file path="game_regression.xml" />
+ 		<suite-file path="hero_regression.xml" />
+ 		<suite-file path="map_regression.xml" />
+ 		<suite-file path="monster_regression.xml" />
+ 		<suite-file path="tile_regression.xml" />
+ 		<suite-file path="user_regression.xml" />
+ 	</suite-files>
 </suite>
