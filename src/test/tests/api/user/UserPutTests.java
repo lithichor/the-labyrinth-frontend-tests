@@ -74,4 +74,26 @@ public class UserPutTests extends UserAPITest
 				"The response should have contained an error message, but instead contained this:\n"
 						+ updatedUser);
 	}
+	
+//	@Test
+	public void updateUserWithHashForStrings()
+	{
+		createNewUser();
+		String data = "{";
+		switch(rand.nextInt(2))
+		{
+		case 0:
+			data += "firstName: {a: A}";
+			break;
+		case 1:
+			data += "lastName: {2: 345}";
+			break;
+		}
+		
+		data += "}";
+		
+		String user = userClient.updateUser(data);
+		
+		System.out.println(user);
+	}
 }
