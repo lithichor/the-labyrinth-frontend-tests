@@ -62,16 +62,10 @@ public class MonstersGetTests extends LabyrinthAPITest
 	@Test
 	public void getMonsterWithCrossTenantUser()
 	{
-		// create second user
-		String firstName = faker.getFirstName();
-		String lastName = faker.getLastName();
-		String email = firstName + "@" + lastName + ".corn";
-		String password = faker.getPassword();
-		String data = "{firstName: " + firstName + ", lastName: " + lastName + ", email: " + email + ", password: " + password + "}";
-		userClient.createUser(data);
+		String[] userTwo = createSecondUser();
 		
 		// monsters client with other user
-		MonstersClient monstersTwo = new MonstersClient(email, password);
+		MonstersClient monstersTwo = new MonstersClient(userTwo[0], userTwo[1]);
 		
 		// create game and get mapId
 		String game = gamesClient.createGame();

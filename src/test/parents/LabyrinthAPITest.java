@@ -58,6 +58,26 @@ public abstract class LabyrinthAPITest extends Assert
 	protected JsonObject userObj;
 	private boolean firstStartup = true;
 
+	/**
+	 * This method creates a new user for cross-tenant tests
+	 * 
+	 * @return an array containing the email and password of the new user
+	 */
+	protected String[] createSecondUser()
+	{
+		String firstName = faker.getFirstName();
+		String lastName = faker.getLastName();
+		String email = firstName + "@" + lastName + ".corn";
+		String password = faker.getPassword();
+		String data = "{firstName: " + firstName + ", lastName: " + lastName + ", email: " + email + ", password: " + password + "}";
+		userClient.createUser(data);
+		
+		// password isn't represented in the response from creating
+		// a user, so we have to do it this way (as opposed to using
+		// a JsonObject created from the response).
+		return new String[]{email, password};
+	}
+	
 	@BeforeSuite
 	public void startup()
 	{
