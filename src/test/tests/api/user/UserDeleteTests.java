@@ -28,7 +28,7 @@ public class UserDeleteTests extends UserAPITest
 					+ "Instead we got " + deletedUser);
 		}
 
-		String getUser = client.getUser();
+		String getUser = userClient.getUser();
 		assertTrue(getUser.contains("There is no Player matching that email-password combination"),
 				"The user does not appear to be deleted: " + getUser);
 	}

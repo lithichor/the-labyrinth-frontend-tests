@@ -5,13 +5,9 @@ import org.testng.annotations.Test;
 
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.MapsClient;
-import com.labyrinth.client.UserClient;
 
 public class MapsPostTests extends MapsAPITests
 {
-	GamesClient gamesClient;
-	UserClient userClient;
-	
 	@BeforeTest
 	public void setup()
 	{

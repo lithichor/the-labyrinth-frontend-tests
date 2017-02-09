@@ -12,14 +12,12 @@ public class UserAPITest extends LabyrinthAPITest
 	protected String email = firstName + "@" + lastName + ".corn";
 	protected String password = random.oneWord() + "1Qq";
 	
-	protected UserClient client;
-
 	protected void createNewUserClient()
 	{
 		// this email and password aren't in the db yet; we
 		// can do this because creating a new user doesn't
 		// require authentication
-		client = new UserClient(email, password);
+		userClient = new UserClient(email, password);
 	}
 	
 	/**
@@ -35,11 +33,11 @@ public class UserAPITest extends LabyrinthAPITest
 				"\", email: \"" + email +
 				"\", password: \"" + password +
 				"\"}";
-		return client.createUser(newUserJson);
+		return userClient.createUser(newUserJson);
 	}
 	
 	protected String deleteNewUser()
 	{
-		return client.deleteUser();
+		return userClient.deleteUser();
 	}
 }

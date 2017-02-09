@@ -45,7 +45,7 @@ public class UserPutTests extends UserAPITest
 			break;
 		}
 		
-		String updatedUser = client.updateUser(updatedUserJson);
+		String updatedUser = userClient.updateUser(updatedUserJson);
 		JsonObject jobj = gson.fromJson(updatedUser, JsonObject.class);
 		
 		// verify the user has been updated
@@ -67,7 +67,7 @@ public class UserPutTests extends UserAPITest
 	{
 		// create a user, then try to update it with an empty string
 		createNewUser();
-		String updatedUser = client.updateUser("");
+		String updatedUser = userClient.updateUser("");
 		String message = "If you do not provide any data, then the user cannot change";
 		
 		assertTrue(updatedUser.contains(message),

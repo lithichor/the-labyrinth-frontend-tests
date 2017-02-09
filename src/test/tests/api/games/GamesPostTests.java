@@ -11,7 +11,6 @@ import test.parents.LabyrinthAPITest;
 public class GamesPostTests extends LabyrinthAPITest
 {
 	private GamesVerifier verifier;
-	private GamesClient client;
 	
 	@BeforeTest
 	public void setup()
@@ -19,17 +18,17 @@ public class GamesPostTests extends LabyrinthAPITest
 		super.startup();
 		System.out.println("STARTING GAMES POST TESTS");
 		verifier = new GamesVerifier();
-		client = new GamesClient(email, password1);
+		gamesClient = new GamesClient(email, password1);
 	}
 	
 	@Test
 	public void startNewGame()
 	{
-		String resp = client.createGame();
+		String resp = gamesClient.createGame();
 		JsonObject game = gson.fromJson(resp, JsonObject.class);
 		int gameId = game.get("id").getAsInt();
 		
 		assertTrue(verifier.verifyOneGame(resp), verifier.getErrorsAsString());
-		client.deleteGame(gameId);
+		gamesClient.deleteGame(gameId);
 	}
 }
