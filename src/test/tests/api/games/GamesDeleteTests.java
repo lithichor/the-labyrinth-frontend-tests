@@ -3,8 +3,10 @@ package test.tests.api.games;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
+import com.labyrinth.client.MapsClient;
 
 import test.parents.LabyrinthAPITest;
 
@@ -21,7 +23,8 @@ public class GamesDeleteTests extends LabyrinthAPITest
 	{
 		super.startup();
 		System.out.println("STARTING GAMES DELETE TESTS");
-		gamesClient = new GamesClient("eric@eric.corn", "1qweqwe");
+		gamesClient = new GamesClient(email, password1);
+		mapsClient = new MapsClient(email, password1);
 	}
 
 	@Test
@@ -42,5 +45,24 @@ public class GamesDeleteTests extends LabyrinthAPITest
 		resp = gamesClient.getOneGame(id);
 		assertTrue(resp.contains("This Player does not have an active Game with that ID"),
 				"The game does not seem to be deleted");
+	}
+	
+	@Test
+	public void verifyNoErrorWhenNoMap()
+	{
+		// create game
+		String game = gamesClient.createGame();
+		JsonObject gameObj = gson.fromJson(game, JsonObject.class);
+		JsonArray maps = gameObj.get("mapIds").getAsJsonArray();
+		int mapId = maps.get(0).getAsInt();
+		int gameId = gameObj.get("id").getAsInt();
+		
+		// delete map
+		mapsClient.deleteMap(mapId);
+		
+		//delete game
+		String resp = gamesClient.deleteGame(gameId);
+		assertTrue(resp.equalsIgnoreCase(""),
+				"There was an error deleting the game: " + resp);
 	}
 }
