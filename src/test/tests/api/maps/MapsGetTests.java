@@ -163,6 +163,7 @@ public class MapsGetTests extends MapsAPITests
 		int gameId = getGameIdFromGame(game);
 		int mapId = getMapIdFromGame(game);
 		
+		// this user doesn't exist
 		MapsClient newMapsClient = new MapsClient("albert@brooks.corn", "2POIpoi");
 		String map1 = newMapsClient.getMapsFromMapId(mapId);
 		String map2 = newMapsClient.getMapsForGame(gameId);
@@ -180,5 +181,25 @@ public class MapsGetTests extends MapsAPITests
 				"We should have gotten " + message + ", but instead got this: " + map2);
 		assertEquals(getMessageCount(map2), 1,
 				"Looks like more than one error message in the response:\n" + map2);
+	}
+	
+//	@Test
+	public void verifyCannotGetCrossTenantMap()
+	{
+		String game = gamesClient.createGame();
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
+		
+		String[] secondUser = createSecondUser();
+		MapsClient secondMaps = new MapsClient(secondUser[0], secondUser[1]);
+		String resp = secondMaps.getMapsFromMapId(mapId);
+		String resp2 = secondMaps.getMapsForGame(gameId);
+		
+		System.out.println(resp);
+		System.out.println(resp2);
+		
+		// assert error message from both resp and resp2
+
+		gamesClient.deleteGame(gameId);
 	}
 }
