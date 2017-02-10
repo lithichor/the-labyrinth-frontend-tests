@@ -27,12 +27,15 @@ public class MapsDeleteTests extends MapsAPITests
 		
 		mapsClient.deleteMap(mapId);
 		
+		// verify map was deleted
 		String response = mapsClient.getMapsFromMapId(mapId);
+		
+		// delete game before verification
+		gamesClient.deleteGame(gameId);
 		
 		assertTrue(response.contains(message),
 				"The response should have contained an error message, but instead was this:\n"
 				+ response);
-		gamesClient.deleteGame(gameId);
 	}
 	
 	@Test
@@ -66,5 +69,25 @@ public class MapsDeleteTests extends MapsAPITests
 		assertTrue(response.contains(message), 
 				"The response should have contained an error message, but instead was this:\n"
 				+ response);
+	}
+	
+	@Test
+	public void verifyCannotDeleteMapsCrossTenant()
+	{
+		String game = gamesClient.createGame();
+		int gameId = getGameIdFromGame(game);
+		int mapId = getMapIdFromGame(game);
+		
+		String[] secondUser = createSecondUser();
+		MapsClient secondMaps = new MapsClient(secondUser[0], secondUser[1]);
+		
+		String resp = secondMaps.deleteMap(mapId);
+		String message = "We did not find a Map with that ID";
+		
+		gamesClient.deleteGame(gameId);
+
+		assertTrue(resp.contains(message), 
+				"The response should have contained an error message, but instead was this:\n"
+				+ resp);
 	}
 }
