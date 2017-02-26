@@ -96,4 +96,35 @@ public class UserPutTests extends UserAPITest
 		
 		System.out.println(user);
 	}
+
+	@Test
+	public void updateUserWithArrayForStrings()
+	{
+		createNewUser();
+		
+		String data = "{";
+		String field = "";
+		switch(rand.nextInt(3))
+		{
+		case 0:
+			data += "firstName: [a, A]";
+			field = "first name";
+			break;
+		case 1:
+			data += "lastName: [2, 345]";
+			field = "last name";
+			break;
+		case 2:
+			data += "password: [2, 2]";
+			field = "password";
+			break;
+		}
+		data += "}";
+
+		String message = "The " + field + " field has to be a String";
+		String user = userClient.updateUser(data);
+		
+		assertTrue(user.contains(message),
+				"The response should have contained:\n\t" + message + ",\nbut instead was:\n\t" + user);
+	}
 }
