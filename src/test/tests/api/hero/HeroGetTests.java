@@ -58,15 +58,21 @@ public class HeroGetTests extends LabyrinthAPITest
 				+ "FROM HERO: " + heroIdFromHero + "\n");
 	}
 	
-	
 	@Test
-	public void getHeroBelongingToOtherUser()
+	public void getHeroCrossTenant()
 	{
-		// TODO: change this so it creates another user with a
-		// game, then tries to access that hero (we can't depend
-		// on user #1 existing forever) #97
-		String hero = herosClient.getHero(1);
+		String game = gamesClient.createGame();
+		int heroId = gson.fromJson(game, JsonObject.class).get("heroId").getAsInt();
+		int gameId = gson.fromJson(game, JsonObject.class).get("id").getAsInt();
+		gamesClient.deleteGame(gameId);
+
+		// create second user and new heros client
+		String secondUser[] = createSecondUser();
+		HerosClient secondHerosClient = new HerosClient(secondUser[0], secondUser[1]);
+		
 		String message = "We did not find a Hero with that ID";
+		String hero = secondHerosClient.getHero(heroId);
+
 		assertTrue(hero.contains(message), "We should have gotten an error message, but didn't:\n"
 				+ "EXPECTED: " + message
 				+ "\nACTUAL: " + hero);
