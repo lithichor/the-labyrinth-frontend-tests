@@ -11,6 +11,7 @@
  		<suite-file path="map_regression.xml" />
  		<suite-file path="monster_regression.xml" />
  		<suite-file path="tile_regression.xml" />
+ 		<suite-file path="turn_regression.xml" />
  		<suite-file path="user_regression.xml" />
  	</suite-files>
 </suite>

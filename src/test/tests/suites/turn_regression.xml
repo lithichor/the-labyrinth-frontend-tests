@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!-- http://testng.org/doc/documentation-main.html#testng-xml -->
+
+ <suite name="turns_regression" >
+	<test name="turns" >
+		<classes>
+			<class name="test.tests.api.turns.TurnsGetTests" />
+		</classes>
+	</test>
+</suite>
