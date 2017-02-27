@@ -17,6 +17,7 @@ import com.labyrinth.client.HerosClient;
 import com.labyrinth.client.MapsClient;
 import com.labyrinth.client.MonstersClient;
 import com.labyrinth.client.TilesClient;
+import com.labyrinth.client.TurnsClient;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.Faker;
@@ -44,6 +45,7 @@ public abstract class LabyrinthAPITest extends Assert
 	protected TilesClient tilesClient;
 	protected ConstantsClient constantsClient;
 	protected MonstersClient monstersClient;
+	protected TurnsClient turnsClient;
 	
 	// user
 	protected String firstName = faker.getFirstName();
