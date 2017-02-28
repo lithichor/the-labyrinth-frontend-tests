@@ -7,9 +7,7 @@ import com.google.gson.JsonObject;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.TurnsClient;
 
-import test.parents.LabyrinthAPITest;
-
-public class TurnsGetTests extends LabyrinthAPITest
+public class TurnsGetTests extends TurnsApiTest
 {
 	@BeforeTest
 	public void setup()
@@ -33,6 +31,19 @@ public class TurnsGetTests extends LabyrinthAPITest
 		String turnFromTurn = turnsClient.getTurn(turnId);
 		
 		assertEquals(turnFromGame, turnFromTurn);
+		
+		gamesClient.deleteGame(gameId);
+	}
+	
+	@Test
+	public void verifyTurnFields()
+	{
+		TurnsVerifier verifier = new TurnsVerifier();
+		String game = gamesClient.createGame();
+		int gameId = gson.fromJson(game, JsonObject.class).get("id").getAsInt();
+		
+		String turn = turnsClient.getTurnForGame(gameId);
+		assertTrue(verifier.verifyFields(turn), verifier.getErrorsAsString());
 		
 		gamesClient.deleteGame(gameId);
 	}

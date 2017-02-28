@@ -7,6 +7,7 @@
 	<test name="turns" >
 		<classes>
 			<class name="test.tests.api.turns.TurnsGetTests" />
+			<class name="test.tests.api.turns.TurnsPutTests" />
 		</classes>
 	</test>
 </suite>
