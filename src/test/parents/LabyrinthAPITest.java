@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.labyrinth.client.ConstantsClient;
 import com.labyrinth.client.GamesClient;
 import com.labyrinth.client.HerosClient;
+import com.labyrinth.client.InstructionsClient;
 import com.labyrinth.client.MapsClient;
 import com.labyrinth.client.MonstersClient;
 import com.labyrinth.client.TilesClient;
@@ -46,6 +47,7 @@ public abstract class LabyrinthAPITest extends Assert
 	protected ConstantsClient constantsClient;
 	protected MonstersClient monstersClient;
 	protected TurnsClient turnsClient;
+	protected InstructionsClient instructionsClient;
 	
 	// user
 	protected String firstName = faker.getFirstName();
