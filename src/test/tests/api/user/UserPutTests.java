@@ -11,8 +11,6 @@ import test.models.constants.LabyrinthTestConstants;
 
 public class UserPutTests extends UserAPITest
 {
-	private UserVerifier verifier;
-
 	@BeforeTest
 	public void setup()
 	{
