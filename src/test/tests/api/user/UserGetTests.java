@@ -7,8 +7,6 @@ import com.labyrinth.client.UserClient;
 
 public class UserGetTests extends UserAPITest
 {
-	private UserVerifier verifier;
-	
 	@BeforeTest
 	public void setup()
 	{

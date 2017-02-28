@@ -12,6 +12,8 @@ public class UserAPITest extends LabyrinthAPITest
 	protected String email = firstName + "@" + lastName + ".corn";
 	protected String password = random.oneWord() + "1Qq";
 	
+	protected UserVerifier verifier = new UserVerifier();
+	
 	protected void createNewUserClient()
 	{
 		// this email and password aren't in the db yet; we
