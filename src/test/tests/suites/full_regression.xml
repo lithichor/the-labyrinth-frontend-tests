@@ -8,6 +8,7 @@
  		<suite-file path="constants_regression.xml" />
  		<suite-file path="game_regression.xml" />
  		<suite-file path="hero_regression.xml" />
+ 		<suite-file path="instructions_regression.xml" />
  		<suite-file path="map_regression.xml" />
  		<suite-file path="monster_regression.xml" />
  		<suite-file path="tile_regression.xml" />
