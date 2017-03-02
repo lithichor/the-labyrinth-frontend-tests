@@ -38,13 +38,7 @@ public class InstructionsGetTests extends LabyrinthAPITest
 		{
 			String ep = endpoint.getAsString().replace("api/", "");
 			String result = instructionsClient.makeArbitraryAPICall(ep, "options");
-			if(!ep.equals("constants") &&
-					!ep.contains("instructions") &&
-					!ep.equals("turns") &&
-					!ep.equals("turns/game"))
-			{
-				assertFalse(result.contains("message"), "Looks like the " + ep + " endpoint doesn't support the Options method\n");
-			}
+			assertFalse(result.contains("message"), "Looks like the " + ep + " endpoint doesn't support the Options method\n");
 		}
 	}
 }
