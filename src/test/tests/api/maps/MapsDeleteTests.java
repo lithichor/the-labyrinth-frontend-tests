@@ -20,7 +20,7 @@ public class MapsDeleteTests extends MapsAPITests
 	@Test
 	public void deleteMap()
 	{
-		String message = "We could not find a Map for that Game ID";
+		String message = "We did not find a Map with that ID";
 		String game = gamesClient.createGame();
 		int gameId = getGameIdFromGame(game);
 		int mapId = getMapIdFromGame(game);
