@@ -127,31 +127,32 @@ public class MapsGetTests extends MapsAPITests
 		int gameId = getGameIdFromGame(game);
 		
 		// try to get the map using various methods with
-		// and invalid ID
+		// an invalid ID
 		String map1 = mapsClient.getMapsForGame(10);
 		String map2 = mapsClient.getMapsForGame("10");
 		String map3 = mapsClient.getMapsFromMapId(10);
 		String map4 = mapsClient.getMapsFromMapId("10");
 		
-		String message = "We could not find a Map for that Game ID";
+		String message1 = "We could not find a Map for that Game ID";
+		String message2 = "We did not find a Map with that ID";
 		
 		// delete the game before the assertions, in case they fail
 		gamesClient.deleteGame(gameId);
 		
-		assertTrue(map1.contains(message),
-				"We should have gotten an error message, but instead got this: " + map1);
+		assertTrue(map1.contains(message1),
+				"We should have gotten an error message for map1, but instead got this: " + map1);
 		assertEquals(getMessageCount(map1), 1,
 				"Looks like more than one error message in the response:\n" + map1);
-		assertTrue(map2.contains(message),
-				"We should have gotten an error message, but instead got this: " + map2);
+		assertTrue(map2.contains(message1),
+				"We should have gotten an error message for map2, but instead got this: " + map2);
 		assertEquals(getMessageCount(map2), 1,
 				"Looks like more than one error message in the response:\n" + map2);
-		assertTrue(map3.contains(message),
-				"We should have gotten an error message, but instead got this: " + map3);
+		assertTrue(map3.contains(message2),
+				"We should have gotten an error message for map3, but instead got this: " + map3);
 		assertEquals(getMessageCount(map3), 1,
 				"Looks like more than one error message in the response:\n" + map3);
-		assertTrue(map4.contains(message),
-				"We should have gotten an error message, but instead got this: " + map4);
+		assertTrue(map4.contains(message2),
+				"We should have gotten an error message for map4, but instead got this: " + map4);
 		assertEquals(getMessageCount(map4), 1,
 				"Looks like more than one error message in the response:\n" + map4);
 	}
@@ -183,7 +184,7 @@ public class MapsGetTests extends MapsAPITests
 				"Looks like more than one error message in the response:\n" + map2);
 	}
 	
-//	@Test
+	@Test
 	public void verifyCannotGetCrossTenantMap()
 	{
 		String game = gamesClient.createGame();
@@ -192,14 +193,21 @@ public class MapsGetTests extends MapsAPITests
 		
 		String[] secondUser = createSecondUser();
 		MapsClient secondMaps = new MapsClient(secondUser[0], secondUser[1]);
-		String resp = secondMaps.getMapsFromMapId(mapId);
+		String resp1 = secondMaps.getMapsFromMapId(mapId);
 		String resp2 = secondMaps.getMapsForGame(gameId);
 		
-		System.out.println(resp);
-		System.out.println(resp2);
+		String message1 = "We did not find a Map with that ID";
+		String message2 = "We could not find a Map for that Game ID";
 		
-		// assert error message from both resp and resp2
-
 		gamesClient.deleteGame(gameId);
+		
+		assertTrue(resp1.contains(message1),
+				"We should have gotten: " + message1 + ", but instead got this: " + resp1);
+		assertEquals(getMessageCount(resp1), 1,
+				"Looks like more than one error message in the response:\n" + resp1);
+		assertTrue(resp2.contains(message2),
+				"We should have gotten: " + message2 + ", but instead got this: " + resp2);
+		assertEquals(getMessageCount(resp2), 1,
+				"Looks like more than one error message in the response:\n" + resp2);
 	}
 }
