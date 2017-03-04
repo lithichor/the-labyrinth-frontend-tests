@@ -11,12 +11,12 @@ public class InstructionsVerifier extends LabyrinthAPITestVerifier
 		boolean valid = true;
 		JsonObject instructions = gson.fromJson(inst, JsonObject.class);
 		
-		if(instructions.entrySet().size() > 1)
+		if(instructions.entrySet().size() > 2)
 		{
 			errors.add("There are too many fields displayed");
 			valid = false;
 		}
-		if(instructions.entrySet().size() < 1)
+		if(instructions.entrySet().size() < 2)
 		{
 			errors.add("There are not enough fields displayed");
 			valid = false;
@@ -24,6 +24,11 @@ public class InstructionsVerifier extends LabyrinthAPITestVerifier
 		if(!instructions.has("endpoints"))
 		{
 			errors.add("The Endpoints field is missing");
+			valid = false;
+		}
+		if(!instructions.has("instructions"))
+		{
+			errors.add("The Instructions field is missing");
 			valid = false;
 		}
 		
