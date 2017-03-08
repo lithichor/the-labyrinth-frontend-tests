@@ -60,7 +60,6 @@ public abstract class LabyrinthAPITest extends Assert
 			+ "password: " + password1
 			+ "}";
 	protected JsonObject userObj;
-	private boolean firstStartup = true;
 
 	/**
 	 * This method creates a new user for cross-tenant tests
@@ -85,13 +84,6 @@ public abstract class LabyrinthAPITest extends Assert
 	@BeforeSuite
 	public void startup()
 	{
-		// only print this message once
-		if(firstStartup)
-		{
-			System.out.println("STARTING TESTS ...\n\n");
-			firstStartup = false;
-		}
-		
 		userClient = new UserClient(email, password1);
 		// create a user for the test suite
 		userObj = gson.fromJson(userClient.createUser(data), JsonObject.class);

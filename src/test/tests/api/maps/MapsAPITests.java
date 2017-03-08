@@ -11,10 +11,11 @@ import test.parents.LabyrinthAPITest;
 
 public class MapsAPITests extends LabyrinthAPITest
 {
+	protected MapsVerifier verifier = new MapsVerifier();
+	
 	@BeforeTest
 	public void setup()
 	{
-		System.out.println("STARTING MAPS TESTS");
 		mapsClient = new MapsClient(email, password1);
 		gamesClient = new GamesClient(email, password1);
 	}
