@@ -102,4 +102,49 @@ public class HerosVerifier extends LabyrinthAPITestVerifier
 		
 		return matches;
 	}
+	
+	public boolean verifyHeroOptions(String opts)
+	{
+		boolean valid = true;
+		JsonObject options = gson.fromJson(opts, JsonObject.class);
+		
+		if(options.entrySet().size() > 5)
+		{
+			errors.add("There were more than five fields");
+			valid = false;
+		}
+		if(options.entrySet().size() < 5)
+		{
+			errors.add("There were fewer than five fields");
+			valid = false;
+		}
+		
+		if(!options.has("basics"))
+		{
+			errors.add("The Basics field is missing from the Hero Options");
+			valid = false;
+		}
+		if(!options.has("fields"))
+		{
+			errors.add("The Fields field is missing from the Hero Options");
+			valid = false;
+		}
+		if(!options.has("get"))
+		{
+			errors.add("The Get field is missing from the Hero Options");
+			valid = false;
+		}
+		if(!options.has("put"))
+		{
+			errors.add("The Put field is missing from the Hero Options");
+			valid = false;
+		}
+		if(!options.has("seeAlso"))
+		{
+			errors.add("The seeAlso field is missing from the Hero Options");
+			valid = false;
+		}
+		
+		return valid;
+	}
 }
