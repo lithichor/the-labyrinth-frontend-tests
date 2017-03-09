@@ -99,4 +99,66 @@ public class HeroGetTests extends LabyrinthAPITest
 		
 		assertEquals(heroId, heroIdFromGame, "The IDs should have been the same");
 	}
+	
+	@Test
+	public void getHeroWithNoIdString()
+	{
+		String hero = herosClient.getHero("");
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + hero + "\n");
+	}
+	
+	@Test
+	public void getHeroWithNullIdString()
+	{
+		String str = null;
+		String hero = herosClient.getHero(str);
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + hero + "\n");
+	}
+	
+	@Test
+	public void getHeroWithNoIdInteger()
+	{
+		String hero = herosClient.getHero(0);
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + hero + "\n");
+	}
+	
+	@Test
+	public void getHeroWithNullIdInteger()
+	{
+		Integer integer = null;
+		String hero = herosClient.getHero(integer);
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + hero + "\n");
+	}
+	
+	@Test
+	public void getHeroWithInvalidIdString()
+	{
+		String hero = herosClient.getHero("qweqwe");
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + hero + "\n");
+	}
+	
+	@Test
+	public void getHeroWithInvalidIdInteger()
+	{
+		String hero = herosClient.getHero(-123);
+		String message = "We did not find a Hero with that ID";
+		assertTrue(hero.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + hero + "\n");
+	}
 }
