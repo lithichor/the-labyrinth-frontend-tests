@@ -17,6 +17,17 @@ public class MapsVerifier extends LabyrinthAPITestVerifier
 			errors.add("There was an error: " + mapObj.get("messages"));
 		}
 		
+		if(mapObj.entrySet().size() < 4)
+		{
+//			errors.add("There are fewer than 4 fields");
+//			valid = false;
+		}
+		if(mapObj.entrySet().size() > 4)
+		{
+//			errors.add("There are more than 4 fields");
+//			valid = false;
+		}
+		
 		if(!mapObj.has("id"))
 		{
 			valid = false;
@@ -25,7 +36,17 @@ public class MapsVerifier extends LabyrinthAPITestVerifier
 		if(!mapObj.has("gameId"))
 		{
 			valid = false;
-			errors.add("This map doesn't have a gameId");
+			errors.add("This map doesn't have a GameId field");
+		}
+		if(!mapObj.has("gridSize"))
+		{
+//			valid = false;
+//			errors.add("This map doesn't have a GridSize field");
+		}
+		if(!mapObj.has("firstTileId"))
+		{
+//			valid = false;
+//			errors.add("This map doesn't have a FirstTileId field");
 		}
 		
 		return valid;
