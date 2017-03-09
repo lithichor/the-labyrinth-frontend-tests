@@ -74,7 +74,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	}
 	
 	@Test
-	public void getSingleTileWithInvalidId()
+	public void getSingleTileWithCrossTenantId()
 	{
 		String response = tilesClient.getTile(1);
 		String message = "There are no tiles matching that ID";
@@ -84,7 +84,7 @@ public class TilesGetTests extends LabyrinthAPITest
 	}
 	
 	@Test
-	public void getAllTilesForMapWithInvalidId()
+	public void getAllTilesForMapWithCrossTenantId()
 	{
 		String expected = "There is not a tile for the map ID you gave me";
 		String response = tilesClient.getTilesForMap(1);
@@ -114,5 +114,129 @@ public class TilesGetTests extends LabyrinthAPITest
 		assertTrue(response.contains(message), "Did not get the error message we expected:"
 				+ "\nResponse from Server: " + response
 				+ "Expected Message: " + message + "\n**");
+	}
+	
+	@Test
+	public void getTileWithNoIdString()
+	{
+		String tile = tilesClient.getTile("");
+		String message = "You have to provide an ID if you want to get the Tile";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTileWithNullIdString()
+	{
+		String str = null;
+		String tile = tilesClient.getTile(str);
+		String message = "You have to provide an ID if you want to get the Tile";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTileWithNoIdInteger()
+	{
+		String tile = tilesClient.getTile(0);
+		String message = "You have to provide an ID if you want to get the Tile";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTileWithNullIdInteger()
+	{
+		Integer integer = null;
+		String tile = tilesClient.getTile(integer);
+		String message = "You have to provide an ID if you want to get the Tile";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTileWithInvalidIdString()
+	{
+		String tile = tilesClient.getTile("qweqwe");
+		String message = "You have to provide an ID if you want to get the Tile";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTileWithInvalidIdInteger()
+	{
+		String tile = tilesClient.getTile(-123);
+		String message = "You have to provide an ID if you want to get the Tile";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTilesForMapWithNoIdString()
+	{
+		String tile = tilesClient.getTilesForMap("");
+		String message = "A Map ID is required for this endpoint";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTilesForMapWithNullIdString()
+	{
+		String str = null;
+		String tile = tilesClient.getTilesForMap(str);
+		String message = "A Map ID is required for this endpoint";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTilesForMapWithNoIdInteger()
+	{
+		String tile = tilesClient.getTilesForMap(0);
+		String message = "A Map ID is required for this endpoint";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTilesForMapWithNullIdInteger()
+	{
+		Integer integer = null;
+		String tile = tilesClient.getTilesForMap(integer);
+		String message = "A Map ID is required for this endpoint";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTilesForMapWithInvalidIdString()
+	{
+		String tile = tilesClient.getTilesForMap("qweqwe");
+		String message = "A Map ID is required for this endpoint";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
+	}
+	
+	@Test
+	public void getTilesForMapWithInvalidIdInteger()
+	{
+		String tile = tilesClient.getTilesForMap(-123);
+		String message = "A Map ID is required for this endpoint";
+		assertTrue(tile.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + tile + "\n");
 	}
 }
