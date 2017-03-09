@@ -107,4 +107,70 @@ public class GamesGetTests extends LabyrinthAPITest
 		//compare to games/last
 		assertTrue(verifier.compareGames(oneGame, lastGame), verifier.getErrorsAsString());
 	}
+	
+	@Test
+	public void getGameWithNoIdString()
+	{
+//		int gameId = gson.fromJson(gamesClient.createGame(), JsonObject.class).get("id").getAsInt();
+		
+		String game = gamesClient.getOneGame("");
+		String message = "This Player has no active Games";
+		
+//		gamesClient.deleteGame(gameId);
+		assertTrue(game.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + game + "\n");
+	}
+	
+	@Test
+	public void getGameWithNullIdString()
+	{
+		String str = null;
+		String game = gamesClient.getOneGame(str);
+		String message = "This Player has no active Games";
+		assertTrue(game.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + game + "\n");
+	}
+	
+	@Test
+	public void getGameWithNoIdInteger()
+	{
+		String game = gamesClient.getOneGame(0);
+		String message = "This Player has no active Games";
+		assertTrue(game.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + game + "\n");
+	}
+	
+	@Test
+	public void getGameWithNullIdInteger()
+	{
+		Integer integer = null;
+		String game = gamesClient.getOneGame(integer);
+		String message = "This Player has no active Games";
+		assertTrue(game.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + game + "\n");
+	}
+	
+	@Test
+	public void getGameWithInvalidIdString()
+	{
+		String game = gamesClient.getOneGame("qweqwe");
+		String message = "This Player has no active Games";
+		assertTrue(game.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + game + "\n");
+	}
+	
+	@Test
+	public void getGameWithInvalidIdInteger()
+	{
+		String game = gamesClient.getOneGame(-123);
+		String message = "This Player does not have an active Game with that ID";
+		assertTrue(game.contains(message), "Did not get the expected response:\n"
+				+ "\nExpected: " + message
+				+ "\nRecieved: " + game + "\n");
+	}
 }
