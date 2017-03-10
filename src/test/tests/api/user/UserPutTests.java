@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.google.gson.JsonObject;
+import com.labyrinth.client.UserClient;
 
 import test.models.constants.LabyrinthTestConstants;
 
@@ -58,6 +59,36 @@ public class UserPutTests extends UserAPITest
 				"The last name was not updated");
 		assertTrue(verifier.verifyUserUpdated(updatedUser, user, changedFields),
 				verifier.getErrorsAsString());
+	}
+	
+	@Test
+	public void changeUserPassword()
+	{
+		// make a user
+		String originalUser = createNewUser();
+		JsonObject userObj = gson.fromJson(originalUser, JsonObject.class);
+		String email = userObj.get("email").getAsString();
+		
+		// make a new API client for that user (password is from parent object)
+		userClient = new UserClient(email, password);
+		
+		// reset the user's password
+		String password = random.oneWord() + rand.nextInt(10) + random.oneWord().toUpperCase();
+		userClient.updateUser("{password: " + password + "}");
+		
+		// attempt to get user (this should fail)
+		String newUser = userClient.getUser();
+		String message = "There is no Player matching that email-password combination";
+		assertTrue(newUser.contains(message), "The password may not have been updated;\n"
+				+ "Expected: " + message
+				+ "\n Actual: " + newUser + "\n");
+		
+		// create new client with new password
+		userClient = new UserClient(email, password);
+		newUser = userClient.getUser();
+		
+		// the users should be identical (password is not in response)
+		assertEquals(originalUser, newUser);
 	}
 	
 	@Test
