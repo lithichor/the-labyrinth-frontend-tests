@@ -11,6 +11,8 @@ import test.parents.LabyrinthAPITest;
 
 public class HeroGetTests extends LabyrinthAPITest
 {
+	private HerosVerifier verifier = new HerosVerifier();
+	
 	@BeforeTest
 	public void setup()
 	{
@@ -36,6 +38,7 @@ public class HeroGetTests extends LabyrinthAPITest
 		gamesClient.deleteGame(gameId);
 		
 		assertTrue(heroId == gameHeroId, "The IDs for the hero did not match");
+		assertTrue(verifier.verifyDefaultHero(hero), verifier.getErrorsAsString());
 	}
 	
 	@Test
@@ -56,6 +59,7 @@ public class HeroGetTests extends LabyrinthAPITest
 				"The IDs of the heros are not the same:\n"
 				+ "FROM GAME: " + heroId + "\n"
 				+ "FROM HERO: " + heroIdFromHero + "\n");
+		assertTrue(verifier.verifyDefaultHero(hero), verifier.getErrorsAsString());
 	}
 	
 	@Test

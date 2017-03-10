@@ -103,6 +103,71 @@ public class HerosVerifier extends LabyrinthAPITestVerifier
 		return matches;
 	}
 	
+	public boolean verifyDefaultHero(String hero)
+	{
+		boolean valid = true;
+		JsonObject heroObj = gson.fromJson(hero, JsonObject.class);
+		
+		if(heroObj.entrySet().size() > 9)
+		{
+			errors.add("There are more than 9 fields");
+			valid = false;
+		}
+		if(heroObj.entrySet().size() < 9)
+		{
+			errors.add("There are fewer than 9 fields");
+			valid = false;
+		}
+		
+		if(!heroObj.has("id"))
+		{
+			errors.add("The Hero doesn't have an ID field");
+			valid = false;
+		}
+		if(!heroObj.has("gameId"))
+		{
+			errors.add("The Hero doesn't have a Game ID field");
+			valid = false;
+		}
+		if(!heroObj.has("health"))
+		{
+			errors.add("The Hero doesn't have a Health field");
+			valid = false;
+		}
+		if(!heroObj.has("maxHealth"))
+		{
+			errors.add("The Hero doesn't have a MaxHealth field");
+			valid = false;
+		}
+		if(!heroObj.has("strength"))
+		{
+			errors.add("The Hero doesn't have a Strength");
+			valid = false;
+		}
+		if(!heroObj.has("magic"))
+		{
+			errors.add("The Hero doesn't have a Magic field");
+			valid = false;
+		}
+		if(!heroObj.has("attack"))
+		{
+			errors.add("The Hero doesn't have an Attack field");
+			valid = false;
+		}
+		if(!heroObj.has("defense"))
+		{
+			errors.add("The Hero doesn't have Defense field");
+			valid = false;
+		}
+		if(!heroObj.has("experience"))
+		{
+			errors.add("The Hero doesn't have an Experience field");
+			valid = false;
+		}
+		
+		return valid;
+	}
+	
 	public boolean verifyHeroOptions(String opts)
 	{
 		boolean valid = true;
