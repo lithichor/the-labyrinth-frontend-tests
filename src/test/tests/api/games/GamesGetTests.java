@@ -127,7 +127,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	{
 		String str = null;
 		String game = gamesClient.getOneGame(str);
-		String message = "This Player has no active Games";
+		String message = "That is not what I would call a valid Game ID";
 		assertTrue(game.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + game + "\n");
@@ -137,7 +137,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	public void getGameWithNoIdInteger()
 	{
 		String game = gamesClient.getOneGame(0);
-		String message = "This Player has no active Games";
+		String message = "That is not what I would call a valid Game ID";
 		assertTrue(game.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + game + "\n");
@@ -148,7 +148,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	{
 		Integer integer = null;
 		String game = gamesClient.getOneGame(integer);
-		String message = "This Player has no active Games";
+		String message = "That is not what I would call a valid Game ID";
 		assertTrue(game.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + game + "\n");
@@ -158,7 +158,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	public void getGameWithInvalidIdString()
 	{
 		String game = gamesClient.getOneGame("qweqwe");
-		String message = "This Player has no active Games";
+		String message = "That is not what I would call a valid Game ID";
 		assertTrue(game.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + game + "\n");
@@ -168,7 +168,7 @@ public class GamesGetTests extends LabyrinthAPITest
 	public void getGameWithInvalidIdInteger()
 	{
 		String game = gamesClient.getOneGame(-123);
-		String message = "This Player does not have an active Game with that ID";
+		String message = "That is not what I would call a valid Game ID";
 		assertTrue(game.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + game + "\n");
