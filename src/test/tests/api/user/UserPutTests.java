@@ -72,12 +72,16 @@ public class UserPutTests extends UserAPITest
 	public void changeUserPassword()
 	{
 		// make a user
-		String originalUser = createNewUser();
-		JsonObject userObj = gson.fromJson(originalUser, JsonObject.class);
-		String email = userObj.get("email").getAsString();
+		String email = faker.getEmail();
+		String originalPassword = faker.getPassword();
+		String data = "{firstName:" + faker.getFirstName() + ","
+				+ "lastName:" + faker.getLastName() + ","
+				+ "email:" + email + ","
+				+ "password:" + originalPassword + "}";
+		String originalUser = userClient.createUser(data);
 		
-		// make a new API client for that user (password is from parent object)
-		userClient = new UserClient(email, password);
+		// re-create API client for that user (password is from parent object)
+		userClient = new UserClient(email, originalPassword);
 		
 		// reset the user's password
 		String password = faker.getPassword();
@@ -90,10 +94,10 @@ public class UserPutTests extends UserAPITest
 				+ "Expected: " + message
 				+ "\n Actual: " + newUser + "\n");
 		
-		// create new client with new password
+		// re-create the client with new password
 		userClient = new UserClient(email, password);
 		newUser = userClient.getUser();
-		
+
 		// the users should be identical (password is not in response)
 		assertEquals(originalUser, newUser);
 	}
