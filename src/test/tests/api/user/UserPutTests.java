@@ -64,8 +64,6 @@ public class UserPutTests extends UserAPITest
 		assertFalse(LabyrinthTestConstants.LAST_NAME.equals(changedFields.get(0)) &&
 				!jobj.get("lastName").getAsString().equals(newLastName),
 				"The last name was not updated");
-		System.out.println("UPDATED USER: " + updatedUser);
-		System.out.println("USER: " + user);
 		assertTrue(verifier.verifyUserUpdated(updatedUser, user, changedFields),
 				verifier.getErrorsAsString());
 	}
