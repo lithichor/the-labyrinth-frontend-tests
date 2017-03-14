@@ -1,7 +1,5 @@
 package test.helpers;
 
-import test.models.RandomStrings;
-
 /**
  * Some methods to abstract the behavior of making
  * names, emails, and passwords
@@ -10,8 +8,6 @@ import test.models.RandomStrings;
  */
 public class Faker extends RandomStrings
 {
-//	private RandomStrings rs = new RandomStrings();
-	
 	public String getFirstName()
 	{
 		return oneWord();
@@ -29,7 +25,7 @@ public class Faker extends RandomStrings
 	
 	public String getPassword()
 	{
-		return oneWord() + oneWord() + "1Qq";
+		return oneWord() + randomInteger() + oneWord().toUpperCase() + randomInteger();
 	}
 
 }

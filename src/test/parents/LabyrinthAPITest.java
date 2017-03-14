@@ -1,13 +1,8 @@
 package test.parents;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.impl.client.HttpClients;
 import org.testng.Assert;
-import org.testng.annotations.BeforeSuite;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -22,19 +17,13 @@ import com.labyrinth.client.TurnsClient;
 import com.labyrinth.client.UserClient;
 
 import test.helpers.Faker;
-import test.models.RandomStrings;
 
 public abstract class LabyrinthAPITest extends Assert
 {
-	protected boolean debug = false;
-	
 	protected String baseUrl = "http://localhost:8080/TheLabyrinth";
 	protected String responseString = "";
 
-	protected HttpClient request = HttpClients.createDefault();
-	protected CloseableHttpResponse response = null;
 	protected Gson gson = new Gson();
-	protected RandomStrings random = new RandomStrings();
 	protected Faker faker = new Faker();
 	protected Random rand = new Random();
 	
@@ -60,6 +49,16 @@ public abstract class LabyrinthAPITest extends Assert
 			+ "password: " + password1
 			+ "}";
 	protected JsonObject userObj;
+	
+	/**
+	 * create a default user client and user json object
+	 */
+	public void startup()
+	{
+		userClient = new UserClient(email, password1);
+		// create a user for the test suite
+		userObj = gson.fromJson(userClient.createUser(data), JsonObject.class);
+	}
 
 	/**
 	 * This method creates a new user for cross-tenant tests
@@ -79,39 +78,5 @@ public abstract class LabyrinthAPITest extends Assert
 		// a user, so we have to do it this way (as opposed to using
 		// a JsonObject created from the response).
 		return new String[]{email, password};
-	}
-	
-	@BeforeSuite
-	public void startup()
-	{
-		userClient = new UserClient(email, password1);
-		// create a user for the test suite
-		userObj = gson.fromJson(userClient.createUser(data), JsonObject.class);
-	}
-	
-	// for failure with the errors array
-	protected void fail(ArrayList<String> messages)
-	{
-		String allMessages = "";
-		
-		for(String message: messages)
-		{
-			allMessages += message + "\n";
-		}
-		
-		throw new RuntimeException(allMessages);
-	}
-	
-	// for a custom message with the errors array
-	protected void fail(String message, ArrayList<String> messages)
-	{
-		String allMessages = message;
-		
-		for(String m: messages)
-		{
-			allMessages += m + "\n";
-		}
-		
-		throw new RuntimeException(allMessages);
 	}
 }

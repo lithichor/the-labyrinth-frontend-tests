@@ -7,10 +7,10 @@ import test.parents.LabyrinthAPITest;
 public class UserAPITest extends LabyrinthAPITest
 {
 	// create a new user
-	protected String firstName = random.oneWord();
-	protected String lastName = random.oneWord();
+	protected String firstName = faker.getFirstName();
+	protected String lastName = faker.getLastName();
 	protected String email = firstName + "@" + lastName + ".corn";
-	protected String password = random.oneWord() + "1Qq";
+	protected String password = faker.getPassword();
 	
 	protected UserVerifier verifier = new UserVerifier();
 	
