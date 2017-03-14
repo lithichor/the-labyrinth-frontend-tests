@@ -1,4 +1,4 @@
-package test.helpers;
+package test.tests.api.constants;
 
 import java.util.Map.Entry;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package test.models;
+package test.helpers;
 
 import java.util.Random;
 

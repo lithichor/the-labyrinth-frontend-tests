@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import com.labyrinth.client.ConstantsClient;
 import com.labyrinth.client.UserClient;
 
-import test.helpers.ConstantsVerifier;
 import test.parents.LabyrinthAPITest;
 
 public class ConstantsGetTests extends LabyrinthAPITest

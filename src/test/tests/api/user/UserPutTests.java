@@ -24,10 +24,16 @@ public class UserPutTests extends UserAPITest
 	public void updateUser()
 	{
 		// create a new user
-		String user = createNewUser();
+		String email = faker.getEmail();
+		String password = faker.getPassword();
+		String userData = "{firstName:" + faker.getFirstName() + ","
+				+ "lastName:" + faker.getLastName() + ","
+				+ "email:" + email + ","
+				+ "password:" + password + "}";
+		String user = userClient.createUser(userData);
 		
-		String newFirstName = random.oneWord();
-		String newLastName = random.oneWord();
+		String newFirstName = faker.getFirstName();
+		String newLastName = faker.getLastName();
 		String updatedUserJson = "";
 		ArrayList<String> changedFields = new ArrayList<String>();
 		
@@ -44,7 +50,8 @@ public class UserPutTests extends UserAPITest
 			break;
 		}
 		
-		String updatedUser = userClient.updateUser(updatedUserJson);
+		UserClient newClient = new UserClient(email, password);
+		String updatedUser = newClient.updateUser(updatedUserJson);
 		JsonObject jobj = gson.fromJson(updatedUser, JsonObject.class);
 		
 		// verify the user has been updated
@@ -73,7 +80,7 @@ public class UserPutTests extends UserAPITest
 		userClient = new UserClient(email, password);
 		
 		// reset the user's password
-		String password = random.oneWord() + rand.nextInt(10) + random.oneWord().toUpperCase();
+		String password = faker.getPassword();
 		userClient.updateUser("{password: " + password + "}");
 		
 		// attempt to get user (this should fail)
