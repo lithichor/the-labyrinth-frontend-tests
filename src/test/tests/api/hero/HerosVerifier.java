@@ -212,4 +212,29 @@ public class HerosVerifier extends LabyrinthAPITestVerifier
 		
 		return valid;
 	}
+	
+	public boolean verifyHerosGameOptions(String opts)
+	{
+		boolean valid = true;
+		JsonObject options = gson.fromJson(opts, JsonObject.class);
+		
+		if(options.entrySet().size() > 1)
+		{
+			errors.add("There was more than one field");
+			valid = false;
+		}
+		if(options.entrySet().size() < 1)
+		{
+			errors.add("There was less than one field");
+			valid = false;
+		}
+		
+		if(!options.has("get"))
+		{
+			errors.add("The Get field is missing from the Heros-Game Options");
+			valid = false;
+		}
+		
+		return valid;
+	}
 }
