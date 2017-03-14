@@ -121,7 +121,7 @@ public class MapsVerifier extends LabyrinthAPITestVerifier
 		
 		if(!options.has("get"))
 		{
-			errors.add("The Get field is missing from the Map Options");
+			errors.add("The Get field is missing from the Maps-Game Options");
 			valid = false;
 		}
 
