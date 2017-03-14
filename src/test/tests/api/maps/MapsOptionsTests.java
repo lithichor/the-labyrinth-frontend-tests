@@ -10,4 +10,11 @@ public class MapsOptionsTests extends MapsAPITests
 		String options = mapsClient.getMapOptions();
 		assertTrue(verifier.verifyMapsOptions(options), verifier.getErrorsAsString());
 	}
+
+	@Test
+	public void verifyMapsGameOptions()
+	{
+		String options = mapsClient.getMapsGameOptions();
+		assertTrue(verifier.verifyMapsGameOptions(options), verifier.getErrorsAsString());
+	}
 }
