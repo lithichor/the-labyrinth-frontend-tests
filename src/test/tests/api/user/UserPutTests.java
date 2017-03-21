@@ -176,4 +176,18 @@ public class UserPutTests extends UserAPITest
 		assertTrue(user.contains(message),
 				"The response should have contained:\n\t" + message + ",\nbut instead was:\n\t" + user);
 	}
+	
+	@Test
+	public void updateUserWithWeakPassword()
+	{
+		createNewUser();
+		userClient = new UserClient(email, password);
+		String newPwd = "123";
+		String message = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
+		
+		String response = userClient.updateUser("{password:" + newPwd + "}");
+		
+		assertTrue(response.contains(message),
+				"The response should have contained:\n\t" + message + ",\nbut instead was:\n\t" + response);
+	}
 }
