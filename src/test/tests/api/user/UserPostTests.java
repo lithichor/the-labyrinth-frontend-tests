@@ -201,4 +201,25 @@ public class UserPostTests extends UserAPITest
 		assertTrue(response.contains(expectedMessage),
 				"The response was not what was expected:\n" + response);
 	}
+	
+	@Test
+	public void createUserWithWeakPassword()
+	{
+		String first = firstName;
+		String last = lastName;
+		String email = faker.getEmail();
+		String password = "qweqwe";
+		String message = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
+		
+		String rawData = "{firstName: " + first + ","
+				+ "lastName: " + last + ","
+				+ "email: " + email + ","
+				+ "password: " + "\"" + password + "\""
+				+ "}";
+		
+		String response = userClient.createUser(rawData);
+		
+		assertTrue(response.contains(message),
+				"The response should have contained:\n\t" + message + ",\nbut instead was:\n\t" + response);
+	}
 }

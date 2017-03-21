@@ -32,7 +32,6 @@ public class MapsPostTests extends MapsAPITests
 		
 		// delete the game
 		gamesClient.deleteGame(gameId);
-		System.out.println("MAP: " + map);
 		
 		// verify the new map is well-formed and references the game
 		assertTrue(verifier.verifyMap(map), verifier.getErrorsAsString());
