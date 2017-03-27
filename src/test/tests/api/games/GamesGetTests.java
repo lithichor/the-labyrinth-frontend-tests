@@ -45,7 +45,7 @@ public class GamesGetTests extends LabyrinthAPITest
 		}
 		assertTrue(verifier.verifyAllGames(resp), verifier.getErrorsAsString());
 	}
-	
+
 	@Test
 	public void getOneGameForUser()
 	{
