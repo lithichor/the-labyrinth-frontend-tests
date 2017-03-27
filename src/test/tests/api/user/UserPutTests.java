@@ -183,11 +183,14 @@ public class UserPutTests extends UserAPITest
 		createNewUser();
 		userClient = new UserClient(email, password);
 		String newPwd = "123";
-		String message = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
+		String message = "The password needs to be more than six (6) characters";
+		String message2 = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
 		
 		String response = userClient.updateUser("{password:" + newPwd + "}");
 		
 		assertTrue(response.contains(message),
 				"The response should have contained:\n\t" + message + ",\nbut instead was:\n\t" + response);
+		assertTrue(response.contains(message2),
+				"The response should have contained:\n\t" + message2 + ",\nbut instead was:\n\t" + response);
 	}
 }

@@ -29,12 +29,6 @@ public class HeroPutTests extends LabyrinthAPITest
 	@Test
 	public void updateHero()
 	{
-		int health = rand.nextInt(15) + 1;
-		int strength = rand.nextInt(15) + 1;
-		int magic = rand.nextInt(15) + 1;
-		int attack = rand.nextInt(15) + 1;
-		int defense = rand.nextInt(15) + 1;
-
 		// create new game (which creates a hero)
 		String game = gamesClient.createGame();
 		JsonObject gameObject = gson.fromJson(game, JsonObject.class);
@@ -47,6 +41,12 @@ public class HeroPutTests extends LabyrinthAPITest
 		assertTrue(heroId == heroObject.get("id").getAsInt(),
 				"The Hero ID from the game did not match the ID of the current Hero");
 		
+		int health = heroObject.get("health").getAsInt() + 1;
+		int strength = heroObject.get("strength").getAsInt() + 1;
+		int magic = heroObject.get("magic").getAsInt() + 1;
+		int attack = heroObject.get("attack").getAsInt() + 1;
+		int defense = heroObject.get("defense").getAsInt() + 1;
+
 		// update the hero's attributes
 		String data = "{gameId: " + gameId +
 				", health: " + health + 
