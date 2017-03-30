@@ -93,7 +93,7 @@ public class TurnsGetTests extends TurnsApiTest
 	public void getTurnWithNoIdString()
 	{
 		String turn = turnsClient.getTurn("");
-		String message = "There is no turn matching that ID";
+		String message = "You failed to provide a Turn ID, so I am not going to give you a Turn";
 		assertTrue(turn.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + turn);
@@ -104,7 +104,7 @@ public class TurnsGetTests extends TurnsApiTest
 	{
 		String nullStr = null;
 		String turn = turnsClient.getTurn(nullStr);
-		String message = "There is no turn matching that ID";
+		String message = "You failed to provide a Turn ID, so I am not going to give you a Turn";
 		assertTrue(turn.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + turn);
@@ -114,7 +114,7 @@ public class TurnsGetTests extends TurnsApiTest
 	public void getTurnWithNoIdInteger()
 	{
 		String turn = turnsClient.getTurn(0);
-		String message = "There is no turn matching that ID";
+		String message = "You failed to provide a Turn ID, so I am not going to give you a Turn";
 		assertTrue(turn.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + turn);
@@ -125,7 +125,7 @@ public class TurnsGetTests extends TurnsApiTest
 	{
 		Integer integer = null;
 		String turn = turnsClient.getTurn(integer);
-		String message = "There is no turn matching that ID";
+		String message = "You failed to provide a Turn ID, so I am not going to give you a Turn";
 		assertTrue(turn.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + turn);
@@ -135,7 +135,7 @@ public class TurnsGetTests extends TurnsApiTest
 	public void getTurnWithInvalidIdString()
 	{
 		String turn = turnsClient.getTurn("qweasd");
-		String message = "There is no turn matching that ID";
+		String message = "You failed to provide a Turn ID, so I am not going to give you a Turn";
 		assertTrue(turn.contains(message), "Did not get the expected response:\n"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + turn);
@@ -145,7 +145,7 @@ public class TurnsGetTests extends TurnsApiTest
 	public void getTurnWithInvalidIdInteger()
 	{
 		String turn = turnsClient.getTurn(-2);
-		String message = "There is no turn matching that ID";
+		String message = "You failed to provide a Turn ID, so I am not going to give you a Turn";
 		assertTrue(turn.contains(message), "Did not get the expected response:"
 				+ "\nExpected: " + message
 				+ "\nRecieved: " + turn);
