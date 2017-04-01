@@ -183,7 +183,7 @@ public class UserPutTests extends UserAPITest
 		createNewUser();
 		userClient = new UserClient(email, password);
 		String newPwd = "123";
-		String message = "The password needs to be more than six (6) characters";
+		String message = "The password needs to be six (6) or more characters long";
 		String message2 = "A password has to have at least one digit (0-9), one uppercase letter, and one lowercase letter";
 		
 		String response = userClient.updateUser("{password:" + newPwd + "}");

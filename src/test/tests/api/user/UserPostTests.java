@@ -112,7 +112,7 @@ public class UserPostTests extends UserAPITest
 			break;
 		case 3:
 			password = "[]";
-			expectedMessage = "The password needs to be more than six (6) characters";
+			expectedMessage = "The password needs to be six (6) or more characters long";
 			break;
 		case 4:
 			first = "[$, %, ^]";
